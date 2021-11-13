@@ -1,0 +1,69 @@
+﻿[
+  {
+    "FriendlyName": "Contract de sponsorizare bani - PF",
+    "Name": "Contract de sponsorizare",
+    "Number": "",
+    "Date": "",
+    "Clauses": [
+      {
+        "Name": "",
+        "Content": "Încheiat în conformitate cudispoziţiile Legii 32/1994 modificată şi completată, astăzi {ContractDate} în {CompanyCity}, între:"
+      },
+      {
+        "Name": "SPONSOR",
+        "Content": "_________________________________ domiciliat în  _________________, Str. ________________nr.____, bloc ___, scara ___, etaj ___, apartament _____, sector/județ ___________, posesor al C. I. seria __________, nr. _____________, eliberat de__________________, cod numeric personal ________________ și al cont nr. ___________________________________deschis la _____________________, în calitate de și numit în continuare Sponsor"
+      },
+      {
+        "Name": "SI",
+        "Content": ""
+      },
+      {
+        "Name": "BENEFICIAR",
+        "Content": "{CompanyName}, cu sediul în {CompanyCity}, {CompanyAddress}, cod de înregistrare fiscal {CompanyCIF}{CompanyOtherInfoBeneficiary}, cont nr. {CompanyIBAN} {CompanyBankName}, reprezentată prin {CompanyRepresentativeName}, în calitate de {CompanyRepresentativeTitle} numită în continuare Beneficiar"
+      },
+      {
+        "Name": "I. OBIECTIVUL CONTRACTULUI",
+        "Content": "Obiectul contractului îl constituie sponsorizarea beneficiarului cu {Requested Money} în scopul asigurării evenimentului {ConferenceName}. Plata se va realiza prin transfer bancar către contul nr. {CompanyIBAN} {CompanyBankName}, beneficiar {CompanyName}, cu textul '{ConferenceName}' în secțiunea detalii de plată."
+      },
+      {
+        "Name": "II. DURATA CONTRACTULUI",
+        "Content": "Prezentul contract de sponsorizare este valabil începând cu data semnării până la momentul încheierii conferinței {ConferenceName}."
+      },
+      {
+        "Name": "III. DREPTURI ŞIOBLIGAŢII ALE SPONSORULUI",
+        "Content": "Sponsorul se obligă să pună la dispoziția Beneficiarului {Requested Money} la data prevăzută încontract și în corespondența agreată."
+      },
+      {
+        "Name": "IV. DREPTURI ŞI OBLIGAŢII ALE BENEFICIARULUI",
+        "Content": "Beneficiarul sponsorizării se obligă să primească şi să folosească suma acordată pentru aasigura contribuţia în proiectul derulat prezentat la pct. I ObiectulContractului."
+      },
+      {
+        "Name": "V. ALTE CLAUZE",
+        "Content": "Sponsorul ori beneficiarul poate să aducă la cunoştinţa publicului sponsorizarea numai prin promovarea numelui, mărcii sau imaginii sale. Sponsorizarea se consemnează în evidența contabilă a sponsorului și a beneficiarului sponsorizării pe baza documentelor care atestă efectuarea plății sau predarea, respectiv primirea bunurilor."
+      },
+      {
+        "Name": "VI. MODIFICAREA CONTRACTULUI",
+        "Content": "Modificarea prevederilor prezentului contract se poate face numai prin acordul scris, comun, al părţilor, prin acte adiţionale la contract, parte integrantă dinacesta."
+      },
+      {
+        "Name": "VII. RĂSPUNDEREA CONTRACTUALĂ",
+        "Content": "Pentru neexecutarea obligaţiilor sau executarea necorespunzătoare a acestora, părţile vor răspunde conform legii."
+      },
+      {
+        "Name": "VIII. LITIGII",
+        "Content": "Eventualele litigii intervenite între părţi în legătură cu prezentul contract, se vor rezolva de părţi pe cale amiabilă. În cazul în care părţile nu vor soluţiona problemele lor litigioase pe cale amiabilă, ele vor supune cauza spre soluţionare instanţei judecătoreşti competente."
+      },
+      {
+        "Name": "IX. DISPOZITII FINALE",
+        "Content": "Prezentul contract s-a încheiat astăzi {ContractDate} la {CompanyCity}, într-un număr de 2 exemplare, fiecare cu valoare de original, câte una pentru fiecare parte."
+      }
+    ],
+    "Fields": [
+      {
+        "Name": "Requested Money",
+        "PlaceHolder": "0 RON",
+        "Content": ""
+      }
+    ]
+  }
+]

@@ -1,0 +1,63 @@
+﻿@page "/"
+@using ContractGenerator.Models
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject IJSRuntime JS
+
+<PageTitle>Home</PageTitle>
+
+@if (cblist != null)
+{
+    <h3>Your history</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Created At
+                </th>
+                <th>
+                    Conference
+                </th>
+                <th>
+                    Company
+                </th>
+                <th>
+                    Contract Type
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cb in cblist)
+            {
+                <tr>
+                    <td>@cb.CreatedAt</td>
+                    <td>@cb.Conference.Name</td>
+                    <td>@cb.Company.Name</td>
+                    <td>@cb.Contract.FriendlyName</td>
+                    <td><button type="button" @onclick="() => ViewContract(cb.CreatedAt)">View</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    public List<ContractBundle> cblist { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        cblist = await localStorage.GetItemAsync<List<ContractBundle>>("ContractBundles");
+        if (cblist == null)
+            cblist = new List<ContractBundle>();
+        cblist = cblist.OrderByDescending(c => c.CreatedAt).ToList();
+    }
+
+    async Task ViewContract(DateTime CreatedAt)
+    {
+        ContractBundle cb = cblist.Find(c => c.CreatedAt == CreatedAt);
+        await localStorage.SetItemAsync("SelectedContractBundle", cb);
+        
+        await JS.InvokeVoidAsync("open", "/ExportContract", "_blank");
+    }
+}

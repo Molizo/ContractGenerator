@@ -1,0 +1,152 @@
+﻿@page "/CreateContract"
+@using ContractGenerator.Models
+@inject HttpClient Http
+@using System.Text.Json;
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject IJSRuntime JS
+
+<PageTitle>Create a contract</PageTitle>
+<h1>Create a contract</h1>
+<hr />
+
+<h5>Step 1: Choose a company</h5>
+@if (companies == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="form-group mb-4">
+        <select class="form-control" @onchange="OnSelectCompany">
+            <option value=''>Select a company</option>
+            @foreach(var company in companies)
+            {
+                <option value='@company.Name'>@company.Name</option>
+            }
+        </select>
+    </div>
+}
+
+@if(selectedCompany != null)
+{
+    <h5>Step 2: Choose a conference</h5>
+    @if(conferences == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div class="form-group mb-4">
+            <select class="form-control" @onchange="OnSelectConference">
+                <option value=''>Select a conference</option>
+                @foreach(var conference in conferences)
+                {
+                    <option value='@conference.Name'>@conference.Name</option>
+                }
+            </select>
+        </div>
+    }
+}
+
+@if(selectedConference != null)
+{
+    <h5>Step 3: Choose a contract type</h5>
+    @if(contracts == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div class="form-group mb-4">
+            <select class="form-control" @onchange="OnSelectContract">
+                <option value=''>Select a contract</option>
+                @foreach(var contract in contracts)
+                {
+                    <option value='@contract.FriendlyName'>@contract.FriendlyName</option>
+                }
+            </select>
+        </div>
+    }
+}
+    
+
+@if(selectedContract != null)
+{
+    <h5>Step 4: Fill in contract info</h5>
+    <div class="form-group">
+        <label>Contract Number</label>
+        <input @bind="@selectedContract.Number" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Contract Date</label>
+        <input @bind="@selectedContract.Date" class="form-control">
+    </div>
+    @foreach(var field in selectedContract.Fields)
+    {
+        <div class="form-group">
+            <label>@field.Name</label>
+            <input placeholder="@field.Placeholder" @bind="@field.Content" class="form-control">
+        </div>
+    }
+    <div class="mb-4"></div>
+}
+
+@if(selectedContract != null && selectedContract.Fields.All(f=>f.Content != "")){
+    <h5>Step 5: Generate the contract</h5>
+    <div class="alert alert-primary" role="alert">
+        By clicking the below button you will be presented with the contract. After the new tab opens, press <kbd>CTRL + P</kbd> on Windows or <kbd>CMD + P</kbd> on Mac to print or save as PDF.
+    </div>
+    <button type="button" @onclick="ExportContract" class="btn btn-primary">Create contract</button>
+}
+
+@code {
+    private List<Company> companies;
+    private Company selectedCompany;
+    private List<Conference> conferences;
+    private Conference selectedConference;
+    private List<Contract> contracts;
+    private Contract selectedContract;
+
+    protected override async Task OnInitializedAsync()
+    {
+        companies = await Http.GetFromJsonAsync<List<Company>>("Data/companies.json");
+        conferences = await Http.GetFromJsonAsync<List<Conference>>("Data/conferences.json");
+        contracts = await Http.GetFromJsonAsync<List<Contract>>("Data/contracts.json");
+    }
+
+    void OnSelectCompany(ChangeEventArgs e)
+    {
+        selectedCompany = companies.Find(c => c.Name == e.Value.ToString());
+        selectedConference = null;
+        selectedContract = null;
+    }
+
+    void OnSelectConference(ChangeEventArgs e)
+    {
+        selectedConference = conferences.Find(c => c.Name == e.Value.ToString());
+        selectedContract = null;
+    }
+
+    void OnSelectContract(ChangeEventArgs e)
+    {
+        selectedContract = contracts.Find(c => c.FriendlyName == e.Value.ToString());
+    }
+
+    async Task ExportContract()
+    {
+        ContractBundle cb = new ContractBundle();
+        cb.Company = selectedCompany;
+        cb.Conference = selectedConference;
+        cb.Contract = selectedContract;
+        cb.CreatedAt = DateTime.Now;
+        await localStorage.SetItemAsync("SelectedContractBundle", cb);
+
+        List<ContractBundle> cblist = await localStorage.GetItemAsync<List<ContractBundle>>("ContractBundles");
+        if (cblist == null)
+            cblist = new List<ContractBundle>();
+        cblist.Add(cb);
+        await localStorage.SetItemAsync("ContractBundles", cblist);
+
+        await JS.InvokeVoidAsync("open", "/ExportContract", "_blank");
+    }
+}
