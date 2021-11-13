@@ -6,5 +6,25 @@
   {
     "Name": "Romanian Conference World Health Organization",
     "LogoFilePath": "/Logos/rcwho.png"
+  },
+  {
+    "Name": "Bucharest Model NATO",
+    "LogoFilePath": "/Logos/bmnato.png"
+  },
+  {
+    "Name": "Cluj Model NATO",
+    "LogoFilePath": "/Logos/cmnato.png"
+  },
+  {
+    "Name": "Romanian Youth Union for Conservation of Nature",
+    "LogoFilePath": "/Logos/ryucn.png"
+  },
+  {
+    "Name": "Romanian Youth Hospitality Conference",
+    "LogoFilePath": "/Logos/ryth.png"
+  },
+  {
+    "Name": "CoMedia",
+    "LogoFilePath": "/Logos/comedia.png"
   }
 ]
