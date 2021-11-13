@@ -4,7 +4,7 @@
     "Address": "Șos. Colentina nr. 22, bl. 9C, sc. A, et. 8, ap. 33, Sector 2",
     "City": "București",
     "CIF": "43240724",
-    "IBAN": "RO98PIRB4205749666001000 ",
+    "IBAN": "RO98PIRB4205749666001000",
     "BankName": "FIRST Bank",
     "SWIFT": "PIRBROBU",
     "RepresentativeName": "KIZIL OLCAY",
@@ -13,13 +13,16 @@
     "OtherInfoBeneficiary": ", înregistrată în Registrul entităților/unităților de cult începând cu data de 18 noiembrie 2020"
   },
   {
-    "Name": "FAKENAME",
-    "Address": "FakeAddr",
-    "City": "FakeCity",
-    "CIF": "FakeCIF",
-    "IBAN": "FakeIBAN ",
-    "BankName": "FAKE Bank",
-    "SWIFT": "FAKESW",
-    "OtherInfo": "FAKEINFO"
+    "Name": "ASOCIATIA URBAN FAN",
+    "Address": "Bld. Ion Mihalache, Nr. 144, Bl. 10, Et. 9, Ap 38",
+    "City": "București",
+    "CIF": "44243907",
+    "IBAN": "RO11BREL0002003040110100",
+    "BankName": "Libra Internet Bank",
+    "SWIFT": "BRELROBUXXX",
+    "RepresentativeName": "Daniel-Ioan Calinescu",
+    "RepresentativeTitle": "Presedinte",
+    "OtherInfoHeader": "",
+    "OtherInfoBeneficiary": ""
   }
 ]

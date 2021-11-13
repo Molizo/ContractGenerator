@@ -25,7 +25,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-A2BPYtFgGJOjk6JPTOArjG58lbqkCu+mO3A7zdBV9sk=",
+      "hash": "sha256-4owRwRfItW0Co89Qn1rwyU2pJfCMHk4QeTnD3i6My4s=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -33,7 +33,7 @@
       "url": "_framework\/Blazored.LocalStorage.dll"
     },
     {
-      "hash": "sha256-Qriqnk4r86fR9DSnkVL8a+h9SDZqMu\/+s2YkEkl1uPU=",
+      "hash": "sha256-kNxL4pd6p25PTEAao9kBgNmNGdWPjdhuIeM7Zds56+M=",
       "url": "_framework\/ContractGenerator.dll"
     },
     {
@@ -221,6 +221,10 @@
       "url": "css\/open-iconic\/README.md"
     },
     {
+      "hash": "sha256-u22Y0fGhcAWJmp9JKuPkAbxZhASn7c++IS+M6RezCfU=",
+      "url": "Data\/appInfo.json"
+    },
+    {
       "hash": "sha256-6B8PKfyrPJXiFQug1JAsGgbqEpzHYK41oIhX01XmvQk=",
       "url": "Data\/companies.json"
     },
@@ -229,7 +233,7 @@
       "url": "Data\/conferences.json"
     },
     {
-      "hash": "sha256-8ofvbIVvhzNA9XfLMU01HEisATIYs3zuynQ1Xx0W47w=",
+      "hash": "sha256-GhwnJQnslnutq1kgVQslKcxJZMh1vg\/NTIpVt5Wngnk=",
       "url": "Data\/contracts.json"
     },
     {
@@ -261,5 +265,5 @@
       "url": "manifest.json"
     }
   ],
-  "version": "p7Qy4rDr"
+  "version": "wagIzK4T"
 };

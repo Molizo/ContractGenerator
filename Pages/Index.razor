@@ -4,10 +4,15 @@
 @inject IJSRuntime JS
 
 <PageTitle>Home</PageTitle>
+<h1>Welcome to Conference Contract Generator!</h1>
+<div class="alert alert-secondary" role="alert">
+    You may use this app to autogenerate contracts for your conferences by just following a few, quick steps. To get started, click "Create a contract" in the navigation bar.
+</div>
 
 @if (cblist != null)
 {
     <h3>Your history</h3>
+    <hr/>
     <table class="table">
         <thead>
             <tr>
@@ -34,7 +39,7 @@
                     <td>@cb.Conference.Name</td>
                     <td>@cb.Company.Name</td>
                     <td>@cb.Contract.FriendlyName</td>
-                    <td><button type="button" @onclick="() => ViewContract(cb.CreatedAt)">View</button></td>
+                    <td><button type="button" @onclick="() => ViewContract(cb.CreatedAt)" class="btn btn-primary">View</button></td>
                 </tr>
             }
         </tbody>

@@ -1,0 +1,67 @@
+﻿@page "/Settings"
+@using ContractGenerator.Models
+@inject HttpClient Http
+@using System.Text.Json;
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject IJSRuntime JS
+
+<PageTitle>Settings</PageTitle>
+<h1>Settings</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <h5>App Info</h5>
+        <hr/>
+        @if (appInfo == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                        <th>Component</th>
+                        <th>Version</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>App Version</td>
+                        <td>@appInfo.AppVersion</td>
+                    </tr>
+                    <tr>
+                        <td>Company Version</td>
+                        <td>@appInfo.CompaniesVersion</td>
+                    </tr>
+                    <tr>
+                        <td>Conference Version</td>
+                        <td>@appInfo.ConferencesVersion</td>
+                    </tr><tr>
+                        <td>Contract Version</td>
+                        <td>@appInfo.ContractsVersion</td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+    <div class="col-md-4">
+        <h5>Manage data</h5>
+        <hr />
+        <button type="button" class="btn btn-danger" @onclick="ClearAllData">Clear all data</button>
+    </div>
+</div>
+
+
+@code {
+    private AppInfo appInfo;
+
+    protected override async Task OnInitializedAsync()
+    {
+        appInfo = await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json");
+    }
+
+    async Task ClearAllData()
+    {
+        await localStorage.ClearAsync();
+    }
+}
