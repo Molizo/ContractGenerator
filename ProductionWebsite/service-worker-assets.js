@@ -25,7 +25,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-4owRwRfItW0Co89Qn1rwyU2pJfCMHk4QeTnD3i6My4s=",
+      "hash": "sha256-UAKtkFBpGRASkkruAva0ihXgxFWsaGgN5OuQeRH\/dQg=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -33,7 +33,7 @@
       "url": "_framework\/Blazored.LocalStorage.dll"
     },
     {
-      "hash": "sha256-kNxL4pd6p25PTEAao9kBgNmNGdWPjdhuIeM7Zds56+M=",
+      "hash": "sha256-VpPMnfnh4d\/nf7rekl15mrQ32XokNB8ovqadWsQsSWQ=",
       "url": "_framework\/ContractGenerator.dll"
     },
     {
@@ -221,19 +221,19 @@
       "url": "css\/open-iconic\/README.md"
     },
     {
-      "hash": "sha256-u22Y0fGhcAWJmp9JKuPkAbxZhASn7c++IS+M6RezCfU=",
+      "hash": "sha256-f9waqGiS5k2G6\/PyDXoNxiy34l0mst45O8gQ05Ry7jk=",
       "url": "Data\/appInfo.json"
     },
     {
-      "hash": "sha256-6B8PKfyrPJXiFQug1JAsGgbqEpzHYK41oIhX01XmvQk=",
+      "hash": "sha256-d19wBPEidi0sJVLLJBE\/aGyXxDmFBVJ2nVmcM+qbQRU=",
       "url": "Data\/companies.json"
     },
     {
-      "hash": "sha256-chP9vzlVaSnDGX+TCnTX20ZqR300AKX2CUGqzOY0YoQ=",
+      "hash": "sha256-8JM\/3fOW6IlWcpq295i6y8HjdrICyDdR6WPGOsO4Ejk=",
       "url": "Data\/conferences.json"
     },
     {
-      "hash": "sha256-GhwnJQnslnutq1kgVQslKcxJZMh1vg\/NTIpVt5Wngnk=",
+      "hash": "sha256-JPvs9bgRkTzQmN3R1AQHUT2Vz5wBZGCTsaFClKXSg5Y=",
       "url": "Data\/contracts.json"
     },
     {
@@ -249,7 +249,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-IATcoNODR0Ysp\/d+qKB8duVM454MzBU7wrFrODDXkUI=",
+      "hash": "sha256-JRQqkmyHVShnWNwmsGAwMpHkmTaU7650EBu\/srC+jOg=",
       "url": "index.html"
     },
     {
@@ -263,7 +263,67 @@
     {
       "hash": "sha256-8ymtwEdg77WeaA+51sAIGGa9hTv7er913xpuwrhJ35Y=",
       "url": "manifest.json"
+    },
+    {
+      "hash": "sha256-d09iTj88kv7ZtK4LYzwk3FfPXtyb3f3g4HpsQcyxzMk=",
+      "url": "modules\/html2canvas.min.js"
+    },
+    {
+      "hash": "sha256-wGWu7oSmgJR5C88c27Wr9SbUNrzrlJ+IVhQL79N1v\/M=",
+      "url": "modules\/jsPDF\/jspdf.es.js"
+    },
+    {
+      "hash": "sha256-AKBoqEGpdUd6NKfaXyNR8MKovgJriBUYMa3DWPdnWVQ=",
+      "url": "modules\/jsPDF\/jspdf.es.js.map"
+    },
+    {
+      "hash": "sha256-P+kMZQ2qf64KIQgUBrXdC29AJ2RQfNZDiSF8VwOWQtc=",
+      "url": "modules\/jsPDF\/jspdf.es.min.js"
+    },
+    {
+      "hash": "sha256-k34wJKNCHJgerLcR+CYSfPGI3cra9DHcxv3j\/SU6zPg=",
+      "url": "modules\/jsPDF\/jspdf.es.min.js.map"
+    },
+    {
+      "hash": "sha256-\/+tDA3fU7OhiHPf4ft5b1WwdK8ltPcD+TvIu4qVFoBk=",
+      "url": "modules\/jsPDF\/jspdf.node.js"
+    },
+    {
+      "hash": "sha256-9UIi2UrpD9GxLdTQSFcYfKO5diDoOQTfOob6MVV6Y6s=",
+      "url": "modules\/jsPDF\/jspdf.node.js.map"
+    },
+    {
+      "hash": "sha256-2FizZ1GzqFfvzoTHT1UDCD6M+toE6pnzoFDrlvnkwTc=",
+      "url": "modules\/jsPDF\/jspdf.node.min.js"
+    },
+    {
+      "hash": "sha256-pbIbhpt005ZK5xdy7nA7esAmId29nliSMTWi1cczBTs=",
+      "url": "modules\/jsPDF\/jspdf.node.min.js.map"
+    },
+    {
+      "hash": "sha256-u8j94M6BgNcB+zjAKZaC6EBgPnDji4ND934J2S3U5MQ=",
+      "url": "modules\/jsPDF\/jspdf.umd.js"
+    },
+    {
+      "hash": "sha256-ae7pTxYEyL77YCu\/gAKFQjemAMJOWIfD078pwxN9Qxw=",
+      "url": "modules\/jsPDF\/jspdf.umd.js.map"
+    },
+    {
+      "hash": "sha256-5ra\/0VC5EdHgWQSn4D+GJlycg7+hjnCCsnYwqmMw+5I=",
+      "url": "modules\/jsPDF\/jspdf.umd.min.js"
+    },
+    {
+      "hash": "sha256-u1KstCdshtdrGzLVEFX8Zj0LEF8ZALY2V7M038wP+Ow=",
+      "url": "modules\/jsPDF\/jspdf.umd.min.js.map"
+    },
+    {
+      "hash": "sha256-g1wf+P52MRzCl\/mPPAckCBTHUSdknjNG1H7Gbkv2EqE=",
+      "url": "modules\/jsPDF\/polyfills.es.js"
+    },
+    {
+      "hash": "sha256-aOt1iJ11UWJhAuugpqu6z2xTFvVCOqEk8\/kXSXlkrgI=",
+      "url": "modules\/jsPDF\/polyfills.umd.js"
     }
   ],
-  "version": "wagIzK4T"
+  "version": "7Ej+2D13"
 };

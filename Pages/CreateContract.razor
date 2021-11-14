@@ -8,95 +8,107 @@
 <h1>Create a contract</h1>
 <hr />
 
-<h5>Step 1: Choose a company</h5>
-@if (companies == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <div class="form-group mb-4">
-        <select class="form-control" @onchange="OnSelectCompany">
-            <option value=''>Select a company</option>
-            @foreach(var company in companies)
+<div class="row">
+    <div class="col-md-6">
+        <h5>Step 1: Choose a company</h5>
+        @if (companies == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <div class="form-group mb-4">
+                <select class="form-control" @onchange="OnSelectCompany">
+                    <option value=''>Select a company</option>
+                    @foreach(var company in companies)
+                    {
+                        <option value='@company.Name'>@company.Name</option>
+                    }
+                </select>
+            </div>
+        }
+
+        @if(selectedCompany != null)
+        {
+            <h5>Step 2: Choose a conference</h5>
+            @if(conferences == null)
             {
-                <option value='@company.Name'>@company.Name</option>
+                <p><em>Loading...</em></p>
             }
-        </select>
-    </div>
-}
+            else
+            {
+                <div class="form-group mb-4">
+                    <select class="form-control" @onchange="OnSelectConference">
+                        <option value=''>Select a conference</option>
+                        @foreach(var conference in conferences)
+                        {
+                            <option value='@conference.Name'>@conference.Name</option>
+                        }
+                    </select>
+                </div>
+            }
+        }
 
-@if(selectedCompany != null)
-{
-    <h5>Step 2: Choose a conference</h5>
-    @if(conferences == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <div class="form-group mb-4">
-            <select class="form-control" @onchange="OnSelectConference">
-                <option value=''>Select a conference</option>
-                @foreach(var conference in conferences)
-                {
-                    <option value='@conference.Name'>@conference.Name</option>
-                }
-            </select>
-        </div>
-    }
-}
-
-@if(selectedConference != null)
-{
-    <h5>Step 3: Choose a contract type</h5>
-    @if(contracts == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <div class="form-group mb-4">
-            <select class="form-control" @onchange="OnSelectContract">
-                <option value=''>Select a contract</option>
-                @foreach(var contract in contracts)
-                {
-                    <option value='@contract.FriendlyName'>@contract.FriendlyName</option>
-                }
-            </select>
-        </div>
-    }
-}
+        @if(selectedConference != null)
+        {
+            <h5>Step 3: Choose a contract type</h5>
+            @if(contracts == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                <div class="form-group mb-4">
+                    <select class="form-control" @onchange="OnSelectContract">
+                        <option value=''>Select a contract</option>
+                        @foreach(var contract in contracts)
+                        {
+                            <option value='@contract.FriendlyName'>@contract.FriendlyName</option>
+                        }
+                    </select>
+                </div>
+            }
+        }
     
 
-@if(selectedContract != null)
-{
-    <h5>Step 4: Fill in contract info</h5>
-    <div class="form-group">
-        <label>Contract Number</label>
-        <input @bind="@selectedContract.Number" class="form-control">
-    </div>
-    <div class="form-group">
-        <label>Contract Date</label>
-        <input @bind="@selectedContract.Date" class="form-control">
-    </div>
-    @foreach(var field in selectedContract.Fields)
-    {
-        <div class="form-group">
-            <label>@field.Name</label>
-            <input placeholder="@field.Placeholder" @bind="@field.Content" class="form-control">
-        </div>
-    }
-    <div class="mb-4"></div>
-}
+        @if(selectedContract != null)
+        {
+            <h5>Step 4: Fill in contract info</h5>
+            <div class="form-group">
+                <label>Contract Number</label>
+                <input @bind="@selectedContract.Number" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Contract Date</label>
+                <input @bind="@selectedContract.Date" class="form-control">
+            </div>
+            @foreach(var field in selectedContract.Fields)
+            {
+                <div class="form-group">
+                    <label>@field.Name</label>
+                    <input placeholder="@field.Placeholder" @bind="@field.Content" class="form-control">
+                </div>
+            }
+            <div class="mb-4"></div>
+        }
 
-@if(selectedContract != null && selectedContract.Fields.All(f=>f.Content != "")){
-    <h5>Step 5: Generate the contract</h5>
-    <div class="alert alert-primary" role="alert">
-        By clicking the below button you will be presented with the contract. After the new tab opens, press <kbd>CTRL + P</kbd> on Windows or <kbd>CMD + P</kbd> on Mac to print or save as PDF.
+        @if(selectedContract != null && selectedContract.Fields.All(f=>f.Content != "")){
+            <h5>Step 5: Generate the contract</h5>
+            <div class="alert alert-primary" role="alert">
+                By clicking <kbd>Preview Contract</kbd> you will be presented with the contract. After the document loads, press <kbd>Export Contract</kbd> to save as PDF.
+            </div>
+            <button type="button" @onclick="PreviewContract" class="btn btn-primary">Preview contract</button>
+            @if (previewedContract)
+            {
+                <button type="button" @onclick="ExportContract" class="btn btn-primary mx-1">Export contract</button>
+            }
+        }
     </div>
-    <button type="button" @onclick="ExportContract" class="btn btn-primary">Create contract</button>
-}
+    <div class="col-md-6">
+        <h5>Document Preview</h5>
+        <iframe id="pdfPreviewFrame" src="" style="width:100%; height:70vh;"></iframe>
+    </div>
+</div>
 
 @code {
     private List<Company> companies;
@@ -105,6 +117,7 @@ else
     private Conference selectedConference;
     private List<Contract> contracts;
     private Contract selectedContract;
+    private bool previewedContract = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -131,7 +144,7 @@ else
         selectedContract = contracts.Find(c => c.FriendlyName == e.Value.ToString());
     }
 
-    async Task ExportContract()
+    async Task PreviewContract()
     {
         ContractBundle cb = new ContractBundle();
         cb.Company = selectedCompany;
@@ -146,6 +159,13 @@ else
         cblist.Add(cb);
         await localStorage.SetItemAsync("ContractBundles", cblist);
 
-        await JS.InvokeVoidAsync("open", "/ExportContract", "_blank");
+        previewedContract = true;
+        //await JS.InvokeVoidAsync("open", "/ExportContract", "_blank");
+        await JS.InvokeVoidAsync("setIFrame", "pdfPreviewFrame", "/ExportContract");
+    }
+
+    async Task ExportContract()
+    {
+        await JS.InvokeVoidAsync("saveIFrameAsPDF", "pdfPreviewFrame", selectedConference.Name + " " + selectedContract.FriendlyName + ".pdf");
     }
 }

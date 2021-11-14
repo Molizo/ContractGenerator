@@ -27,8 +27,40 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
+
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
-</body>
+    <script src="modules/jsPDF/jspdf.umd.min.js"></script>
+    <script src="modules/html2canvas.min.js"></script>
+
+    <script>
+        window.jsPDF = window.jspdf.jsPDF;
+        window.html2canvas = html2canvas;
+        function saveIFrameAsPDF(iFrameID, name) {
+            var object = document.getElementById(iFrameID).contentDocument.body;
+            var pdf = new jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a4',
+                putOnlyUsedFonts: true,
+                floatPrecision: 16 // or "smart", default is 16
+            });
+            pdf.html(object, {
+                callback: function (pdf) {
+                    pdf.save(name);
+                },
+                x: 0,
+                y: 0,
+                margin: 10,
+                autoPaging: 'text',
+                width: 190,
+                windowWidth: 700
+            });
+        }
+        function setIFrame(iframeID, url) {
+            var f = document.getElementById(iframeID);
+            f.src = url;
+        }
+    </script>
 
 </html>
