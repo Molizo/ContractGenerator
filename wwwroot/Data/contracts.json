@@ -7,7 +7,7 @@
       "Clauses":[
          {
             "Name":"",
-            "Content":"Incheiat in conformitate cudispozitiile Legii 32/1994 modificata si completata, astazi {ContractDate} in {CompanyCity}, intre:"
+            "Content":"Incheiat in conformitate cu dispozitiile Legii 32/1994 modificata si completata, astazi {ContractDate} in {CompanyCity}, intre:"
          },
          {
             "Name":"SPONSOR",
@@ -86,11 +86,11 @@
       "Clauses":[
          {
             "Name":"",
-            "Content":"Incheiat in conformitate cudispozitiile Legii 32/1994 modificata si completata, astazi {ContractDate} in {CompanyCity}, intre:"
+            "Content":"Incheiat in conformitate cu dispozitiile Legii 32/1994 modificata si completata, astazi {ContractDate} in {CompanyCity}, intre:"
          },
          {
             "Name":"SPONSOR",
-            "Content":"_________________________________  cu sediul in _________________,\nStr. ________________ nr.____, Inregistrata la ONRC J____________________,\ncodul fiscal ___________________ cont nr. ___________________________________ deschis la _____________________, reprezentata prin________________________________, in calitate de __________________, numita incontinuare Sponsor "
+            "Content":"_________________________________  cu sediul in _________________,\nStr. ________________ nr.____, Inregistrata la ONRC J____________________,\ncodul fiscal ___________________ cont nr. ___________________________________ deschis la _____________________, reprezentata prin________________________________, in calitate de __________________, numita in continuare Sponsor "
          },
          {
             "Name":"SI",
@@ -165,11 +165,11 @@
       "Clauses":[
          {
             "Name":"",
-            "Content":"Incheiat in conformitate cudispozitiile Legii 32/1994 modificata si completata, astazi {ContractDate} in {CompanyCity}, intre:"
+            "Content":"Incheiat in conformitate cu dispozitiile Legii 32/1994 modificata si completata, astazi {ContractDate} in {CompanyCity}, intre:"
          },
          {
             "Name":"SPONSOR",
-            "Content":"_________________________________ cu sediul in_________________, Str. ________________ nr.____, Inregistrata la ONRCJ____________________, codul fiscal ___________________ cont nr. ___________________________________deschis la _____________________, reprezentata prin________________________________, in calitate de __________________, numita incontinuare Sponsor "
+            "Content":"_________________________________ cu sediul in_________________, Str. ________________ nr.____, Inregistrata la ONRCJ____________________, codul fiscal ___________________ cont nr. ___________________________________deschis la _____________________, reprezentata prin________________________________, in calitate de __________________, numita in continuare Sponsor "
          },
          {
             "Name":"SI",

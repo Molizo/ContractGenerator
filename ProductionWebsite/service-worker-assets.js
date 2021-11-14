@@ -325,5 +325,5 @@
       "url": "modules\/jsPDF\/polyfills.umd.js"
     }
   ],
-  "version": "7Ej+2D13"
+  "version": "7Ej+2D14"
 };
