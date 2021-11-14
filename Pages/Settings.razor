@@ -47,7 +47,8 @@
     <div class="col-md-4">
         <h5>Manage data</h5>
         <hr />
-        <button type="button" class="btn btn-danger" @onclick="ClearAllData">Clear all data</button>
+        <button type="button" class="btn btn-danger" @onclick="ClearHistory">Clear history</button>
+		<button type="button" class="btn btn-danger mx-1" @onclick="ClearSW">Clear templates (Reset SW)</button>
     </div>
 </div>
 
@@ -60,8 +61,13 @@
         appInfo = await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json");
     }
 
-    async Task ClearAllData()
+    async Task ClearHistory()
     {
         await localStorage.ClearAsync();
     }
+	
+	async Task ClearSW()
+	{
+		await JS.InvokeVoidAsync("forceUnregisterSW");
+	}
 }
