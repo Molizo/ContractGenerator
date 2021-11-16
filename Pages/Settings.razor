@@ -54,7 +54,7 @@
         <h5>Manage data</h5>
         <hr />
         <button type="button" class="btn btn-secondary m-1" @onclick="UpdateDB">Get latest templates from server</button>
-        <button type="button" class="btn btn-danger m-1" @onclick="ClearHistory">Clear history</button>
+        <button type="button" class="btn btn-danger m-1" @onclick="ClearHistory">Clear history and templates</button>
 		<button type="button" class="btn btn-danger m-1" @onclick="ClearSW">Clear service worker</button>
     </div>
 </div>
@@ -74,14 +74,14 @@
     {
         await localStorage.ClearAsync();
 
-        Nav.NavigateTo("/Settings");
+        Nav.NavigateTo("/");
     }
 	
 	async Task ClearSW()
 	{
 		await JS.InvokeVoidAsync("forceUnregisterSW");
 
-        Nav.NavigateTo("/Settings");
+        Nav.NavigateTo("/");
 	}
 
     async Task UpdateDB()
@@ -91,6 +91,6 @@
         await localStorage.SetItemAsync("TemplateContracts", await Http.GetFromJsonAsync<List<Contract>>("Data/contracts.json?time=" + DateTime.Now));
         await localStorage.SetItemAsync("TemplateAppInfo", await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json?time=" + DateTime.Now));
 
-        Nav.NavigateTo("/Settings");
+        Nav.NavigateTo("/");
     }
 }

@@ -25,7 +25,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-+MxOCqgG8Tw9Igyxn\/E6x3NfJNh9w+pbH1Bx8jihCR8=",
+      "hash": "sha256-VPygWZ0Zyd5bviEsoNgdMgLxCCVHxAVKVEHmU1XLWz0=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -33,7 +33,7 @@
       "url": "_framework\/Blazored.LocalStorage.dll"
     },
     {
-      "hash": "sha256-1aHfFCXtQU\/tAk5cd6IdK3ApZZkOXTa2+f2wkuKbH9s=",
+      "hash": "sha256-\/rBMqf\/jM0XVas+0pWvxufoKpJayhy8c1vI0V4MmNPU=",
       "url": "_framework\/ContractGenerator.dll"
     },
     {
@@ -221,7 +221,7 @@
       "url": "css\/open-iconic\/README.md"
     },
     {
-      "hash": "sha256-yncqdmmlQqseA4bdqbM+zewCHNQxJugIi\/9opyE\/MHM=",
+      "hash": "sha256-0cWr7TiSIf6F0WqPvadKdA3Af9EpfSfl2EgRitwPFdA=",
       "url": "Data\/appInfo.json"
     },
     {
@@ -269,8 +269,28 @@
       "url": "Logos\/art4hart.png"
     },
     {
+      "hash": "sha256-ssa6hmE4tAOK75hqQ85sRxeNywrqJssfPGgJ4z6G6Sw=",
+      "url": "Logos\/bmnato.png"
+    },
+    {
+      "hash": "sha256-evxgDuDEI9gND\/oiMOvS+zqsAKD\/V1bNxsHK0vmg+Vo=",
+      "url": "Logos\/cmnato.png"
+    },
+    {
+      "hash": "sha256-y\/NGusLJLuEQoej1pRrXq8JSqf7oakSK8xFiPzKrNDI=",
+      "url": "Logos\/comedia.png"
+    },
+    {
       "hash": "sha256-K5RR+eiK2Aavem1LAe82Yi0N6d6beuMLeq\/erxpijqA=",
       "url": "Logos\/rcwho.png"
+    },
+    {
+      "hash": "sha256-fDbkWmKzHcVStlV3VHgBxJK12rCkoEULmRfA5NniDK0=",
+      "url": "Logos\/ryth.png"
+    },
+    {
+      "hash": "sha256-MpbP157RoiyGNPXXYC4QGXff35Wppl0\/7h0nBM8sps0=",
+      "url": "Logos\/ryucn.png"
     },
     {
       "hash": "sha256-8ymtwEdg77WeaA+51sAIGGa9hTv7er913xpuwrhJ35Y=",
@@ -349,5 +369,5 @@
       "url": "modules\/popper.min.js"
     }
   ],
-  "version": "4MBP4TS7"
+  "version": "ELnNwRAx"
 };

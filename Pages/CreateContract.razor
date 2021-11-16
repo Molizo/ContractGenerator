@@ -20,7 +20,12 @@
         <h5>Step 1: Choose a company</h5>
         @if (companies == null)
         {
-            <p><em>Loading...</em></p>
+            <div class="alert alert-primary" role="alert">
+                Loading...
+            </div>
+            <div class="alert alert-warning" role="alert">
+                It may be possible that no companies exist. If this is your first load of the app, please get the latest templates from the server.
+            </div>
         }
         else
         {
@@ -40,7 +45,12 @@
             <h5>Step 2: Choose a conference</h5>
             @if(conferences == null)
             {
-                <p><em>Loading...</em></p>
+                <div class="alert alert-primary" role="alert">
+                    Loading...
+                </div>
+                <div class="alert alert-warning" role="alert">
+                    It may be possible that no conferences exist. If this is your first load of the app, please get the latest templates from the server.
+                </div>
             }
             else
             {
@@ -61,7 +71,12 @@
             <h5>Step 3: Choose a contract type</h5>
             @if(contracts == null)
             {
-                <p><em>Loading...</em></p>
+                <div class="alert alert-primary" role="alert">
+                    Loading...
+                </div>
+                <div class="alert alert-warning" role="alert">
+                    It may be possible that no contracts exist. If this is your first load of the app, please get the latest templates from the server.
+                </div>
             }
             else
             {
