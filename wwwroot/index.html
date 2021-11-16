@@ -30,8 +30,11 @@
 
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script src="modules/popper.min.js"></script>
+    <script src="modules/bootstrap.min.js"></script>
     <script src="modules/jsPDF/jspdf.umd.min.js"></script>
     <script src="modules/html2canvas.min.js"></script>
+    <script src="modules/jsoneditor.js"></script>
 
     <script>
         window.jsPDF = window.jspdf.jsPDF;
@@ -75,4 +78,41 @@
 			}
 		}
 	</script>
+
+    <script>
+        var companiesEditor, conferencesEditor, contractsEditor;
+        function setUpTemplateEditors(companiesSchema, conferencesSchema, contractsSchema) {
+            JSONEditor.defaults.options.theme = 'bootstrap4';
+            JSONEditor.defaults.options.enable_array_copy = true;
+            JSONEditor.defaults.options.disable_edit_json = true;
+            JSONEditor.defaults.options.disable_properties = true;
+            companiesEditor = new JSONEditor(document.getElementById('companiesEditor'), {
+                schema: JSON.parse(companiesSchema)
+            });
+            conferencesEditor = new JSONEditor(document.getElementById('conferencesEditor'), {
+                schema: JSON.parse(conferencesSchema)
+            });
+            contractsEditor = new JSONEditor(document.getElementById('contractsEditor'), {
+                schema: JSON.parse(contractsSchema)
+            });
+        }
+
+        function updateTemplateEditorsContent(editor, value) {
+            if(editor == "companies")
+                companiesEditor.setValue(JSON.parse(value));
+            else if (editor == "conferences")
+                conferencesEditor.setValue(JSON.parse(value));
+            else if (editor == "contracts")
+                contractsEditor.setValue(JSON.parse(value));
+        }
+
+        function getTemplateEditorContent(editor) {
+            if (editor == "companies")
+                return companiesEditor.getValue();
+            else if (editor == "conferences")
+                return conferencesEditor.getValue();
+            else if (editor == "contracts")
+                return contractsEditor.getValue();
+        }
+    </script>
 </html>

@@ -4,6 +4,7 @@
 @using System.Text.Json;
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IJSRuntime JS
+@inject NavigationManager Nav
 
 <PageTitle>Settings</PageTitle>
 <h1>Settings</h1>
@@ -13,7 +14,7 @@
     <div class="col-md-4">
         <h5>App Info</h5>
         <hr/>
-        @if (appInfo == null)
+        @if (appInfoLocal == null)
         {
             <p><em>Loading...</em></p>
         }
@@ -22,23 +23,28 @@
             <table class="table">
                 <thead>
                         <th>Component</th>
-                        <th>Version</th>
+                        <th>Latest version</th>
+                        <th>Local version</th>
                 </thead>
                 <tbody>
                     <tr>
                         <td>App Version</td>
-                        <td>@appInfo.AppVersion</td>
+                        <td>@appInfoLatest.AppVersion</td>
+                        <td>@appInfoLocal.AppVersion</td>
                     </tr>
                     <tr>
                         <td>Company Version</td>
-                        <td>@appInfo.CompaniesVersion</td>
+                        <td>@appInfoLatest.CompaniesVersion</td>
+                        <td>@appInfoLocal.CompaniesVersion</td>
                     </tr>
                     <tr>
                         <td>Conference Version</td>
-                        <td>@appInfo.ConferencesVersion</td>
+                        <td>@appInfoLatest.ConferencesVersion</td>
+                        <td>@appInfoLocal.ConferencesVersion</td>
                     </tr><tr>
                         <td>Contract Version</td>
-                        <td>@appInfo.ContractsVersion</td>
+                        <td>@appInfoLatest.ContractsVersion</td>
+                        <td>@appInfoLocal.ContractsVersion</td>
                     </tr>
                 </tbody>
             </table>
@@ -47,27 +53,44 @@
     <div class="col-md-4">
         <h5>Manage data</h5>
         <hr />
-        <button type="button" class="btn btn-danger" @onclick="ClearHistory">Clear history</button>
-		<button type="button" class="btn btn-danger mx-1" @onclick="ClearSW">Clear templates (Reset SW)</button>
+        <button type="button" class="btn btn-secondary m-1" @onclick="UpdateDB">Get latest templates from server</button>
+        <button type="button" class="btn btn-danger m-1" @onclick="ClearHistory">Clear history</button>
+		<button type="button" class="btn btn-danger m-1" @onclick="ClearSW">Clear service worker</button>
     </div>
 </div>
 
 
 @code {
-    private AppInfo appInfo;
+    private AppInfo appInfoLatest;
+    private AppInfo appInfoLocal;
 
     protected override async Task OnInitializedAsync()
     {
-        appInfo = await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json");
+        appInfoLatest = await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json?time=" + DateTime.Now);
+        appInfoLocal = await localStorage.GetItemAsync<AppInfo>("TemplateAppInfo");
     }
 
     async Task ClearHistory()
     {
         await localStorage.ClearAsync();
+
+        Nav.NavigateTo("/Settings");
     }
 	
 	async Task ClearSW()
 	{
 		await JS.InvokeVoidAsync("forceUnregisterSW");
+
+        Nav.NavigateTo("/Settings");
 	}
+
+    async Task UpdateDB()
+    {
+        await localStorage.SetItemAsync("TemplateCompanies", await Http.GetFromJsonAsync<List<Company>>("Data/companies.json?time=" + DateTime.Now));
+        await localStorage.SetItemAsync("TemplateConferences", await Http.GetFromJsonAsync<List<Conference>>("Data/conferences.json?time=" + DateTime.Now));
+        await localStorage.SetItemAsync("TemplateContracts", await Http.GetFromJsonAsync<List<Contract>>("Data/contracts.json?time=" + DateTime.Now));
+        await localStorage.SetItemAsync("TemplateAppInfo", await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json?time=" + DateTime.Now));
+
+        Nav.NavigateTo("/Settings");
+    }
 }

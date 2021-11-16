@@ -25,7 +25,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-vb5OqoAr4dVm65zIUFu4wlQ0Uotcg7Lhtx3yjpOaRo8=",
+      "hash": "sha256-+MxOCqgG8Tw9Igyxn\/E6x3NfJNh9w+pbH1Bx8jihCR8=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -33,7 +33,7 @@
       "url": "_framework\/Blazored.LocalStorage.dll"
     },
     {
-      "hash": "sha256-rm0m95eNBd7ulosawAdkCTBGfCM\/FMbGoM6TwkN\/BAc=",
+      "hash": "sha256-1aHfFCXtQU\/tAk5cd6IdK3ApZZkOXTa2+f2wkuKbH9s=",
       "url": "_framework\/ContractGenerator.dll"
     },
     {
@@ -113,7 +113,7 @@
       "url": "_framework\/System.Memory.dll"
     },
     {
-      "hash": "sha256-9amMu6n7ihXPALRi2QXdOyZsSChQc6YjYOdT7ekEIQs=",
+      "hash": "sha256-PcL+FjXJTsTd5Oz2aiQO7Es8ZhS1JId6mcNk14IxL1s=",
       "url": "_framework\/System.Net.Http.dll"
     },
     {
@@ -125,7 +125,7 @@
       "url": "_framework\/System.Net.Primitives.dll"
     },
     {
-      "hash": "sha256-OKJTY4zHh5DeSYIULvlw\/k\/BulaEJAfKjN+t6Mv9txk=",
+      "hash": "sha256-6da36\/vY01UHMzUV6RimN15YHMoWgXaYCDSIJOcPtEE=",
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
@@ -221,19 +221,31 @@
       "url": "css\/open-iconic\/README.md"
     },
     {
-      "hash": "sha256-IS9tIWYREqIMt8bneNeaqsco6GUHmwqjOPXGE\/LdkT8=",
+      "hash": "sha256-yncqdmmlQqseA4bdqbM+zewCHNQxJugIi\/9opyE\/MHM=",
       "url": "Data\/appInfo.json"
+    },
+    {
+      "hash": "sha256-y9CU5wtP0KUn4TGmGdvF89XR+2z\/4HMgXP\/v4Okaci0=",
+      "url": "Data\/companies-schema.json"
     },
     {
       "hash": "sha256-A9XG2lYSXHwqYcU35Nkx3AK8CilFjvFv9Zhbq3+8sk8=",
       "url": "Data\/companies.json"
     },
     {
+      "hash": "sha256-mPPL24ALQVNOimuaLS0nqwM4my8kLO6Z7mWRV5ts\/f4=",
+      "url": "Data\/conferences-schema.json"
+    },
+    {
       "hash": "sha256-8JM\/3fOW6IlWcpq295i6y8HjdrICyDdR6WPGOsO4Ejk=",
       "url": "Data\/conferences.json"
     },
     {
-      "hash": "sha256-mQDLyBeTuRl5+ueJFRWNMbPEifrJVEyPKogAZhQAe78=",
+      "hash": "sha256-69gAZCDi8ZG6t+lQeYH\/LP01fhdX6tICy6Awktur5wI=",
+      "url": "Data\/contracts-schema.json"
+    },
+    {
+      "hash": "sha256-B3jlG97c4hp51Z03l5PT3V0p2BL17YehJtLguK+f7KA=",
       "url": "Data\/contracts.json"
     },
     {
@@ -249,7 +261,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-9UAvfuchOItlKgubeOO0v8mQ9x8z2FjyQ3LFL08Jrkk=",
+      "hash": "sha256-WmKVGhuvINUsR83baE4Jc\/aS85a+m6dw7Esac0BkqCI=",
       "url": "index.html"
     },
     {
@@ -265,8 +277,16 @@
       "url": "manifest.json"
     },
     {
+      "hash": "sha256-c4Ll6eSIg6Eothk8pCWAF8aE923EvtU11pqjBy+NjNM=",
+      "url": "modules\/bootstrap.min.js"
+    },
+    {
       "hash": "sha256-d09iTj88kv7ZtK4LYzwk3FfPXtyb3f3g4HpsQcyxzMk=",
       "url": "modules\/html2canvas.min.js"
+    },
+    {
+      "hash": "sha256-5ivFaXCdM+\/UC91VuNC87sXMLVek0y2z4ES6Pmc+c60=",
+      "url": "modules\/jsoneditor.js"
     },
     {
       "hash": "sha256-wGWu7oSmgJR5C88c27Wr9SbUNrzrlJ+IVhQL79N1v\/M=",
@@ -323,7 +343,11 @@
     {
       "hash": "sha256-aOt1iJ11UWJhAuugpqu6z2xTFvVCOqEk8\/kXSXlkrgI=",
       "url": "modules\/jsPDF\/polyfills.umd.js"
+    },
+    {
+      "hash": "sha256-85WHXrXVjFEoxDSBLNClPUOLEVNvf9FXcHfYpcYS4f0=",
+      "url": "modules\/popper.min.js"
     }
   ],
-  "version": "C5q91cv3"
+  "version": "4MBP4TS7"
 };

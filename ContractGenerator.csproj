@@ -29,4 +29,6 @@
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties wwwroot_4data_4companies_1json__JsonSchema="companies-schema.json" wwwroot_4data_4conferences_1json__JsonSchema="conferences-schema.json" wwwroot_4data_4contracts_1json__JsonSchema="contracts-schema.json" /></VisualStudio></ProjectExtensions>
+
 </Project>

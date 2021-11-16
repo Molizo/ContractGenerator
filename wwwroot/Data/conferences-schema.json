@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Conferences",
+  "type": "array",
+  "items": {
+    "title": "Conference",
+    "type": "object",
+    "properties": {
+      "Name": {
+        "type": "string"
+      },
+      "LogoFilePath": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "Name",
+      "LogoFilePath"
+    ]
+  }
+}

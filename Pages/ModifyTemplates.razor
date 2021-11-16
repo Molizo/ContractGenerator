@@ -1,0 +1,98 @@
+﻿@page "/ModifyTemplates"
+@using ContractGenerator.Models
+@inject HttpClient Http
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject IJSRuntime JS
+@using System.Text.Json
+
+<PageTitle>Modify Templates</PageTitle>
+<h1>Modify Templates</h1>
+<hr />
+
+<div class="row">
+    <div class="col-12">
+        <h5>Tools</h5>
+        <div class="form-group mb-4">
+            <button type="button" class="btn btn-outline-primary" @onclick="GetUpdatesDB">Get latest templates from server</button>
+            <button type="button" class="btn btn-primary" @onclick="SaveUpdatedDB">Save your work</button>
+        </div>
+    </div>
+    <div class="col-12">
+        <ul class="nav nav-tabs mb-2" role="tablist" id="editorsTab">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="companies-tab" data-bs-toggle="tab" data-bs-target="#companies" type="button" role="tab" aria-controls="companies" aria-selected="true">Companies</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="conferences-tab" data-bs-toggle="tab" data-bs-target="#conferences" type="button" role="tab" aria-controls="conferences" aria-selected="false">Conferences</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contracts-tab" data-bs-toggle="tab" data-bs-target="#contracts" type="button" role="tab" aria-controls="contracts" aria-selected="false">Contracts</button>
+          </li>
+        </ul>
+        <div class="tab-content" id="editorsTabContent">
+          <div class="tab-pane fade show active" id="companies" role="tabpanel" aria-labelledby="companies-tab"><div id="companiesEditor"></div></div>
+          <div class="tab-pane fade" id="conferences" role="tabpanel" aria-labelledby="conferences-tab"><div id="conferencesEditor"></div></div>
+          <div class="tab-pane fade" id="contracts" role="tabpanel" aria-labelledby="contracts-tab"><div id="contractsEditor"></div></div>
+        </div>
+    </div>
+    <div class="col-12">
+        <h5>Tools</h5>
+        <div class="form-group mb-4">
+            <button type="button" class="btn btn-outline-primary" @onclick="GetUpdatesDB">Get latest templates from server</button>
+            <button type="button" class="btn btn-primary" @onclick="SaveUpdatedDB">Save your work</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<Company> companies;
+    private List<Conference> conferences;
+    private List<Contract> contracts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        companies = await localStorage.GetItemAsync<List<Company>>("TemplateCompanies");
+        conferences = await localStorage.GetItemAsync<List<Conference>>("TemplateConferences");
+        contracts = await localStorage.GetItemAsync<List<Contract>>("TemplateContracts");
+
+        var companiesSchema = await Http.GetAsync("Data/companies-schema.json");
+        var conferencesSchema = await Http.GetAsync("Data/conferences-schema.json");
+        var contractsSchema = await Http.GetAsync("Data/contracts-schema.json");
+
+        await JS.InvokeVoidAsync("setUpTemplateEditors", await companiesSchema.Content.ReadAsStringAsync(), await conferencesSchema.Content.ReadAsStringAsync(), await contractsSchema.Content.ReadAsStringAsync());
+        await JS.InvokeVoidAsync("updateTemplateEditorsContent", "companies", JsonSerializer.Serialize(companies));
+        await JS.InvokeVoidAsync("updateTemplateEditorsContent", "conferences", JsonSerializer.Serialize(conferences));
+        await JS.InvokeVoidAsync("updateTemplateEditorsContent", "contracts", JsonSerializer.Serialize(contracts));
+    }
+
+    async Task GetUpdatesDB()
+    {
+        companies = await Http.GetFromJsonAsync<List<Company>>("Data/companies.json?time=" + DateTime.Now);
+        conferences = await Http.GetFromJsonAsync<List<Conference>>("Data/conferences.json?time=" + DateTime.Now);
+        contracts = await Http.GetFromJsonAsync<List<Contract>>("Data/contracts.json?time=" + DateTime.Now);
+        AppInfo appInfo = await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json?time=" + DateTime.Now);
+
+        await CommitChangesToDB();
+        await localStorage.SetItemAsync("TemplateAppInfo", appInfo);
+    }
+
+    async Task SaveUpdatedDB()
+    {
+        companies = await JS.InvokeAsync<List<Company>>("getTemplateEditorContent", "companies");
+        conferences = await JS.InvokeAsync<List<Conference>>("getTemplateEditorContent", "conferences");
+        contracts = await JS.InvokeAsync<List<Contract>>("getTemplateEditorContent", "contracts");
+
+        await CommitChangesToDB();
+    }
+
+    async Task CommitChangesToDB()
+    {
+        await localStorage.SetItemAsync("TemplateCompanies", companies);
+        await localStorage.SetItemAsync("TemplateConferences", conferences);
+        await localStorage.SetItemAsync("TemplateContracts", contracts);
+
+        await JS.InvokeVoidAsync("updateTemplateEditorsContent", "companies", JsonSerializer.Serialize(companies));
+        await JS.InvokeVoidAsync("updateTemplateEditorsContent", "conferences", JsonSerializer.Serialize(conferences));
+        await JS.InvokeVoidAsync("updateTemplateEditorsContent", "contracts", JsonSerializer.Serialize(contracts));
+    }
+}

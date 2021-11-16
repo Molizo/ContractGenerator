@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Companies",
+  "type": "array",
+  "items": {
+    "title": "Company",
+    "type": "object",
+    "properties": {
+      "Name": {
+        "type": "string"
+      },
+      "Address": {
+        "type": "string"
+      },
+      "City": {
+        "type": "string"
+      },
+      "CIF": {
+        "type": "string"
+      },
+      "IBAN": {
+        "type": "string"
+      },
+      "BankName": {
+        "type": "string"
+      },
+      "SWIFT": {
+        "type": "string"
+      },
+      "RepresentativeName": {
+        "type": "string"
+      },
+      "RepresentativeTitle": {
+        "type": "string"
+      },
+      "OtherInfoHeader": {
+        "type": "string"
+      },
+      "OtherInfoBeneficiary": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "Name",
+      "Address",
+      "City",
+      "CIF",
+      "IBAN",
+      "BankName",
+      "SWIFT",
+      "RepresentativeName",
+      "RepresentativeTitle",
+      "OtherInfoHeader",
+      "OtherInfoBeneficiary"
+    ]
+  }
+}

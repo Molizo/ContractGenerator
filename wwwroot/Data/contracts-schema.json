@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Contracts",
+  "type": "array",
+  "items": {
+    "title": "Contract",
+    "type": "object",
+    "properties": {
+      "FriendlyName": {
+        "type": "string"
+      },
+      "Name": {
+        "type": "string"
+      },
+      "Number": {
+        "type": "string"
+      },
+      "Date": {
+        "type": "string"
+      },
+      "Clauses": {
+        "title": "Clauses",
+        "type": "array",
+        "items": {
+          "title": "Clause",
+          "type": "object",
+          "properties": {
+            "Name": {
+              "type": "string"
+            },
+            "Content": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "Name",
+            "Content"
+          ]
+        }
+      },
+      "Fields": {
+        "title": "Variable Fields",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "Field",
+          "properties": {
+            "Name": {
+              "type": "string"
+            },
+            "Placeholder": {
+              "type": "string"
+            },
+            "Content": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "Name",
+            "Placeholder",
+            "Content"
+          ]
+        }
+      }
+    },
+    "required": [
+      "FriendlyName",
+      "Name",
+      "Number",
+      "Date",
+      "Clauses",
+      "Fields"
+    ]
+  }
+}

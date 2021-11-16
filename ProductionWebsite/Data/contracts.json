@@ -73,7 +73,7 @@
       "Fields":[
          {
             "Name":"Requested Money",
-            "PlaceHolder":"0 RON",
+            "Placeholder":"0 RON",
             "Content":""
          }
       ]
@@ -106,7 +106,7 @@
          },
          {
             "Name":"II. DURATA CONTRACTULUI",
-            "Content":"Prezentul contract de sponsorizare este valabil incepand cu data semnarii pana la momentul incheierii conferintei {ConferenceName}."
+            "Content":"Prezentul contract de sponsorizare este valabil incepand cu data semnarii pana la momentul incheierii evenimentului {ConferenceName}."
          },
          {
             "Name":"III. DREPTURI SIOBLIGATII ALE SPONSORULUI",
@@ -152,7 +152,7 @@
       "Fields":[
          {
             "Name":"Requested Goods",
-            "PlaceHolder":"10 bucati de lanyard-uri, 15 bucati de memory stick-uri si 40kg de suc",
+            "Placeholder":"10 bucati de lanyard-uri, 15 bucati de memory stick-uri si 40kg de suc",
             "Content":""
          }
       ]
@@ -231,7 +231,7 @@
       "Fields":[
          {
             "Name":"Requested Money",
-            "PlaceHolder":"0 RON",
+            "Placeholder":"0 RON",
             "Content":""
          }
       ]
