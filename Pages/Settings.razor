@@ -5,6 +5,7 @@
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IJSRuntime JS
 @inject NavigationManager Nav
+@using System.Text;
 
 <PageTitle>Settings</PageTitle>
 <h1>Settings</h1>
@@ -16,7 +17,9 @@
         <hr/>
         @if (appInfoLocal == null)
         {
-            <p><em>Loading...</em></p>
+            <div class="alert alert-primary" role="alert">
+                Loading...
+            </div>
         }
         else
         {
@@ -57,6 +60,13 @@
         <button type="button" class="btn btn-danger m-1" @onclick="ClearHistory">Clear history and templates</button>
 		<button type="button" class="btn btn-danger m-1" @onclick="ClearSW">Clear service worker</button>
     </div>
+    <div class="col-md-4">
+        <h5>Export data</h5>
+        <hr />
+        <button type="button" class="btn btn-primary m-1" @onclick='() => ExportTemplates("Companies")'>companies.json</button>
+        <button type="button" class="btn btn-primary m-1" @onclick='() => ExportTemplates("Conferences")'>conferences.json</button>
+		<button type="button" class="btn btn-primary m-1" @onclick='() => ExportTemplates("Contracts")'>contracts.json</button>
+    </div>
 </div>
 
 
@@ -68,6 +78,10 @@
     {
         appInfoLatest = await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json?time=" + DateTime.Now);
         appInfoLocal = await localStorage.GetItemAsync<AppInfo>("TemplateAppInfo");
+
+        if (appInfoLocal == null)
+            await UpdateDB();
+
     }
 
     async Task ClearHistory()
@@ -76,13 +90,13 @@
 
         Nav.NavigateTo("/");
     }
-	
-	async Task ClearSW()
-	{
-		await JS.InvokeVoidAsync("forceUnregisterSW");
+
+    async Task ClearSW()
+    {
+        await JS.InvokeVoidAsync("forceUnregisterSW");
 
         Nav.NavigateTo("/");
-	}
+    }
 
     async Task UpdateDB()
     {
@@ -92,5 +106,17 @@
         await localStorage.SetItemAsync("TemplateAppInfo", await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json?time=" + DateTime.Now));
 
         Nav.NavigateTo("/");
+    }
+
+    async Task ExportTemplates(string type)
+    {
+        JsonSerializerOptions jso = new JsonSerializerOptions();
+        jso.WriteIndented = true;
+        jso.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+
+        await JS.InvokeVoidAsync("saveFile",
+                            type.ToLower() + ".json",
+                            JsonSerializer.Serialize(await localStorage.GetItemAsStringAsync("Template" + type), jso).Replace("\\\"","\"").Trim('"')
+                        );
     }
 }

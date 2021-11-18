@@ -23,9 +23,6 @@
             <div class="alert alert-primary" role="alert">
                 Loading...
             </div>
-            <div class="alert alert-warning" role="alert">
-                It may be possible that no companies exist. If this is your first load of the app, please get the latest templates from the server.
-            </div>
         }
         else
         {
@@ -47,9 +44,6 @@
             {
                 <div class="alert alert-primary" role="alert">
                     Loading...
-                </div>
-                <div class="alert alert-warning" role="alert">
-                    It may be possible that no conferences exist. If this is your first load of the app, please get the latest templates from the server.
                 </div>
             }
             else
@@ -74,9 +68,6 @@
                 <div class="alert alert-primary" role="alert">
                     Loading...
                 </div>
-                <div class="alert alert-warning" role="alert">
-                    It may be possible that no contracts exist. If this is your first load of the app, please get the latest templates from the server.
-                </div>
             }
             else
             {
@@ -96,14 +87,32 @@
         @if(selectedContract != null)
         {
             <h5>Step 4: Fill in contract info</h5>
-            <div class="form-group">
-                <label>Contract Number</label>
-                <input @bind="@selectedContract.Number" class="form-control">
+            <div class="form-group form-check">
+              <input class="form-check-input" type="checkbox" @bind="addContractNumber">
+              <label class="form-check-label" for="flexCheckDefault">
+                Add contract number
+              </label>
             </div>
-            <div class="form-group">
-                <label>Contract Date</label>
-                <input @bind="@selectedContract.Date" class="form-control">
+            @if (addContractNumber)
+            {
+                <div class="form-group">
+                    <label>Contract Number</label>
+                    <input @bind="@selectedContract.Number" class="form-control">
+                </div>
+            }
+            <div class="form-group form-check">
+              <input class="form-check-input" type="checkbox" @bind="addContractDate" @onclick="SetContractDateToToday">
+              <label class="form-check-label" for="flexCheckDefault">
+                Add contract date
+              </label>
             </div>
+            @if (addContractDate)
+            {
+                <div class="form-group">
+                    <label>Contract Date</label>
+                    <input @bind="@selectedContract.Date" class="form-control">
+                </div>
+            }
             @foreach(var field in selectedContract.Fields)
             {
                 <div class="form-group">
@@ -123,13 +132,20 @@
             @if (previewedContract)
             {
                 <button type="button" @onclick="ExportContract" class="btn btn-primary mx-1">Export contract</button>
+            
             }
         }
     </div>
-    <div class="col-md-6">
-        <h5>Document Preview</h5>
-        <iframe id="pdfPreviewFrame" src="" style="width:100%; height:70vh;"></iframe>
-    </div>
+    @if (previewedContract)
+    {
+        <div class="col-md-6">
+            <h5>Document Preview</h5>
+            <div class="alert alert-secondary" role="alert">
+                You may edit the document by clicking into the text
+            </div>
+            <iframe id="pdfPreviewFrame" src="" style="width:100%; height:80vh;"></iframe>
+        </div>
+    }
 </div>
 
 @code {
@@ -141,11 +157,17 @@
     private Contract selectedContract;
     private bool previewedContract = false;
 
+    private bool addContractNumber = false;
+    private bool addContractDate = false;
+
     protected override async Task OnInitializedAsync()
     {
         companies = await localStorage.GetItemAsync<List<Company>>("TemplateCompanies");
         conferences = await localStorage.GetItemAsync<List<Conference>>("TemplateConferences");
         contracts = await localStorage.GetItemAsync<List<Contract>>("TemplateContracts");
+
+        if (companies == null && conferences == null && contracts == null)
+            await UpdateDB();
     }
 
     void OnSelectCompany(ChangeEventArgs e)
@@ -168,6 +190,13 @@
 
     async Task PreviewContract()
     {
+        previewedContract = true;
+
+        if (!addContractNumber)
+            selectedContract.Number = "________";
+        if (!addContractDate)
+            selectedContract.Date = "________________";
+
         ContractBundle cb = new ContractBundle();
         cb.Company = selectedCompany;
         cb.Conference = selectedConference;
@@ -181,7 +210,6 @@
         cblist.Add(cb);
         await localStorage.SetItemAsync("ContractBundles", cblist);
 
-        previewedContract = true;
         //await JS.InvokeVoidAsync("open", "/ExportContract", "_blank");
         await JS.InvokeVoidAsync("setIFrame", "pdfPreviewFrame", "/ExportContract");
     }
@@ -206,5 +234,10 @@
         selectedCompany = null;
         selectedConference = null;
         selectedContract = null;
+    }
+
+    async Task SetContractDateToToday()
+    {
+        selectedContract.Date = DateTime.Today.ToString("yyyy MMMM dd");
     }
 }

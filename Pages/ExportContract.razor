@@ -65,6 +65,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await JS.InvokeVoidAsync("toggleDesignMode", true);
+
         ContractBundle cb = await localStorage.GetItemAsync<ContractBundle>("SelectedContractBundle");
         company = cb.Company;
         conference = cb.Conference;
