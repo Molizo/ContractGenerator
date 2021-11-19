@@ -1,5 +1,6 @@
 ﻿@page "/CreateContract"
 @using ContractGenerator.Models
+@using System.Reflection
 @inject HttpClient Http
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IJSRuntime JS
@@ -10,143 +11,210 @@
 
 <div class="row mb-5">
     <div class="col-md-6">
-        <h5>Step 0 (optional): Update templates</h5>
-        <div class="form-group mb-4">
-            <div class="alert alert-warning" role="alert">
-                Getting the latest templates will erase your custom ones.
+        <div class="mb-4">
+            <h5>Step 0 (optional): Update templates</h5>
+            <div class="form-group">
+                <div class="alert alert-warning" role="alert">
+                    Getting the latest templates will erase your custom ones.
+                </div>
+                <button type="button" class="btn btn-secondary" @onclick="UpdateDB">Get latest templates from server</button>
             </div>
-            <button type="button" class="btn btn-secondary" @onclick="UpdateDB">Get latest templates from server</button>
         </div>
-        <h5>Step 1: Choose a company</h5>
-        @if (companies == null)
-        {
-            <div class="alert alert-primary" role="alert">
-                Loading...
-            </div>
-        }
-        else
-        {
-            <div class="form-group mb-4">
-                <select class="form-control" @onchange="OnSelectCompany">
-                    <option value=''>Select a company</option>
-                    @foreach(var company in companies)
+        
+        <div class="mb-4">
+            <h5>Step 1: Choose a company</h5>
+            @if (companies == null)
+            {
+                <div class="alert alert-primary" role="alert">
+                    Loading...
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <select class="form-control" @onchange="OnSelectCompany">
+                        <option value=''>Select a company</option>
+                        @foreach(var company in companies)
+                        {
+                            <option value='@company.Name'>@company.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group form-check">
+                  <input class="form-check-input" type="checkbox" @bind="customizeCompanyDetails">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Customize company details
+                  </label>
+                </div>
+                @if (customizeCompanyDetails && selectedCompany != null)
+                {
+                    List<PropertyInfo> companyProperties = selectedCompany.GetType().GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(prop => prop.GetValue(selectedCompany) != null).ToList();
+                
+                    <div class="card">
+                      <h5 class="card-header">Customize company info for @selectedCompany.Name</h5>
+                      <div class="card-body">
+                        <p class="card-text">
+                            @foreach(var p in companyProperties)
+                            {
+                                <div class="form-group">
+                                    <label>@p.Name</label>
+                                    <input value="@p.GetValue(selectedCompany).ToString()" @onchange='(ChangeEventArgs e)=>p.SetValue(selectedCompany, Convert.ChangeType(e.Value, p.PropertyType))' class="form-control">
+                                </div>
+                            }
+                        </p>
+                      </div>
+                    </div>
+                }
+            }
+        </div>
+        
+        <div class="mb-4">
+            @if(selectedCompany != null)
+            {
+                <h5>Step 2: Choose a conference</h5>
+                @if(conferences == null)
+                {
+                    <div class="alert alert-primary" role="alert">
+                        Loading...
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <select class="form-control" @onchange="OnSelectConference">
+                            <option value=''>Select a conference</option>
+                            @foreach(var conference in conferences)
+                            {
+                                <option value='@conference.Name'>@conference.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group form-check">
+                      <input class="form-check-input" type="checkbox" @bind="customizeConferenceDetails">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Customize conference details
+                      </label>
+                    </div>
+                    @if (customizeConferenceDetails && selectedConference != null)
                     {
-                        <option value='@company.Name'>@company.Name</option>
+                        List<PropertyInfo> conferenceProperties = selectedConference.GetType().GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(prop => prop.GetValue(selectedConference) != null).ToList();
+                
+                        <div class="card">
+                          <h5 class="card-header">Customize conference info for @selectedConference.Name</h5>
+                          <div class="card-body">
+                            <p class="card-text">
+                                @foreach(var p in conferenceProperties)
+                                {
+                                    <div class="form-group">
+                                        <label>@p.Name</label>
+                                        <input value="@p.GetValue(selectedConference).ToString()" @onchange='(ChangeEventArgs e)=>p.SetValue(selectedConference, Convert.ChangeType(e.Value, p.PropertyType))' class="form-control">
+                                    </div>
+                                }
+                            </p>
+                          </div>
+                        </div>
                     }
-                </select>
-            </div>
-        }
-
-        @if(selectedCompany != null)
-        {
-            <h5>Step 2: Choose a conference</h5>
-            @if(conferences == null)
-            {
-                <div class="alert alert-primary" role="alert">
-                    Loading...
-                </div>
+                }
             }
-            else
+        </div>
+        
+        <div class="mb-4">
+            @if(selectedConference != null)
             {
-                <div class="form-group mb-4">
-                    <select class="form-control" @onchange="OnSelectConference">
-                        <option value=''>Select a conference</option>
-                        @foreach(var conference in conferences)
-                        {
-                            <option value='@conference.Name'>@conference.Name</option>
-                        }
-                    </select>
-                </div>
+                <h5>Step 3: Choose a contract type</h5>
+                @if(contracts == null)
+                {
+                    <div class="alert alert-primary" role="alert">
+                        Loading...
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <select class="form-control" @onchange="OnSelectContract">
+                            <option value=''>Select a contract</option>
+                            @foreach(var contract in contracts)
+                            {
+                                <option value='@contract.FriendlyName'>@contract.FriendlyName</option>
+                            }
+                        </select>
+                    </div>
+                }
             }
-        }
-
-        @if(selectedConference != null)
-        {
-            <h5>Step 3: Choose a contract type</h5>
-            @if(contracts == null)
-            {
-                <div class="alert alert-primary" role="alert">
-                    Loading...
-                </div>
-            }
-            else
-            {
-                <div class="form-group mb-4">
-                    <select class="form-control" @onchange="OnSelectContract">
-                        <option value=''>Select a contract</option>
-                        @foreach(var contract in contracts)
-                        {
-                            <option value='@contract.FriendlyName'>@contract.FriendlyName</option>
-                        }
-                    </select>
-                </div>
-            }
-        }
+        </div>
     
-
-        @if(selectedContract != null)
-        {
-            <h5>Step 4: Fill in contract info</h5>
-            <div class="form-group form-check">
-              <input class="form-check-input" type="checkbox" @bind="addContractNumber">
-              <label class="form-check-label" for="flexCheckDefault">
-                Add contract number
-              </label>
-            </div>
-            @if (addContractNumber)
+        <div class="mb-4">
+            @if(selectedContract != null)
             {
-                <div class="form-group">
-                    <label>Contract Number</label>
-                    <input @bind="@selectedContract.Number" class="form-control">
+                <h5>Step 4: Fill in contract info</h5>
+                <div class="form-group form-check">
+                  <input class="form-check-input" type="checkbox" @bind="addContractNumber">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Add contract number
+                  </label>
                 </div>
-            }
-            <div class="form-group form-check">
-              <input class="form-check-input" type="checkbox" @bind="addContractDate" @onclick="SetContractDateToToday">
-              <label class="form-check-label" for="flexCheckDefault">
-                Add contract date
-              </label>
-            </div>
-            @if (addContractDate)
-            {
-                <div class="form-group">
-                    <label>Contract Date</label>
-                    <input @bind="@selectedContract.Date" class="form-control">
+                @if (addContractNumber)
+                {
+                    <div class="form-group">
+                        <label>Contract Number</label>
+                        <input @bind="@selectedContract.Number" class="form-control">
+                    </div>
+                }
+                <div class="form-group form-check">
+                  <input class="form-check-input" type="checkbox" @bind="addContractDate" @onclick="SetContractDateToToday">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Add contract date
+                  </label>
                 </div>
+                @if (addContractDate)
+                {
+                    <div class="form-group">
+                        <label>Contract Date</label>
+                        <input @bind="@selectedContract.Date" class="form-control">
+                    </div>
+                }
+                @foreach(var field in selectedContract.Fields)
+                {
+                    <div class="form-group">
+                        <label>@field.Name</label>
+                        <input placeholder="@field.Placeholder" @bind="@field.Content" class="form-control">
+                    </div>
+                }
             }
-            @foreach(var field in selectedContract.Fields)
-            {
-                <div class="form-group">
-                    <label>@field.Name</label>
-                    <input placeholder="@field.Placeholder" @bind="@field.Content" class="form-control">
+        </div>
+        
+        <div class="mb-4">
+            @if(selectedContract != null && selectedContract.Fields.All(f=>f.Content != "")){
+                <h5>Step 5: Generate the contract</h5>
+                <div class="alert alert-primary" role="alert">
+                    By clicking <kbd>Preview Contract</kbd> you will be presented with the contract. After the document loads, press <kbd>Export Contract</kbd> to save as PDF.
                 </div>
-            }
-            <div class="mb-4"></div>
-        }
-
-        @if(selectedContract != null && selectedContract.Fields.All(f=>f.Content != "")){
-            <h5>Step 5: Generate the contract</h5>
-            <div class="alert alert-primary" role="alert">
-                By clicking <kbd>Preview Contract</kbd> you will be presented with the contract. After the document loads, press <kbd>Export Contract</kbd> to save as PDF.
-            </div>
-            <button type="button" @onclick="PreviewContract" class="btn btn-primary">Preview contract</button>
-            @if (previewedContract)
-            {
-                <button type="button" @onclick="ExportContract" class="btn btn-primary mx-1">Export contract</button>
+                <div class="alert alert-secondary" role="alert">
+                    <p>You may edit the document by clicking into the text</p>
+                    <p>Use <kbd>CTRL + B</kbd> or <kbd>CMD + B</kbd> to make text <b>bold</b></p>
+                    <p>Use <kbd>CTRL + I</kbd> or <kbd>CMD + I</kbd> to make text <i>italic</i></p>
+                    <p>Use <kbd>CTRL + U</kbd> or <kbd>CMD + U</kbd> to make text <u>underline</u></p>
+                </div>
+                <button type="button" @onclick="PreviewContract" class="btn btn-primary">Preview contract</button>
+                @if (previewedContract)
+                {
+                    <button type="button" @onclick="ExportContract" class="btn btn-primary mx-1">Export contract</button>
             
+                }
             }
-        }
+        </div>
     </div>
     @if (previewedContract)
     {
         <div class="col-md-6">
             <h5>Document Preview</h5>
-            <div class="alert alert-secondary" role="alert">
-                You may edit the document by clicking into the text
-            </div>
-            <iframe id="pdfPreviewFrame" src="" style="width:100%; height:80vh;"></iframe>
+            <iframe id="pdfPreviewFrame" src="" style="width:100%; height:90%;"></iframe>
         </div>
     }
 </div>
+
 
 @code {
     private List<Company> companies;
@@ -159,6 +227,8 @@
 
     private bool addContractNumber = false;
     private bool addContractDate = false;
+    private bool customizeCompanyDetails = false;
+    private bool customizeConferenceDetails = false;
 
     protected override async Task OnInitializedAsync()
     {
