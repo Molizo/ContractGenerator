@@ -1,3 +1,4 @@
+using Blazor.Analytics;
 using Blazored.LocalStorage;
 using ContractGenerator;
 using Microsoft.AspNetCore.Components.Web;
@@ -8,6 +9,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddGoogleAnalytics("G-JZQY4JQYRH");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
