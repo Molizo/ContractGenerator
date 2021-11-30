@@ -5,7 +5,8 @@
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IJSRuntime JS
 @inject NavigationManager Nav
-@using System.Text;
+@using System.Text
+@inject Blazor.Analytics.IAnalytics Analytics
 
 <PageTitle>Settings</PageTitle>
 <h1>Settings</h1>
@@ -82,6 +83,7 @@
         if (appInfoLocal == null)
             await UpdateDB();
 
+        await Analytics.TrackEvent("[Settings] Initialized Settings");
     }
 
     async Task ClearHistory()
@@ -89,6 +91,8 @@
         await localStorage.ClearAsync();
 
         Nav.NavigateTo("/");
+
+        await Analytics.TrackEvent("[Settings] Cleared history");
     }
 
     async Task ClearSW()
@@ -96,6 +100,8 @@
         await JS.InvokeVoidAsync("forceUnregisterSW");
 
         Nav.NavigateTo("/");
+
+        await Analytics.TrackEvent("[Settings] Cleared service worker");
     }
 
     async Task UpdateDB()
@@ -106,6 +112,8 @@
         await localStorage.SetItemAsync("TemplateAppInfo", await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json?time=" + DateTime.Now));
 
         Nav.NavigateTo("/");
+
+        await Analytics.TrackEvent("[Settings] Updated database");
     }
 
     async Task ExportTemplates(string type)
@@ -118,5 +126,7 @@
                             type.ToLower() + ".json",
                             JsonSerializer.Serialize(await localStorage.GetItemAsStringAsync("Template" + type), jso).Replace("\\\"","\"").Trim('"')
                         );
+
+        await Analytics.TrackEvent("[Settings] Exported template",type);
     }
 }

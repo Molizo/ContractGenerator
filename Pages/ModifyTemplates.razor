@@ -4,6 +4,7 @@
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IJSRuntime JS
 @using System.Text.Json
+@inject Blazor.Analytics.IAnalytics Analytics
 
 <PageTitle>Modify Templates</PageTitle>
 <h1>Modify Templates</h1>
@@ -63,6 +64,8 @@
         await JS.InvokeVoidAsync("updateTemplateEditorsContent", "companies", JsonSerializer.Serialize(companies));
         await JS.InvokeVoidAsync("updateTemplateEditorsContent", "conferences", JsonSerializer.Serialize(conferences));
         await JS.InvokeVoidAsync("updateTemplateEditorsContent", "contracts", JsonSerializer.Serialize(contracts));
+        
+        await Analytics.TrackEvent("[ModifyTemplates] Initialized ModifyTemplates");
     }
 
     async Task GetUpdatesDB()
@@ -74,6 +77,8 @@
 
         await CommitChangesToDB();
         await localStorage.SetItemAsync("TemplateAppInfo", appInfo);
+
+        await Analytics.TrackEvent("[ModifyTemplates] Updated database");
     }
 
     async Task SaveUpdatedDB()
@@ -83,6 +88,8 @@
         contracts = await JS.InvokeAsync<List<Contract>>("getTemplateEditorContent", "contracts");
 
         await CommitChangesToDB();
+
+        await Analytics.TrackEvent("[ModifyTemplates] Saved modified database");
     }
 
     async Task CommitChangesToDB()
@@ -94,5 +101,7 @@
         await JS.InvokeVoidAsync("updateTemplateEditorsContent", "companies", JsonSerializer.Serialize(companies));
         await JS.InvokeVoidAsync("updateTemplateEditorsContent", "conferences", JsonSerializer.Serialize(conferences));
         await JS.InvokeVoidAsync("updateTemplateEditorsContent", "contracts", JsonSerializer.Serialize(contracts));
+
+        await Analytics.TrackEvent("[ModifyTemplates] Committed modified database");
     }
 }

@@ -4,6 +4,7 @@
 @inject HttpClient Http
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IJSRuntime JS
+@inject Blazor.Analytics.IAnalytics Analytics
 
 <PageTitle>Create a contract</PageTitle>
 <h1>Create a contract</h1>
@@ -238,6 +239,8 @@
 
         if (companies == null && conferences == null && contracts == null)
             await UpdateDB();
+
+        await Analytics.TrackEvent("[CreateContract] Initialized CreateContract");
     }
 
     void OnSelectCompany(ChangeEventArgs e)
@@ -245,17 +248,23 @@
         selectedCompany = companies.Find(c => c.Name == e.Value.ToString());
         selectedConference = null;
         selectedContract = null;
+
+        Analytics.TrackEvent("[CreateContract] Selected a company");
     }
 
     void OnSelectConference(ChangeEventArgs e)
     {
         selectedConference = conferences.Find(c => c.Name == e.Value.ToString());
         selectedContract = null;
+
+        Analytics.TrackEvent("[CreateContract] Selected a conference");
     }
 
     void OnSelectContract(ChangeEventArgs e)
     {
         selectedContract = contracts.Find(c => c.FriendlyName == e.Value.ToString());
+
+        Analytics.TrackEvent("[CreateContract] Selected a contract");
     }
 
     async Task PreviewContract()
@@ -282,11 +291,14 @@
 
         //await JS.InvokeVoidAsync("open", "/ExportContract", "_blank");
         await JS.InvokeVoidAsync("setIFrame", "pdfPreviewFrame", "/ExportContract");
+
+        await Analytics.TrackEvent("[CreateContract] Previewed a contract");
     }
 
     async Task ExportContract()
     {
         await JS.InvokeVoidAsync("saveIFrameAsPDF", "pdfPreviewFrame", selectedConference.Name + " " + selectedContract.FriendlyName + ".pdf");
+        await Analytics.TrackEvent("[CreateContract] Exported a contract");
     }
 
     async Task UpdateDB()
@@ -304,6 +316,8 @@
         selectedCompany = null;
         selectedConference = null;
         selectedContract = null;
+
+        await Analytics.TrackEvent("[CreateContract] Updated database");
     }
 
     async Task SetContractDateToToday()

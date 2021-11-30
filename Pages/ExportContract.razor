@@ -4,6 +4,7 @@
 @using System.Reflection
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IJSRuntime JS
+@inject Blazor.Analytics.IAnalytics Analytics
 
 @if(company != null && conference != null && contract != null)
 {
@@ -103,6 +104,8 @@
         ContractNumberField.Name = "ContractNumber";
         ContractNumberField.Content = contract.Number;
         contract.Fields.Add(ContractNumberField);
+
+        await Analytics.TrackEvent("[ExportContract] Initialized ExportContract");
     }
 
     string ReplaceFields(string content)

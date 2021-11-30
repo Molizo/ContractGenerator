@@ -16,10 +16,23 @@
 
 <body>
     <div id="app">
+        <div class="container-fluid">
+            <div class="row text-center" style="height: 100vh; font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';">
+                <div class="col-12 p-5">
+                    <h1 class="display-4">Conference Contract Generator</h1>
+                </div>
+                <div class="col-12 align-self-end">
+                    <img src="loading.gif">
+                    <p class="lead pb-5">Please wait, loading resources...</p>
+                </div>
+            </div>
+        </div>
+        <!--
         <div style="position:absolute; top:30vh; width:100%; text-align:center">
             <h1>Conference Contract Generator</h1>
             <p>The application is loading...</p>
         </div>
+        -->
     </div>
 
     <div id="blazor-error-ui">
@@ -67,18 +80,19 @@
         }
     </script>
 
-	<script>
-		function forceUnregisterSW(){
-			if ('serviceWorker' in navigator) {
-				navigator.serviceWorker.getRegistrations().then(function(registrations) {
-				for(let registration of registrations) {
-						registration.unregister()
-				}}).catch(function(err) {
-					console.log('Service Worker registration failed: ', err);
-				});
-			}
-		}
-	</script>
+    <script>
+        function forceUnregisterSW() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(function (registrations) {
+                    for (let registration of registrations) {
+                        registration.unregister()
+                    }
+                }).catch(function (err) {
+                    console.log('Service Worker registration failed: ', err);
+                });
+            }
+        }
+    </script>
 
     <script>
         var companiesEditor, conferencesEditor, contractsEditor;
@@ -99,7 +113,7 @@
         }
 
         function updateTemplateEditorsContent(editor, value) {
-            if(editor == "companies")
+            if (editor == "companies")
                 companiesEditor.setValue(JSON.parse(value));
             else if (editor == "conferences")
                 conferencesEditor.setValue(JSON.parse(value));
@@ -128,7 +142,7 @@
         }
 
         function toggleDesignMode(status) {
-            if(status)
+            if (status)
                 document.designMode = 'on';
             else
                 document.designMode = 'off';

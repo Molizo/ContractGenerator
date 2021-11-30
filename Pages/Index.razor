@@ -2,6 +2,7 @@
 @using ContractGenerator.Models
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IJSRuntime JS
+@inject Blazor.Analytics.IAnalytics Analytics
 
 <PageTitle>Home</PageTitle>
 <h1>Welcome to Conference Contract Generator!</h1>
@@ -56,6 +57,9 @@
         if (cblist == null)
             cblist = new List<ContractBundle>();
         cblist = cblist.OrderByDescending(c => c.CreatedAt).ToList();
+
+        
+        await Analytics.TrackEvent("[Index] Initialized Index");
     }
 
     async Task ViewContract(DateTime CreatedAt)
@@ -64,5 +68,8 @@
         await localStorage.SetItemAsync("SelectedContractBundle", cb);
         
         await JS.InvokeVoidAsync("open", "/ExportContract", "_blank");
+
+        
+        await Analytics.TrackEvent("[Index] Viewed saved contract");
     }
 }
