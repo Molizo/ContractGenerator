@@ -49,6 +49,8 @@
     <script src="modules/jsPDF/jspdf.umd.min.js"></script>
     <script src="modules/html2canvas.min.js"></script>
     <script src="modules/jsoneditor.js"></script>
+    <script src="modules/html-docx.js"></script>
+    <script src="modules/FileSaver.js"></script>
 
     <script>
         window.jsPDF = window.jspdf.jsPDF;
@@ -74,9 +76,48 @@
                 windowWidth: 700
             });
         }
+
+        function saveIFrameAsDOCX(iFrameID, name) {
+            var htmlString = new XMLSerializer().serializeToString(document.getElementById(iFrameID).contentDocument.children[0]);
+            htmlString = htmlString.replace('<div id="blazor-error-ui">\n        An unhandled error has occurred.\n        <a href="" class="reload">Reload</a>\n        <a class="dismiss">🗙</a>\n    </div>',' ');
+            var docxBlob = window.URL.createObjectURL(htmlDocx.asBlob(htmlString));
+            saveAs(docxBlob,name);
+        }
+
         function setIFrame(iframeID, url) {
             var f = document.getElementById(iframeID);
             f.src = url;
+        }
+
+        function getDataUrlForImg(img) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0,0,img.width,img.height);
+            ctx.drawImage(img, 0, 0);
+            return canvas.toDataURL('image/jpeg');
+        }
+
+        function replaceAllImgWithDataUrl() {
+            var img = document.getElementsByTagName('img');
+
+            for (var i = 0; i < img.length; i++) {
+                img[i].src = getDataUrlForImg(img[i]);
+            }
+        }
+
+        function replaceAllImgWithDataUrlInIFrame(iFrameID) {
+            document.getElementById(iFrameID).contentWindow.replaceAllImgWithDataUrl();
+        }
+
+        function removeAllImagesInIFrame(iFrameID) {
+            var img = document.getElementById(iFrameID).contentDocument.getElementsByTagName('img');
+
+            while (img[0]) {
+                img[0].parentNode.removeChild(img[0]);
+            }
         }
     </script>
 

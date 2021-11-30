@@ -190,7 +190,7 @@
             @if(selectedContract != null && selectedContract.Fields.All(f=>f.Content != "")){
                 <h5>Step 5: Generate the contract</h5>
                 <div class="alert alert-primary" role="alert">
-                    By clicking <kbd>Preview Contract</kbd> you will be presented with the contract. After the document loads, press <kbd>Export Contract</kbd> to save as PDF.
+                    By clicking <kbd>Preview Contract</kbd> you will be presented with the contract. After the document loads, press <kbd>Export Contract</kbd> to save as PDF or DOCX.
                 </div>
                 <div class="alert alert-secondary" role="alert">
                     <p>You may edit the document by clicking into the text</p>
@@ -198,11 +198,18 @@
                     <p>Use <kbd>CTRL + I</kbd> or <kbd>CMD + I</kbd> to make text <i>italic</i></p>
                     <p>Use <kbd>CTRL + U</kbd> or <kbd>CMD + U</kbd> to make text <u>underline</u></p>
                 </div>
-                <button type="button" @onclick="PreviewContract" class="btn btn-primary">Preview contract</button>
+                <button type="button" @onclick="PreviewContract" class="btn btn-primary mb-1">Preview contract</button>
                 @if (previewedContract)
                 {
-                    <button type="button" @onclick="ExportContract" class="btn btn-primary mx-1">Export contract</button>
-            
+                    <div class="dropdown">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuExportContract" data-bs-toggle="dropdown" aria-expanded="false">
+                        Export contract
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuExportContract">
+                        <li><button type="button" @onclick="ExportContractPDF" class="dropdown-item">PDF</button></li>
+                        <li><button type="button" @onclick="ExportContractDOCX" class="dropdown-item">DOCX</button></li>
+                      </ul>
+                    </div>
                 }
             }
         </div>
@@ -211,7 +218,7 @@
     {
         <div class="col-md-6">
             <h5>Document Preview</h5>
-            <iframe id="pdfPreviewFrame" src="" style="width:100%; height:90%;"></iframe>
+            <iframe id="documentPreviewFrame" src="" style="width:100%; height:90%;"></iframe>
         </div>
     }
 </div>
@@ -290,15 +297,22 @@
         await localStorage.SetItemAsync("ContractBundles", cblist);
 
         //await JS.InvokeVoidAsync("open", "/ExportContract", "_blank");
-        await JS.InvokeVoidAsync("setIFrame", "pdfPreviewFrame", "/ExportContract");
+        await JS.InvokeVoidAsync("setIFrame", "documentPreviewFrame", "/ExportContract");
 
         await Analytics.TrackEvent("[CreateContract] Previewed a contract");
     }
 
-    async Task ExportContract()
+    async Task ExportContractPDF()
     {
-        await JS.InvokeVoidAsync("saveIFrameAsPDF", "pdfPreviewFrame", selectedConference.Name + " " + selectedContract.FriendlyName + ".pdf");
-        await Analytics.TrackEvent("[CreateContract] Exported a contract");
+        await JS.InvokeVoidAsync("saveIFrameAsPDF", "documentPreviewFrame", selectedConference.Name + " " + selectedContract.FriendlyName + ".pdf");
+        await Analytics.TrackEvent("[CreateContract] Exported a contract as PDF");
+    }
+
+    async Task ExportContractDOCX()
+    {
+        await JS.InvokeVoidAsync("removeAllImagesInIFrame", "documentPreviewFrame");
+        await JS.InvokeVoidAsync("saveIFrameAsDOCX", "documentPreviewFrame", selectedConference.Name + " " + selectedContract.FriendlyName + ".docx");
+        await Analytics.TrackEvent("[CreateContract] Exported a contract as DOCX");
     }
 
     async Task UpdateDB()
