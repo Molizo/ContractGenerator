@@ -5,26 +5,30 @@
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IJSRuntime JS
 @inject Blazor.Analytics.IAnalytics Analytics
+@inject IDialogService DialogService
 
 <PageTitle>Create a contract</PageTitle>
-<h1>Create a contract</h1>
-<hr />
 
-<div class="row mb-5">
-    <div class="col-md-6">
-        <div class="mb-4">
-            <h5>Step 0 (optional): Update templates</h5>
-            <div class="form-group">
-                <div class="alert alert-warning" role="alert">
-                    Getting the latest templates will erase your custom ones.
-                </div>
-                <button type="button" class="btn btn-secondary" @onclick="UpdateDB">Get latest templates from server</button>
-            </div>
-        </div>
-        
-        <div class="mb-4">
-            <h5>Step 1: Choose a company</h5>
-            @if (companies == null)
+<MudText Typo="Typo.h3">Create a contract</MudText>
+
+<MudCard Class="my-5">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">Update templates</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudText Class="pb-2">Update your templates to get access to the latest contract types.</MudText>
+        <MudAlert Severity="Severity.Warning">Getting the latest templates will erase your custom ones.</MudAlert>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Variant="Variant.Text" Color="Color.Primary" @onclick="UpdateDB">Get latest templates from server</MudButton>
+    </MudCardActions>
+</MudCard>
+
+<MudExpansionPanels Class="my-5">
+    <MudExpansionPanel Text="@String.Concat("[Step 1] Select a company",selectedCompany!=null  ? String.Concat(" - ", selectedCompany.Name) : "")">
+        @if (companies == null)
             {
                 <div class="alert alert-primary" role="alert">
                     Loading...
@@ -32,22 +36,16 @@
             }
             else
             {
-                <div class="form-group">
-                    <select class="form-control" @onchange="OnSelectCompany">
-                        <option value=''>Select a company</option>
-                        @foreach(var company in companies)
-                        {
-                            <option value='@company.Name'>@company.Name</option>
-                        }
-                    </select>
-                </div>
 
-                <div class="form-group form-check">
-                  <input class="form-check-input" type="checkbox" @bind="customizeCompanyDetails">
-                  <label class="form-check-label" for="flexCheckDefault">
-                    Customize company details
-                  </label>
-                </div>
+                <MudSelect T="Company" @bind-Value="@selectedCompany" @onchange="OnSelectCompany" Label="Select a company" Variant="Variant.Outlined" ToStringFunc="@companyConverter" AnchorOrigin="Origin.BottomCenter">
+                    @foreach(var company in companies)
+                    {
+                        <MudSelectItem Value="@company" />
+                    }
+                </MudSelect>
+
+                <MudSwitch @bind-Checked="@customizeCompanyDetails" Label="Customize company details" Color="Color.Info" />
+
                 @if (customizeCompanyDetails && selectedCompany != null)
                 {
                     List<PropertyInfo> companyProperties = selectedCompany.GetType().GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(prop => prop.GetValue(selectedCompany) != null).ToList();
@@ -68,13 +66,11 @@
                     </div>
                 }
             }
-        </div>
-        
-        <div class="mb-4">
-            @if(selectedCompany != null)
-            {
-                <h5>Step 2: Choose a conference</h5>
-                @if(conferences == null)
+    </MudExpansionPanel>
+    @if(selectedCompany != null)
+    {
+    <MudExpansionPanel Text="@String.Concat("[Step 2] Select a conference",selectedConference!=null  ? String.Concat(" - ", selectedConference.Name) : "")">
+        @if(conferences == null)
                 {
                     <div class="alert alert-primary" role="alert">
                         Loading...
@@ -82,22 +78,17 @@
                 }
                 else
                 {
-                    <div class="form-group">
-                        <select class="form-control" @onchange="OnSelectConference">
-                            <option value=''>Select a conference</option>
-                            @foreach(var conference in conferences)
-                            {
-                                <option value='@conference.Name'>@conference.Name</option>
-                            }
-                        </select>
-                    </div>
+                    <MudSelect T="Conference" @bind-Value="@selectedConference" @onchange="OnSelectConference" Label="Select a conference" Variant="Variant.Outlined" ToStringFunc="@conferenceConverter" AnchorOrigin="Origin.BottomCenter">
+                    @foreach(var conference in conferences)
+                    {
+                        <MudSelectItem Value="@conference" />
+                    }
+                </MudSelect>
 
-                    <div class="form-group form-check">
-                      <input class="form-check-input" type="checkbox" @bind="customizeConferenceDetails">
-                      <label class="form-check-label" for="flexCheckDefault">
-                        Customize conference details
-                      </label>
-                    </div>
+
+                    
+                <MudSwitch @bind-Checked="@customizeConferenceDetails" Label="Customize conference details" Color="Color.Info" />
+
                     @if (customizeConferenceDetails && selectedConference != null)
                     {
                         List<PropertyInfo> conferenceProperties = selectedConference.GetType().GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(prop => prop.GetValue(selectedConference) != null).ToList();
@@ -118,14 +109,12 @@
                         </div>
                     }
                 }
-            }
-        </div>
-        
-        <div class="mb-4">
-            @if(selectedConference != null)
+    </MudExpansionPanel>
+    }
+    @if(selectedConference != null)
             {
-                <h5>Step 3: Choose a contract type</h5>
-                @if(contracts == null)
+    <MudExpansionPanel Text="@String.Concat("[Step 3] Fill in contract info",selectedContract!=null  ? String.Concat(" - ", selectedContract.FriendlyName) : "")">
+        @if(contracts == null)
                 {
                     <div class="alert alert-primary" role="alert">
                         Loading...
@@ -133,29 +122,18 @@
                 }
                 else
                 {
-                    <div class="form-group">
-                        <select class="form-control" @onchange="OnSelectContract">
-                            <option value=''>Select a contract</option>
-                            @foreach(var contract in contracts)
-                            {
-                                <option value='@contract.FriendlyName'>@contract.FriendlyName</option>
-                            }
-                        </select>
-                    </div>
+                    <MudSelect T="Contract" @bind-Value="@selectedContract" @onchange="OnSelectContract" Label="Select a contract" Variant="Variant.Outlined" ToStringFunc="@contractConverter" AnchorOrigin="Origin.BottomCenter">
+                    @foreach(var contract in contracts)
+                    {
+                        <MudSelectItem Value="@contract" />
+                    }
+                </MudSelect>
                 }
-            }
-        </div>
-    
-        <div class="mb-4">
-            @if(selectedContract != null)
+                @if(selectedContract != null)
             {
-                <h5>Step 4: Fill in contract info</h5>
-                <div class="form-group form-check">
-                  <input class="form-check-input" type="checkbox" @bind="addContractNumber">
-                  <label class="form-check-label" for="flexCheckDefault">
-                    Add contract number
-                  </label>
-                </div>
+
+                <MudSwitch @bind-Checked="@addContractNumber" Label="Add contract number" Color="Color.Info" />
+
                 @if (addContractNumber)
                 {
                     <div class="form-group">
@@ -163,18 +141,12 @@
                         <input @bind="@selectedContract.Number" class="form-control">
                     </div>
                 }
-                <div class="form-group form-check">
-                  <input class="form-check-input" type="checkbox" @bind="addContractDate" @onclick="SetContractDateToToday">
-                  <label class="form-check-label" for="flexCheckDefault">
-                    Add contract date
-                  </label>
-                </div>
+                
+                <MudSwitch @bind-Checked="@addContractDate" Label="Add contract date" Color="Color.Info" />
+
                 @if (addContractDate)
                 {
-                    <div class="form-group">
-                        <label>Contract Date</label>
-                        <input @bind="@selectedContract.Date" class="form-control">
-                    </div>
+                    <MudDatePicker Date="@selectedContractDateTime" PickerVariant="PickerVariant.Dialog" Label="Contract date" DateFormat="yyyy MMMM dd"/>
                 }
                 @foreach(var field in selectedContract.Fields)
                 {
@@ -183,45 +155,15 @@
                         <input placeholder="@field.Placeholder" @bind="@field.Content" class="form-control">
                     </div>
                 }
-            }
-        </div>
-        
-        <div class="mb-4">
-            @if(selectedContract != null && selectedContract.Fields.All(f=>f.Content != "")){
-                <h5>Step 5: Generate the contract</h5>
-                <div class="alert alert-primary" role="alert">
-                    By clicking <kbd>Preview Contract</kbd> you will be presented with the contract. After the document loads, press <kbd>Export Contract</kbd> to save as PDF or DOCX.
-                </div>
-                <div class="alert alert-secondary" role="alert">
-                    <p>You may edit the document by clicking into the text</p>
-                    <p>Use <kbd>CTRL + B</kbd> or <kbd>CMD + B</kbd> to make text <b>bold</b></p>
-                    <p>Use <kbd>CTRL + I</kbd> or <kbd>CMD + I</kbd> to make text <i>italic</i></p>
-                    <p>Use <kbd>CTRL + U</kbd> or <kbd>CMD + U</kbd> to make text <u>underline</u></p>
-                </div>
-                <button type="button" @onclick="PreviewContract" class="btn btn-primary mb-1">Preview contract</button>
-                @if (previewedContract)
-                {
-                    <div class="dropdown">
-                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuExportContract" data-bs-toggle="dropdown" aria-expanded="false">
-                        Export contract
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuExportContract">
-                        <li><button type="button" @onclick="ExportContractPDF" class="dropdown-item">PDF</button></li>
-                        <li><button type="button" @onclick="ExportContractDOCX" class="dropdown-item">DOCX</button></li>
-                      </ul>
-                    </div>
                 }
+    </MudExpansionPanel>
             }
-        </div>
-    </div>
-    @if (previewedContract)
-    {
-        <div class="col-md-6">
-            <h5>Document Preview</h5>
-            <iframe id="documentPreviewFrame" src="" style="width:100%; height:90%;"></iframe>
-        </div>
-    }
-</div>
+            @if(selectedContract != null && selectedContract.Fields.All(f=>f.Content != "")){
+            <MudExpansionPanel Text="[Step 4] Preview and export the contract">
+                <MudButton Color="Color.Primary" OnClick="PreviewContract">Preview contract</MudButton>
+            </MudExpansionPanel>
+            }
+</MudExpansionPanels>
 
 
 @code {
@@ -237,6 +179,7 @@
     private bool addContractDate = false;
     private bool customizeCompanyDetails = false;
     private bool customizeConferenceDetails = false;
+    private DateTime selectedContractDateTime;
 
     protected override async Task OnInitializedAsync()
     {
@@ -252,27 +195,30 @@
 
     void OnSelectCompany(ChangeEventArgs e)
     {
-        selectedCompany = companies.Find(c => c.Name == e.Value.ToString());
         selectedConference = null;
         selectedContract = null;
 
         Analytics.TrackEvent("[CreateContract] Selected a company");
     }
 
+    Func<Company,string> companyConverter = c => c?.Name;
+
     void OnSelectConference(ChangeEventArgs e)
     {
-        selectedConference = conferences.Find(c => c.Name == e.Value.ToString());
         selectedContract = null;
 
         Analytics.TrackEvent("[CreateContract] Selected a conference");
     }
 
+    Func<Conference,string> conferenceConverter = c => c?.Name;
+
     void OnSelectContract(ChangeEventArgs e)
     {
-        selectedContract = contracts.Find(c => c.FriendlyName == e.Value.ToString());
-
+        selectedContractDateTime = DateTime.Now;
         Analytics.TrackEvent("[CreateContract] Selected a contract");
     }
+
+    Func<Contract,string> contractConverter = c => c?.FriendlyName;
 
     async Task PreviewContract()
     {
@@ -282,13 +228,14 @@
             selectedContract.Number = "________";
         if (!addContractDate)
             selectedContract.Date = "________________";
+        else
+            selectedContract.Date = selectedContractDateTime.ToString("yyyy MMMM dd");
 
         ContractBundle cb = new ContractBundle();
         cb.Company = selectedCompany;
         cb.Conference = selectedConference;
         cb.Contract = selectedContract;
         cb.CreatedAt = DateTime.Now;
-        await localStorage.SetItemAsync("SelectedContractBundle", cb);
 
         List<ContractBundle> cblist = await localStorage.GetItemAsync<List<ContractBundle>>("ContractBundles");
         if (cblist == null)
@@ -296,23 +243,11 @@
         cblist.Add(cb);
         await localStorage.SetItemAsync("ContractBundles", cblist);
 
-        //await JS.InvokeVoidAsync("open", "/ExportContract", "_blank");
-        await JS.InvokeVoidAsync("setIFrame", "documentPreviewFrame", "/ExportContract");
+        var param = new DialogParameters();
+        param.Add("cb", cb);
+        DialogService.Show<ExportContract>("Preview contract",param);
 
         await Analytics.TrackEvent("[CreateContract] Previewed a contract");
-    }
-
-    async Task ExportContractPDF()
-    {
-        await JS.InvokeVoidAsync("saveIFrameAsPDF", "documentPreviewFrame", selectedConference.Name + " " + selectedContract.FriendlyName + ".pdf");
-        await Analytics.TrackEvent("[CreateContract] Exported a contract as PDF");
-    }
-
-    async Task ExportContractDOCX()
-    {
-        await JS.InvokeVoidAsync("removeAllImagesInIFrame", "documentPreviewFrame");
-        await JS.InvokeVoidAsync("saveIFrameAsDOCX", "documentPreviewFrame", selectedConference.Name + " " + selectedContract.FriendlyName + ".docx");
-        await Analytics.TrackEvent("[CreateContract] Exported a contract as DOCX");
     }
 
     async Task UpdateDB()
@@ -334,8 +269,4 @@
         await Analytics.TrackEvent("[CreateContract] Updated database");
     }
 
-    async Task SetContractDateToToday()
-    {
-        selectedContract.Date = DateTime.Today.ToString("yyyy MMMM dd");
-    }
 }

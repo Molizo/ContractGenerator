@@ -3,53 +3,61 @@
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IJSRuntime JS
 @inject Blazor.Analytics.IAnalytics Analytics
+@inject IDialogService DialogService
 
 <PageTitle>Home</PageTitle>
-<h1>Welcome to Conference Contract Generator!</h1>
-<div class="alert alert-secondary" role="alert">
-    You may use this app to autogenerate contracts for your conferences by just following a few, quick steps. To get started, click <kbd>Create a contract</kbd> in the navigation bar.
-</div>
+
+<MudText Typo="Typo.h3">Home</MudText>
+
+<MudCard Class="my-5">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">Welcome to Conference Contract Generator!</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudText>You may use this app to autogenerate contracts for your conferences by just following a few, quick steps. To get started, click <kbd>Create a contract</kbd> below</MudText>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Variant="Variant.Text" Color="Color.Primary" Link="/CreateContract">Create a contract</MudButton>
+    </MudCardActions>
+</MudCard>
 
 @if (cblist != null)
 {
-    <h3>Your history</h3>
-    <hr/>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Created At
-                </th>
-                <th>
-                    Conference
-                </th>
-                <th>
-                    Company
-                </th>
-                <th>
-                    Contract Type
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var cb in cblist)
-            {
-                <tr>
-                    <td>@cb.CreatedAt</td>
-                    <td>@cb.Conference.Name</td>
-                    <td>@cb.Company.Name</td>
-                    <td>@cb.Contract.FriendlyName</td>
-                    <td><button type="button" @onclick="() => ViewContract(cb.CreatedAt)" class="btn btn-primary">View</button></td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <MudTable Class="my-5" Items="@cblist" Hover="true" Striped="true" Filter="new Func<ContractBundle,bool>(FilterFunc)">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Your history</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Created at</MudTh>
+        <MudTh>Conference</MudTh>
+        <MudTh>Company</MudTh>
+        <MudTh>Contract type</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Created at">@context.CreatedAt</MudTd>
+        <MudTd DataLabel="Conference">@context.Conference.Name</MudTd>
+        <MudTd DataLabel="Company">@context.Company.Name</MudTd>
+        <MudTd DataLabel="Contract type">@context.Contract.FriendlyName</MudTd>
+        <MudTd DataLabel="Actions"><MudButton Variant="Variant.Filled" @onclick="() => ViewContract(context.CreatedAt)">View</MudButton></MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
 }
+
 
 
 @code {
     public List<ContractBundle> cblist { get; set; }
+
+    private string searchString = "";
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -58,18 +66,34 @@
             cblist = new List<ContractBundle>();
         cblist = cblist.OrderByDescending(c => c.CreatedAt).ToList();
 
-        
+
         await Analytics.TrackEvent("[Index] Initialized Index");
     }
 
     async Task ViewContract(DateTime CreatedAt)
     {
         ContractBundle cb = cblist.Find(c => c.CreatedAt == CreatedAt);
-        await localStorage.SetItemAsync("SelectedContractBundle", cb);
-        
-        await JS.InvokeVoidAsync("open", "/ExportContract", "_blank");
+        //await localStorage.SetItemAsync("SelectedContractBundle", cb);
 
+        //await JS.InvokeVoidAsync("open", "/ExportContract", "_blank");
+
+        var param = new DialogParameters();
+        param.Add("cb", cb);
+        DialogService.Show<ExportContract>("Preview contract",param);
         
         await Analytics.TrackEvent("[Index] Viewed saved contract");
+    }
+
+    private bool FilterFunc(ContractBundle cb)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (cb.Company.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (cb.Conference.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (cb.Contract.FriendlyName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
     }
 }

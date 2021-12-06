@@ -12,3 +12,19 @@
         </LayoutView>
     </NotFound>
 </Router>
+
+@code{
+    protected override async Task OnInitializedAsync()
+    {
+        var assemName = "ContractGenerator";
+        var assembly = AppDomain
+            .CurrentDomain
+            .GetAssemblies()
+            .First(a => a.GetName().Name == assemName);
+
+        var licenseStream = assembly.GetManifestResourceStream($"{assemName}.Assemblies.AsposeLicense.lic");
+
+        Aspose.Words.License wordsLicense = new Aspose.Words.License();
+        wordsLicense.SetLicense(licenseStream);
+    }
+}

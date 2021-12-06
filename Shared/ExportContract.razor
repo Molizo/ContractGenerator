@@ -1,0 +1,250 @@
+﻿@using Aspose.Words
+@using Aspose.Words.Fonts
+@using Aspose.Words.Saving
+@using Aspose.Words.Tables
+@using ContractGenerator.Models
+@using System.Reflection
+@inject IJSRuntime JS
+@inject Blazor.Analytics.IAnalytics Analytics
+@inject HttpClient Http
+@using ContractGenerator.Utilities
+@using System.Text.Json
+@using static ContractGenerator.Utilities.Fonts
+
+<MudDialog>
+    <DialogContent>
+        <div id="documentViewer" style="height:60vh;">
+                <MudSkeleton />
+                <MudSkeleton SkeletonType="SkeletonType.Circle" Width="50px" Height="50px" />
+                <MudSkeleton />
+                <MudSkeleton SkeletonType="SkeletonType.Circle" Width="50px" Height="50px" />
+                <MudSkeleton />
+                <MudSkeleton />
+                <MudSkeleton />
+                <MudSkeleton />
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="ExportCB" Underline="MudBlazor.Underline.None">Save as CB</MudButton>
+        @if(DOCXBlobHref != null)
+        {
+            <MudButton Color="Color.Primary" Link="@DOCXBlobHref" download='@String.Concat(conference.Name," ",contract.FriendlyName,".docx")' Underline="MudBlazor.Underline.None">Save as DOCX</MudButton>
+        }
+        @if(PDFBlobHref != null)
+        {
+            <MudButton Color="Color.Primary" Link="@PDFBlobHref" download='@String.Concat(conference.Name," ",contract.FriendlyName,".pdf")' Underline="MudBlazor.Underline.None">Save as PDF</MudButton>
+        }
+        <MudButton Color="Color.Secondary" OnClick="() => MudDialog.Close(DialogResult.Ok(true))">Close</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [Parameter] public ContractBundle cb { get; set; }
+
+    private Company company { get; set; }
+    private Conference conference { get; set; }
+    private Contract contract { get; set; }
+    private string DOCXBlobHref { get; set; }
+    private string PDFBlobHref { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        MudDialog.Options.MaxWidth = MaxWidth.Medium;
+        MudDialog.Options.FullWidth = true;
+        MudDialog.SetOptions(MudDialog.Options);
+
+        company = cb.Company;
+        conference = cb.Conference;
+        contract = cb.Contract;
+
+        List<PropertyInfo> companyProperties = company.GetType().GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(prop => prop.GetValue(company) != null).ToList();
+        @foreach(var p in companyProperties)
+        {
+            ContractField f = new ContractField();
+            f.Name = "Company" + p.Name;
+            f.Content = p.GetValue(company).ToString();
+            @if (contract.Fields == null)
+                contract.Fields = new List<ContractField>();
+            contract.Fields.Add(f);
+        }
+
+        List<PropertyInfo> conferenceProperties = conference.GetType().GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(prop => prop.GetValue(conference) != null).ToList();
+        @foreach(var p in conferenceProperties)
+        {
+            ContractField f = new ContractField();
+            f.Name = "Conference" + p.Name;
+            f.Content = p.GetValue(conference).ToString();
+            @if (contract.Fields == null)
+                contract.Fields = new List<ContractField>();
+            contract.Fields.Add(f);
+        }
+
+        var ContractDateField = new ContractField();
+        ContractDateField.Name = "ContractDate";
+        ContractDateField.Content = contract.Date;
+        contract.Fields.Add(ContractDateField);
+
+        var ContractNumberField = new ContractField();
+        ContractNumberField.Name = "ContractNumber";
+        ContractNumberField.Content = contract.Number;
+        contract.Fields.Add(ContractNumberField);
+
+        await Analytics.TrackEvent("[ExportContract] Initialized ExportContract");
+
+        Document doc = await GenerateContract();
+
+        ExportDOCX(doc); 
+        ExportPDF(doc);   
+        ShowPreview(doc);
+    }
+
+    async Task<Document> GenerateContract()
+    {
+        Console.WriteLine("Generating contract: " + company.Name + " " + conference.Name + " " + contract.FriendlyName);
+        Document doc = new Document();
+        DocumentBuilder builder = new DocumentBuilder(doc);
+
+        doc.FontSettings = new FontSettings();
+        doc.FontSettings.SetFontsSources(new FontSourceBase[] { new StreamFontTimesNewRoman(), new StreamFontTimesNewRomanBold() });
+
+        PageSetup ps = builder.PageSetup;
+        ps.PaperSize = Aspose.Words.PaperSize.A4;
+        ps.Orientation = Aspose.Words.Orientation.Portrait;
+        ps.TopMargin = ConvertUtil.MillimeterToPoint(12.7);
+        ps.BottomMargin = ConvertUtil.MillimeterToPoint(12.7);
+        ps.LeftMargin = ConvertUtil.MillimeterToPoint(12.7);
+        ps.RightMargin = ConvertUtil.MillimeterToPoint(12.7);
+
+        Aspose.Words.Style clauseTextStyle = doc.Styles.Add(StyleType.Paragraph, "Clause Text Style");
+        clauseTextStyle.IsQuickStyle = true;
+        clauseTextStyle.Font.Size = 12;
+        clauseTextStyle.Font.SizeBi= 12;
+        clauseTextStyle.Font.Bold = false;
+        clauseTextStyle.Font.Name = "Times New Roman";
+        clauseTextStyle.ParagraphFormat.Alignment = ParagraphAlignment.Justify;
+        clauseTextStyle.ParagraphFormat.SpaceAfter = 20.00;
+
+        Aspose.Words.Style clauseNameStyle = doc.Styles.Add(StyleType.Paragraph, "Clause Name Style");
+        clauseNameStyle.IsQuickStyle = true;
+        clauseNameStyle.Font.Size = 14;
+        clauseNameStyle.Font.SizeBi= 14;
+        clauseNameStyle.Font.Bold = true;
+        clauseNameStyle.Font.Name = "Times New Roman";
+        clauseNameStyle.ParagraphFormat.Alignment = ParagraphAlignment.Justify;
+        clauseNameStyle.ParagraphFormat.SpaceAfter = 4.00;
+
+        byte[] logo = await Http.GetByteArrayAsync(conference.LogoFilePath);
+
+        builder.CellFormat.Borders.LineStyle = LineStyle.None;
+        builder.StartTable();
+
+        builder.InsertCell();
+        builder.InsertImage(logo,100,100);
+
+        builder.InsertCell();
+        builder.ParagraphFormat.Style = clauseNameStyle;
+        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;
+        builder.Writeln(company.Name);
+        builder.ParagraphFormat.Style = clauseTextStyle;
+        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;
+        builder.ParagraphFormat.SpaceAfter = 0.00;
+        builder.Writeln(company.Address);
+        builder.Writeln("CIF: "+company.CIF);
+        builder.Writeln("IBAN: "+company.IBAN+" "+company.BankName);
+        builder.Writeln("SWIFT Code: "+company.SWIFT);
+        builder.Writeln(company.OtherInfoHeader);
+
+        builder.InsertCell();
+        builder.InsertImage(logo,100,100);
+
+        builder.EndTable();
+        Table companyInfoTable = doc.Sections[0].Body.Tables[0];
+        companyInfoTable.Rows[0].Cells[1].CellFormat.Borders.LineStyle = LineStyle.Single;
+        companyInfoTable.Rows[0].Cells[1].CellFormat.Borders.LineWidth = 2;
+
+        @foreach(var clause in contract.Clauses)
+        {
+            builder.ParagraphFormat.Style = clauseNameStyle;
+            builder.Writeln(ReplaceFields(clause.Name));
+
+            builder.ParagraphFormat.Style = clauseTextStyle;
+            builder.Writeln(ReplaceFields(clause.Content));
+
+            builder.InsertBreak(BreakType.SectionBreakContinuous);
+        }
+
+        return doc;
+
+    }
+
+    string ReplaceFields(string content)
+    {
+        @foreach(var field in contract.Fields)
+        {
+            content = content.Replace("{" + field.Name + "}", field.Content);
+        }
+        Console.WriteLine(content);
+        return content;
+    }
+
+    async void ExportDOCX(Document doc)
+    {
+        using (var stream = new MemoryStream())
+        {
+            doc.Save(stream,SaveFormat.Docx);
+            DOCXBlobHref = FileUtil.GetBlobUrl(JS, stream);
+        }
+    }
+
+    async void ExportPDF(Document doc)
+    {
+        using (var stream = new MemoryStream())
+        {
+            PdfSaveOptions saveOptions = new PdfSaveOptions();
+
+            saveOptions.UseHighQualityRendering = true;
+            saveOptions.PrettyFormat = true;
+            saveOptions.SaveFormat = SaveFormat.Pdf;
+            saveOptions.FontEmbeddingMode = PdfFontEmbeddingMode.EmbedAll;
+            saveOptions.InterpolateImages = true;
+
+            doc.Save(stream,saveOptions);
+            PDFBlobHref = FileUtil.GetBlobUrl(JS, stream);
+        }
+    }
+
+    async void ShowPreview(Document doc)
+    {
+        using (var stream = new MemoryStream())
+        {
+            PdfSaveOptions saveOptions = new PdfSaveOptions();
+
+            saveOptions.UseHighQualityRendering = true;
+            saveOptions.PrettyFormat = true;
+            saveOptions.SaveFormat = SaveFormat.Pdf;
+            saveOptions.FontEmbeddingMode = PdfFontEmbeddingMode.EmbedAll;
+            saveOptions.InterpolateImages = true;
+
+            doc.Save(stream,saveOptions);
+
+            byte[] byteArray = stream.ToArray();
+            string base64String = Convert.ToBase64String(byteArray);
+            var docPreviewBase64 = "data:application/pdf;base64," + base64String;
+            
+            await JS.InvokeVoidAsync("showPdf", docPreviewBase64, "#documentViewer");
+        }
+    }
+
+    async Task ExportCB()
+    {
+        JsonSerializerOptions jso = new JsonSerializerOptions();
+        jso.WriteIndented = true;
+        jso.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+
+        await JS.InvokeVoidAsync("saveFile",
+                            String.Concat(conference.Name," ",contract.FriendlyName,".cb"),
+                            JsonSerializer.Serialize(cb, jso).Replace("\\\"","\"").Trim('"')
+                        );
+    }
+}

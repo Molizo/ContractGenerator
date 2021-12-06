@@ -1,21 +1,21 @@
 {
-  "name": "ContractGenerator",
-  "short_name": "ContractGenerator",
+  "name": "Conference Contract Generator",
+  "short_name": "CCG",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#03173d",
+  "theme_color": "#1976D2",
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "icon-512.png",
+      "src": "/media/logo.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "300x300"
     },
     {
-      "src": "icon-192.png",
+      "src": "/media/apple-touch-icon-180x180.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "180x180"
     }
   ]
 }

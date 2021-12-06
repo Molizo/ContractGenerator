@@ -2,49 +2,24 @@
 @using Models
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject IJSRuntime JS
+@inject IDialogService DialogService
 
-<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Contract Generator</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
-
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="CreateContract">
-                <span class="oi oi-brush" aria-hidden="true"></span> Create a contract
-            </NavLink>
-        </div>
-        @if(cb != null)
-        {
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="ExportContract" target="_blank">
-                    <span class="oi oi-copywriting" aria-hidden="true"></span> View last contract
-                </NavLink>
-            </div>
-
-        }
-        <div class="nav-item px-3">
-                <NavLink class="nav-link" href="ModifyTemplates">
-                    <span class="oi oi-project" aria-hidden="true"></span> Modify templates
-                </NavLink>
-            </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Settings">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Settings
-            </NavLink>
-        </div>
-    </nav>
-</div>
+<MudNavMenu>
+    <MudText Typo="Typo.h6" Class="pt-5 px-4">General</MudText>
+    <MudDivider Class="my-2"/>
+    <MudNavLink Href="/" Icon="@Icons.Filled.Home" Match=NavLinkMatch.All>Home</MudNavLink>
+    <MudNavLink Href="/CreateContract" Icon="@Icons.Filled.Edit">Create a contract</MudNavLink>
+    @if(cb != null)
+    {
+        <MudNavLink OnClick="OpenLastContract" Icon="@Icons.Filled.RateReview">View last contract</MudNavLink>
+    }
+    <MudNavLink Href="/ImportContractBundle" Icon="@Icons.Filled.Upload">Import contract bundle</MudNavLink>
+    <MudText Typo="Typo.h6" Class="pt-5 px-4">Advanced</MudText>
+    <MudDivider Class="my-2"/>
+    <MudNavLink Href="/ModifyTemplates" Icon="@Icons.Filled.AutoFixHigh">Modify templates</MudNavLink>
+    <MudNavLink Href="/Settings" Icon="@Icons.Filled.Settings">Settings</MudNavLink>
+    <MudSpacer/>
+</MudNavMenu>
 
 @code {
     private bool collapseNavMenu = true;
@@ -60,6 +35,15 @@
 
     protected override async Task OnInitializedAsync()
     {
-       cb = await localStorage.GetItemAsync<ContractBundle>("SelectedContractBundle");
+        List<ContractBundle> cblist = await localStorage.GetItemAsync<List<ContractBundle>>("ContractBundles");
+        if(cblist != null)
+            cb = cblist.OrderByDescending(c=>c.CreatedAt).FirstOrDefault();
+    }
+
+    async void OpenLastContract()
+    {
+        var param = new DialogParameters();
+        param.Add("cb", cb);
+        DialogService.Show<ExportContract>("Preview contract",param);
     }
 }

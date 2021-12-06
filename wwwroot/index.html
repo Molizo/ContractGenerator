@@ -4,14 +4,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>ContractGenerator</title>
+    <title>CCG</title>
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
     <link href="ContractGenerator.styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+    <link href="_content/Syncfusion.Blazor.Themes/bootstrap4.css" rel="stylesheet" />
     <link href="manifest.json" rel="manifest" />
-    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
-    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
+    <link rel="apple-touch-icon" sizes="300x300" href="/media/logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/media/apple-touch-icon-180x180.png" />
 </head>
 
 <body>
@@ -44,6 +47,7 @@
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
     <script src="_content/Blazor-Analytics/blazor-analytics.js"></script>
+    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script src="modules/popper.min.js"></script>
     <script src="modules/bootstrap.min.js"></script>
     <script src="modules/jsPDF/jspdf.umd.min.js"></script>
@@ -51,6 +55,47 @@
     <script src="modules/jsoneditor.js"></script>
     <script src="modules/html-docx.js"></script>
     <script src="modules/FileSaver.js"></script>
+    <script src="modules/pdfobject.min.js"></script>
+
+    <script>
+        function saveAsFile(filenamePointer, contentPointer) {
+            var parts = Blazor.platform.toUint8Array(contentPointer);
+            var filename = BINDING.conv_string(filenamePointer);
+
+            var blob = new Blob([parts], { type: "application/octet-stream" });
+            var link = document.createElement('a');
+            link.download = filename;
+            link.href = URL.createObjectURL(blob);
+
+            console.log("Blob url: " + link.href);
+
+            document.body.appendChild(link); // Needed for Firefox
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function getBlobUrl(contentPointer) {
+            var parts = Blazor.platform.toUint8Array(contentPointer);
+            var filename = BINDING.conv_string("doc.bin");
+
+            var blob = new Blob([parts], { type: "application/octet-stream" });
+            var link = document.createElement('a');
+            link.download = filename;
+            link.href = URL.createObjectURL(blob);
+
+            console.log("Blob url: " + link.href);
+
+            return BINDING.js_string_to_mono_string(link.href);
+        }
+
+        function showPdf(data, object) {
+            var options = {
+                PDFJS_URL: "/modules/pdfJS/web/viewer.html"
+            };
+
+            PDFObject.embed(data, object, options);
+        }
+    </script>
 
     <script>
         window.jsPDF = window.jspdf.jsPDF;
@@ -79,9 +124,9 @@
 
         function saveIFrameAsDOCX(iFrameID, name) {
             var htmlString = new XMLSerializer().serializeToString(document.getElementById(iFrameID).contentDocument.children[0]);
-            htmlString = htmlString.replace('<div id="blazor-error-ui">\n        An unhandled error has occurred.\n        <a href="" class="reload">Reload</a>\n        <a class="dismiss">🗙</a>\n    </div>',' ');
+            htmlString = htmlString.replace('<div id="blazor-error-ui">\n        An unhandled error has occurred.\n        <a href="" class="reload">Reload</a>\n        <a class="dismiss">🗙</a>\n    </div>', ' ');
             var docxBlob = window.URL.createObjectURL(htmlDocx.asBlob(htmlString));
-            saveAs(docxBlob,name);
+            saveAs(docxBlob, name);
         }
 
         function setIFrame(iframeID, url) {
@@ -95,7 +140,7 @@
             canvas.width = img.width;
             canvas.height = img.height;
             ctx.fillStyle = '#FFFFFF';
-            ctx.fillRect(0,0,img.width,img.height);
+            ctx.fillRect(0, 0, img.width, img.height);
             ctx.drawImage(img, 0, 0);
             return canvas.toDataURL('image/jpeg');
         }
@@ -189,4 +234,5 @@
                 document.designMode = 'off';
         }
     </script>
+</body>
 </html>
