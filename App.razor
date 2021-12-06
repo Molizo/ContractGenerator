@@ -1,4 +1,6 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
+﻿@inject HttpClient Http
+
+<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
         <NavigationTracker />
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -16,15 +18,16 @@
 @code{
     protected override async Task OnInitializedAsync()
     {
-        var assemName = "ContractGenerator";
-        var assembly = AppDomain
-            .CurrentDomain
-            .GetAssemblies()
-            .First(a => a.GetName().Name == assemName);
-
-        var licenseStream = assembly.GetManifestResourceStream($"{assemName}.Assemblies.AsposeLicense.lic");
+        var licenseFile = await Http.GetStringAsync("/modules/Aspose/AsposeLicense.lic");
 
         Aspose.Words.License wordsLicense = new Aspose.Words.License();
-        wordsLicense.SetLicense(licenseStream);
+        using (var stream = new MemoryStream())
+        {
+            var writer = new StreamWriter(stream);
+            writer.Write(licenseFile);
+            writer.Flush();
+            stream.Position = 0;
+            wordsLicense.SetLicense(stream);
+        }
     }
 }

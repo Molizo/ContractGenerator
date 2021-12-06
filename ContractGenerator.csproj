@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -24,7 +25,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Remove="Assemblies\AsposeLicense.lic" />
     <None Remove="Fonts\Times New Roman Bold Italic.ttf" />
     <None Remove="Fonts\Times New Roman Bold.ttf" />
     <None Remove="Fonts\Times New Roman Italic.ttf" />
@@ -32,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Assemblies\AsposeLicense.lic" />
     <EmbeddedResource Include="Fonts\Times New Roman Bold Italic.ttf" />
     <EmbeddedResource Include="Fonts\Times New Roman Bold.ttf" />
     <EmbeddedResource Include="Fonts\Times New Roman Italic.ttf" />
@@ -43,6 +42,10 @@
     <PackageReference Include="Aspose.Words" Version="20.12.0" />
     <PackageReference Include="Blazor-Analytics" Version="3.9.0" />
     <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
+    <PackageReference Include="GitVersion.MsBuild" Version="5.8.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0" PrivateAssets="all" />
     <PackageReference Include="MudBlazor" Version="6.0.2" />

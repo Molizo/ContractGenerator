@@ -54,6 +54,9 @@
         MudDialog.Options.FullWidth = true;
         MudDialog.SetOptions(MudDialog.Options);
 
+        //Break any references as to not clutter the original contract fields by adding the conference and company ones
+        cb = JsonSerializer.Deserialize<ContractBundle>(JsonSerializer.Serialize(cb)); 
+
         company = cb.Company;
         conference = cb.Conference;
         contract = cb.Contract;
@@ -162,6 +165,13 @@
         Table companyInfoTable = doc.Sections[0].Body.Tables[0];
         companyInfoTable.Rows[0].Cells[1].CellFormat.Borders.LineStyle = LineStyle.Single;
         companyInfoTable.Rows[0].Cells[1].CellFormat.Borders.LineWidth = 2;
+
+        builder.Writeln(" ");
+        builder.ParagraphFormat.Style = clauseNameStyle;
+        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;
+        builder.Writeln(contract.Name.ToUpper());
+        builder.Writeln(String.Concat("Nr. ",contract.Number," / ",contract.Date));
+        builder.ParagraphFormat.Alignment = ParagraphAlignment.Justify;
 
         @foreach(var clause in contract.Clauses)
         {

@@ -12,12 +12,8 @@
 <MudText Typo="Typo.h3">Create a contract</MudText>
 
 <MudCard Class="my-5">
-    <MudCardHeader>
-        <CardHeaderContent>
-            <MudText Typo="Typo.h6">Update templates</MudText>
-        </CardHeaderContent>
-    </MudCardHeader>
     <MudCardContent>
+        <MudText Typo="Typo.h6">Update templates</MudText>
         <MudText Class="pb-2">Update your templates to get access to the latest contract types.</MudText>
         <MudAlert Severity="Severity.Warning">Getting the latest templates will erase your custom ones.</MudAlert>
     </MudCardContent>
@@ -30,9 +26,7 @@
     <MudExpansionPanel Text="@String.Concat("[Step 1] Select a company",selectedCompany!=null  ? String.Concat(" - ", selectedCompany.Name) : "")">
         @if (companies == null)
             {
-                <div class="alert alert-primary" role="alert">
-                    Loading...
-                </div>
+                <MudAlert Severity="Severity.Info">Loading...</MudAlert>
             }
             else
             {
@@ -72,9 +66,7 @@
     <MudExpansionPanel Text="@String.Concat("[Step 2] Select a conference",selectedConference!=null  ? String.Concat(" - ", selectedConference.Name) : "")">
         @if(conferences == null)
                 {
-                    <div class="alert alert-primary" role="alert">
-                        Loading...
-                    </div>
+                    <MudAlert Severity="Severity.Info">Loading...</MudAlert>
                 }
                 else
                 {
@@ -116,9 +108,7 @@
     <MudExpansionPanel Text="@String.Concat("[Step 3] Fill in contract info",selectedContract!=null  ? String.Concat(" - ", selectedContract.FriendlyName) : "")">
         @if(contracts == null)
                 {
-                    <div class="alert alert-primary" role="alert">
-                        Loading...
-                    </div>
+                    <MudAlert Severity="Severity.Info">Loading...</MudAlert>
                 }
                 else
                 {
@@ -146,7 +136,10 @@
 
                 @if (addContractDate)
                 {
-                    <MudDatePicker Date="@selectedContractDateTime" PickerVariant="PickerVariant.Dialog" Label="Contract date" DateFormat="yyyy MMMM dd"/>
+                    <div class="form-group">
+                        <label>Contract Date</label>
+                        <input @bind="@selectedContract.Date" class="form-control">
+                    </div>
                 }
                 @foreach(var field in selectedContract.Fields)
                 {
@@ -179,8 +172,6 @@
     private bool addContractDate = false;
     private bool customizeCompanyDetails = false;
     private bool customizeConferenceDetails = false;
-    private DateTime selectedContractDateTime;
-
     protected override async Task OnInitializedAsync()
     {
         companies = await localStorage.GetItemAsync<List<Company>>("TemplateCompanies");
@@ -214,7 +205,6 @@
 
     void OnSelectContract(ChangeEventArgs e)
     {
-        selectedContractDateTime = DateTime.Now;
         Analytics.TrackEvent("[CreateContract] Selected a contract");
     }
 
@@ -228,8 +218,6 @@
             selectedContract.Number = "________";
         if (!addContractDate)
             selectedContract.Date = "________________";
-        else
-            selectedContract.Date = selectedContractDateTime.ToString("yyyy MMMM dd");
 
         ContractBundle cb = new ContractBundle();
         cb.Company = selectedCompany;

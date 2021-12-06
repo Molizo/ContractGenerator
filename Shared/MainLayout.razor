@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 
 <MudThemeProvider Theme="currentTheme"/>
 <MudDialogProvider/>
@@ -9,7 +10,10 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText Typo="Typo.h5" Class="ml-3 d-sm-flex d-none">Conference Contract Generator</MudText>
         <MudSpacer />
-        <MudIconButton OnClick="@((e) => DarkMode())" Icon="@Icons.Filled.DarkMode" Color="Color.Inherit"></MudIconButton>
+        <MudMenu Icon="@Icons.Material.Filled.Brightness4" Color="@Color.Inherit" AnchorOrigin="@Origin.BottomLeft" TransformOrigin="@Origin.TopCenter">
+            <MudMenuItem OnClick="@((e) => ApplyTheme("lightTheme"))">Light theme</MudMenuItem>
+            <MudMenuItem OnClick="@((e) => ApplyTheme("darkTheme"))">Dark theme</MudMenuItem>
+        </MudMenu>
         <img src="/media/logo.png" class="img p-1" height="50px" width="50px"/>
     </MudAppBar>
     <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
@@ -30,21 +34,26 @@
         _drawerOpen = !_drawerOpen;
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        currentTheme = lightTheme;
+        ApplyTheme(await localStorage.GetItemAsync<string>("Theme"));
     }
 
-    void DarkMode()
+    async void ApplyTheme(string themeName)
     {
-        if (currentTheme == lightTheme)
+        switch (themeName)
         {
-            currentTheme = darkTheme;
+            case "lightTheme":
+                currentTheme = lightTheme;
+                break;
+            case "darkTheme":
+                currentTheme = darkTheme;
+                break;
+            default:
+                currentTheme = lightTheme;
+                break;
         }
-        else
-        {
-            currentTheme = lightTheme;
-        }
+        await localStorage.SetItemAsync<string>("Theme", themeName);
     }
 
     MudTheme currentTheme = new MudTheme();

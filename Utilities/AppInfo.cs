@@ -6,9 +6,8 @@ namespace ContractGenerator.Utilities
     {
         public static string GetAppVersion()
         {
-            return Assembly.GetExecutingAssembly().
-            GetCustomAttribute<AssemblyInformationalVersionAttribute>().
-            InformationalVersion;
+            return Assembly.GetEntryAssembly().
+            GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
         }
     }
 }

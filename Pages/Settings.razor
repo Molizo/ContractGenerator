@@ -9,61 +9,103 @@
 @inject Blazor.Analytics.IAnalytics Analytics
 
 <PageTitle>Settings</PageTitle>
-<h1>Settings</h1>
-<hr />
+<MudText Typo="Typo.h3" class="mb-6">Settings</MudText>
 
-<div class="row">
-    <div class="col-md-4">
-        <h5>App Info</h5>
-        <hr/>
-        @if (appInfoLocal == null)
-        {
-            <div class="alert alert-primary" role="alert">
-                Loading...
-            </div>
-        }
-        else
-        {
-            <table class="table">
-                <thead>
-                        <th>Component</th>
-                        <th>Latest version</th>
-                        <th>Local version</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Company Version</td>
-                        <td>@appInfoLatest.CompaniesVersion</td>
-                        <td>@appInfoLocal.CompaniesVersion</td>
-                    </tr>
-                    <tr>
-                        <td>Conference Version</td>
-                        <td>@appInfoLatest.ConferencesVersion</td>
-                        <td>@appInfoLocal.ConferencesVersion</td>
-                    </tr><tr>
-                        <td>Contract Version</td>
-                        <td>@appInfoLatest.ContractsVersion</td>
-                        <td>@appInfoLocal.ContractsVersion</td>
-                    </tr>
-                </tbody>
-            </table>
-        }
-    </div>
-    <div class="col-md-4">
-        <h5>Manage data</h5>
-        <hr />
-        <button type="button" class="btn btn-secondary m-1" @onclick="UpdateDB">Get latest templates from server</button>
-        <button type="button" class="btn btn-danger m-1" @onclick="ClearHistory">Clear history and templates</button>
-		<button type="button" class="btn btn-danger m-1" @onclick="ClearSW">Clear service worker</button>
-    </div>
-    <div class="col-md-4">
-        <h5>Export data</h5>
-        <hr />
-        <button type="button" class="btn btn-primary m-1" @onclick='() => ExportTemplates("Companies")'>companies.json</button>
-        <button type="button" class="btn btn-primary m-1" @onclick='() => ExportTemplates("Conferences")'>conferences.json</button>
-		<button type="button" class="btn btn-primary m-1" @onclick='() => ExportTemplates("Contracts")'>contracts.json</button>
-    </div>
-</div>
+<MudGrid>
+    <MudItem lg="6">
+        <MudCard>
+            <MudCardContent>
+                <MudText Typo="Typo.h6">App info</MudText>
+                <MudText>You are running <code>CCG @Utilities.AppInfo.GetAppVersion()</code></MudText>
+                <MudDivider/>
+                <MudText Typo="Typo.h6">Template versions</MudText>
+                @if (appInfoLocal == null)
+                {
+                    <MudAlert Severity="Severity.Info">Loading...</MudAlert>
+                }
+                else
+                {
+                    <MudSimpleTable Hover="true" Striped="true" style="overflow-x:auto;">
+                        <thead>
+                                <th>Component</th>
+                                <th>Latest version</th>
+                                <th>Local version</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Company</td>
+                                <td>@appInfoLatest.CompaniesVersion</td>
+                                <td>@appInfoLocal.CompaniesVersion</td>
+                            </tr>
+                            <tr>
+                                <td>Conference</td>
+                                <td>@appInfoLatest.ConferencesVersion</td>
+                                <td>@appInfoLocal.ConferencesVersion</td>
+                            </tr><tr>
+                                <td>Contract</td>
+                                <td>@appInfoLatest.ContractsVersion</td>
+                                <td>@appInfoLocal.ContractsVersion</td>
+                            </tr>
+                        </tbody>
+                    </MudSimpleTable>
+                }
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="UpdateDB">Get latest templates from server</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem lg="6">
+        <MudCard>
+            <MudCardContent>
+                <MudText Typo="Typo.h6">About</MudText>
+                <MudText>Hey there! Thanks for using this app!</MudText>
+                <MudText>I've built this tool to help my fellow peers from Daniela Bordei. Our team has been holding conferences and we've come to the realisation that writing and proofreading contracts wasted a lot of our limited time (as we are mostly senios in high school), so I built this app to speed up the generation of those contracts.</MudText>
+                <MudText>Hope it helps you build even more awesome conferences by pushing the limits of what us, high schoolers, can do.</MudText>
+                <MudText>- Mihnea Visoiu, HS Class of 2022</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" StartIcon="@Icons.Custom.Brands.GitHub" Link="https://github.com/molizo" target="_blank">GitHub</MudButton>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" StartIcon="@Icons.Custom.Brands.LinkedIn" Link="https://linkedin.com/in/mihnea-theodor-visoiu" target="_blank">LinkedIn</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem lg="3">
+        <MudCard>
+            <MudCardContent>
+                <MudText Typo="Typo.h6">Clear local storage</MudText>
+                <MudText Typo="Typo.body2">Remove local app data including, but not limited to templates, history and preferences. Clearing it helps after updates in case the data got corrupted.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="ClearLocalStorage">Clear local storage</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem lg="3">
+        <MudCard>
+            <MudCardContent>
+                <MudText Typo="Typo.h6">Clear service worker</MudText>
+                <MudText Typo="Typo.body2">Remove the local service worker, which helps the app run by caching resources, generating contracts and much more. By clearing it and refreshing the page a couple of times, you'll be brought to the latest version of the app.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="ClearSW">Clear service worker</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem lg="6">
+        <MudCard>
+            <MudCardContent>
+                <MudText Typo="Typo.h6">Export templates</MudText>
+                <MudText Typo="Typo.body2">Export the current local templates for adding to the server's master database.</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" @onclick='() => ExportTemplates("Companies")'>companies.json</MudButton>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" @onclick='() => ExportTemplates("Conferences")'>conferences.json</MudButton>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" @onclick='() => ExportTemplates("Contracts")'>contracts.json</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</MudGrid>
 
 
 @code {
@@ -81,13 +123,13 @@
         await Analytics.TrackEvent("[Settings] Initialized Settings");
     }
 
-    async Task ClearHistory()
+    async Task ClearLocalStorage()
     {
         await localStorage.ClearAsync();
 
         Nav.NavigateTo("/");
 
-        await Analytics.TrackEvent("[Settings] Cleared history");
+        await Analytics.TrackEvent("[Settings] Cleared local storage");
     }
 
     async Task ClearSW()
