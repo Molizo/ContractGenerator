@@ -1,12 +1,13 @@
 ﻿@page "/Settings"
+@using Blazored.LocalStorage
 @using ContractGenerator.Models
+@using System.Text.Json
+@using System.Text.Encodings.Web
 @inject HttpClient Http
-@using System.Text.Json;
-@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject ILocalStorageService localStorage
 @inject IJSRuntime JS
 @inject NavigationManager Nav
-@using System.Text
-@inject Blazor.Analytics.IAnalytics Analytics
+@inject IAnalytics Analytics
 
 <PageTitle>Settings</PageTitle>
 <MudText Typo="Typo.h3" class="mb-6">Settings</MudText>
@@ -25,27 +26,28 @@
                 }
                 else
                 {
-                    <MudSimpleTable Hover="true" Striped="true" style="overflow-x:auto;">
+                    <MudSimpleTable Hover="true" Striped="true" style="overflow-x: auto;">
                         <thead>
-                                <th>Component</th>
-                                <th>Latest version</th>
-                                <th>Local version</th>
+                        <th>Component</th>
+                        <th>Latest version</th>
+                        <th>Local version</th>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Company</td>
-                                <td>@appInfoLatest.CompaniesVersion</td>
-                                <td>@appInfoLocal.CompaniesVersion</td>
-                            </tr>
-                            <tr>
-                                <td>Conference</td>
-                                <td>@appInfoLatest.ConferencesVersion</td>
-                                <td>@appInfoLocal.ConferencesVersion</td>
-                            </tr><tr>
-                                <td>Contract</td>
-                                <td>@appInfoLatest.ContractsVersion</td>
-                                <td>@appInfoLocal.ContractsVersion</td>
-                            </tr>
+                        <tr>
+                            <td>Company</td>
+                            <td>@appInfoLatest.CompaniesVersion</td>
+                            <td>@appInfoLocal.CompaniesVersion</td>
+                        </tr>
+                        <tr>
+                            <td>Conference</td>
+                            <td>@appInfoLatest.ConferencesVersion</td>
+                            <td>@appInfoLocal.ConferencesVersion</td>
+                        </tr>
+                        <tr>
+                            <td>Contract</td>
+                            <td>@appInfoLatest.ContractsVersion</td>
+                            <td>@appInfoLocal.ContractsVersion</td>
+                        </tr>
                         </tbody>
                     </MudSimpleTable>
                 }
@@ -155,15 +157,16 @@
 
     async Task ExportTemplates(string type)
     {
-        JsonSerializerOptions jso = new JsonSerializerOptions();
+        var jso = new JsonSerializerOptions();
         jso.WriteIndented = true;
-        jso.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+        jso.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
 
         await JS.InvokeVoidAsync("saveFile",
-                            type.ToLower() + ".json",
-                            JsonSerializer.Serialize(await localStorage.GetItemAsStringAsync("Template" + type), jso).Replace("\\\"","\"").Trim('"')
-                        );
+            type.ToLower() + ".json",
+            JsonSerializer.Serialize(await localStorage.GetItemAsStringAsync("Template" + type), jso).Replace("\\\"", "\"").Trim('"')
+            );
 
-        await Analytics.TrackEvent("[Settings] Exported template",type);
+        await Analytics.TrackEvent("[Settings] Exported template", type);
     }
+
 }

@@ -1,10 +1,11 @@
 ﻿@page "/CreateContract"
+@using Blazored.LocalStorage
 @using ContractGenerator.Models
 @using System.Reflection
 @inject HttpClient Http
-@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject ILocalStorageService localStorage
 @inject IJSRuntime JS
-@inject Blazor.Analytics.IAnalytics Analytics
+@inject IAnalytics Analytics
 @inject IDialogService DialogService
 
 <PageTitle>Create a contract</PageTitle>
@@ -23,106 +24,105 @@
 </MudCard>
 
 <MudExpansionPanels Class="my-5">
-    <MudExpansionPanel Text="@String.Concat("[Step 1] Select a company",selectedCompany!=null  ? String.Concat(" - ", selectedCompany.Name) : "")">
+    <MudExpansionPanel Text="@string.Concat("[Step 1] Select a company", selectedCompany != null ? string.Concat(" - ", selectedCompany.Name) : "")">
         @if (companies == null)
+        {
+            <MudAlert Severity="Severity.Info">Loading...</MudAlert>
+        }
+        else
+        {
+            <MudSelect T="Company" @bind-Value="@selectedCompany" @onchange="OnSelectCompany" Label="Select a company" Variant="Variant.Outlined" ToStringFunc="@companyConverter" AnchorOrigin="Origin.BottomCenter">
+                @foreach (var company in companies)
+                {
+                    <MudSelectItem Value="@company"/>
+                }
+            </MudSelect>
+
+            <MudSwitch @bind-Checked="@customizeCompanyDetails" Label="Customize company details" Color="Color.Info"/>
+
+            @if (customizeCompanyDetails && selectedCompany != null)
+            {
+                var companyProperties = selectedCompany.GetType().GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(prop => prop.GetValue(selectedCompany) != null).ToList();
+
+                <div class="card">
+                    <h5 class="card-header">Customize company info for @selectedCompany.Name</h5>
+                    <div class="card-body">
+                        <p class="card-text">
+                            @foreach (var p in companyProperties)
+                            {
+                                <div class="form-group">
+                                    <label>@p.Name</label>
+                                    <input value="@p.GetValue(selectedCompany).ToString()" @onchange='e => p.SetValue(selectedCompany, Convert.ChangeType(e.Value, p.PropertyType))' class="form-control">
+                                </div>
+                            }
+                        </p>
+                    </div>
+                </div>
+            }
+        }
+    </MudExpansionPanel>
+    @if (selectedCompany != null)
+    {
+        <MudExpansionPanel Text="@string.Concat("[Step 2] Select a conference", selectedConference != null ? string.Concat(" - ", selectedConference.Name) : "")">
+            @if (conferences == null)
             {
                 <MudAlert Severity="Severity.Info">Loading...</MudAlert>
             }
             else
             {
-
-                <MudSelect T="Company" @bind-Value="@selectedCompany" @onchange="OnSelectCompany" Label="Select a company" Variant="Variant.Outlined" ToStringFunc="@companyConverter" AnchorOrigin="Origin.BottomCenter">
-                    @foreach(var company in companies)
+                <MudSelect T="Conference" @bind-Value="@selectedConference" @onchange="OnSelectConference" Label="Select a conference" Variant="Variant.Outlined" ToStringFunc="@conferenceConverter" AnchorOrigin="Origin.BottomCenter">
+                    @foreach (var conference in conferences)
                     {
-                        <MudSelectItem Value="@company" />
+                        <MudSelectItem Value="@conference">
+                            <img src="@conference.LogoFilePath" height="22" class="m-0 mr-1"> @conference.Name
+                        </MudSelectItem>
                     }
                 </MudSelect>
 
-                <MudSwitch @bind-Checked="@customizeCompanyDetails" Label="Customize company details" Color="Color.Info" />
 
-                @if (customizeCompanyDetails && selectedCompany != null)
+                <MudSwitch @bind-Checked="@customizeConferenceDetails" Label="Customize conference details" Color="Color.Info"/>
+
+                @if (customizeConferenceDetails && selectedConference != null)
                 {
-                    List<PropertyInfo> companyProperties = selectedCompany.GetType().GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(prop => prop.GetValue(selectedCompany) != null).ToList();
-                
+                    var conferenceProperties = selectedConference.GetType().GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(prop => prop.GetValue(selectedConference) != null).ToList();
+
                     <div class="card">
-                      <h5 class="card-header">Customize company info for @selectedCompany.Name</h5>
-                      <div class="card-body">
-                        <p class="card-text">
-                            @foreach(var p in companyProperties)
-                            {
-                                <div class="form-group">
-                                    <label>@p.Name</label>
-                                    <input value="@p.GetValue(selectedCompany).ToString()" @onchange='(ChangeEventArgs e)=>p.SetValue(selectedCompany, Convert.ChangeType(e.Value, p.PropertyType))' class="form-control">
-                                </div>
-                            }
-                        </p>
-                      </div>
-                    </div>
-                }
-            }
-    </MudExpansionPanel>
-    @if(selectedCompany != null)
-    {
-    <MudExpansionPanel Text="@String.Concat("[Step 2] Select a conference",selectedConference!=null  ? String.Concat(" - ", selectedConference.Name) : "")">
-        @if(conferences == null)
-                {
-                    <MudAlert Severity="Severity.Info">Loading...</MudAlert>
-                }
-                else
-                {
-                    <MudSelect T="Conference" @bind-Value="@selectedConference" @onchange="OnSelectConference" Label="Select a conference" Variant="Variant.Outlined" ToStringFunc="@conferenceConverter" AnchorOrigin="Origin.BottomCenter">
-                    @foreach(var conference in conferences)
-                    {
-                        <MudSelectItem Value="@conference" />
-                    }
-                </MudSelect>
-
-
-                    
-                <MudSwitch @bind-Checked="@customizeConferenceDetails" Label="Customize conference details" Color="Color.Info" />
-
-                    @if (customizeConferenceDetails && selectedConference != null)
-                    {
-                        List<PropertyInfo> conferenceProperties = selectedConference.GetType().GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(prop => prop.GetValue(selectedConference) != null).ToList();
-                
-                        <div class="card">
-                          <h5 class="card-header">Customize conference info for @selectedConference.Name</h5>
-                          <div class="card-body">
+                        <h5 class="card-header">Customize conference info for @selectedConference.Name</h5>
+                        <div class="card-body">
                             <p class="card-text">
-                                @foreach(var p in conferenceProperties)
+                                @foreach (var p in conferenceProperties)
                                 {
                                     <div class="form-group">
                                         <label>@p.Name</label>
-                                        <input value="@p.GetValue(selectedConference).ToString()" @onchange='(ChangeEventArgs e)=>p.SetValue(selectedConference, Convert.ChangeType(e.Value, p.PropertyType))' class="form-control">
+                                        <input value="@p.GetValue(selectedConference).ToString()" @onchange='e => p.SetValue(selectedConference, Convert.ChangeType(e.Value, p.PropertyType))' class="form-control">
                                     </div>
                                 }
                             </p>
-                          </div>
                         </div>
-                    }
+                    </div>
                 }
-    </MudExpansionPanel>
+            }
+        </MudExpansionPanel>
     }
-    @if(selectedConference != null)
+    @if (selectedConference != null)
+    {
+        <MudExpansionPanel Text="@string.Concat("[Step 3] Fill in contract info", selectedContract != null ? string.Concat(" - ", selectedContract.FriendlyName) : "")">
+            @if (contracts == null)
             {
-    <MudExpansionPanel Text="@String.Concat("[Step 3] Fill in contract info",selectedContract!=null  ? String.Concat(" - ", selectedContract.FriendlyName) : "")">
-        @if(contracts == null)
-                {
-                    <MudAlert Severity="Severity.Info">Loading...</MudAlert>
-                }
-                else
-                {
-                    <MudSelect T="Contract" @bind-Value="@selectedContract" @onchange="OnSelectContract" Label="Select a contract" Variant="Variant.Outlined" ToStringFunc="@contractConverter" AnchorOrigin="Origin.BottomCenter">
-                    @foreach(var contract in contracts)
+                <MudAlert Severity="Severity.Info">Loading...</MudAlert>
+            }
+            else
+            {
+                <MudSelect T="Contract" @bind-Value="@selectedContract" @onchange="OnSelectContract" Label="Select a contract" Variant="Variant.Outlined" ToStringFunc="@contractConverter" AnchorOrigin="Origin.BottomCenter">
+                    @foreach (var contract in contracts)
                     {
-                        <MudSelectItem Value="@contract" />
+                        <MudSelectItem Value="@contract"/>
                     }
                 </MudSelect>
-                }
-                @if(selectedContract != null)
+            }
+            @if (selectedContract != null)
             {
-
-                <MudSwitch @bind-Checked="@addContractNumber" Label="Add contract number" Color="Color.Info" />
+                <MudSwitch @bind-Checked="@addContractNumber" Label="Add contract number" Color="Color.Info"/>
 
                 @if (addContractNumber)
                 {
@@ -131,8 +131,8 @@
                         <input @bind="@selectedContract.Number" class="form-control">
                     </div>
                 }
-                
-                <MudSwitch @bind-Checked="@addContractDate" Label="Add contract date" Color="Color.Info" />
+
+                <MudSwitch @bind-Checked="@addContractDate" Label="Add contract date" Color="Color.Info"/>
 
                 @if (addContractDate)
                 {
@@ -141,21 +141,22 @@
                         <input @bind="@selectedContract.Date" class="form-control">
                     </div>
                 }
-                @foreach(var field in selectedContract.Fields)
+                @foreach (var field in selectedContract.Fields)
                 {
                     <div class="form-group">
                         <label>@field.Name</label>
                         <input placeholder="@field.Placeholder" @bind="@field.Content" class="form-control">
                     </div>
                 }
-                }
-    </MudExpansionPanel>
             }
-            @if(selectedContract != null && selectedContract.Fields.All(f=>f.Content != "")){
-            <MudExpansionPanel Text="[Step 4] Preview and export the contract">
-                <MudButton Color="Color.Primary" OnClick="PreviewContract">Preview contract</MudButton>
-            </MudExpansionPanel>
-            }
+        </MudExpansionPanel>
+    }
+    @if (selectedContract != null && selectedContract.Fields.All(f => f.Content != ""))
+    {
+        <MudExpansionPanel Text="[Step 4] Preview and export the contract">
+            <MudButton Color="Color.Primary" OnClick="PreviewContract">Preview contract</MudButton>
+        </MudExpansionPanel>
+    }
 </MudExpansionPanels>
 
 
@@ -166,12 +167,13 @@
     private Conference selectedConference;
     private List<Contract> contracts;
     private Contract selectedContract;
-    private bool previewedContract = false;
+    private bool previewedContract;
 
-    private bool addContractNumber = false;
-    private bool addContractDate = false;
-    private bool customizeCompanyDetails = false;
-    private bool customizeConferenceDetails = false;
+    private bool addContractNumber;
+    private bool addContractDate;
+    private bool customizeCompanyDetails;
+    private bool customizeConferenceDetails;
+
     protected override async Task OnInitializedAsync()
     {
         companies = await localStorage.GetItemAsync<List<Company>>("TemplateCompanies");
@@ -192,7 +194,7 @@
         Analytics.TrackEvent("[CreateContract] Selected a company");
     }
 
-    Func<Company,string> companyConverter = c => c?.Name;
+    readonly Func<Company, string> companyConverter = c => c?.Name;
 
     void OnSelectConference(ChangeEventArgs e)
     {
@@ -201,14 +203,14 @@
         Analytics.TrackEvent("[CreateContract] Selected a conference");
     }
 
-    Func<Conference,string> conferenceConverter = c => c?.Name;
+    readonly Func<Conference, string> conferenceConverter = c => c?.Name;
 
     void OnSelectContract(ChangeEventArgs e)
     {
         Analytics.TrackEvent("[CreateContract] Selected a contract");
     }
 
-    Func<Contract,string> contractConverter = c => c?.FriendlyName;
+    readonly Func<Contract, string> contractConverter = c => c?.FriendlyName;
 
     async Task PreviewContract()
     {
@@ -219,13 +221,13 @@
         if (!addContractDate)
             selectedContract.Date = "________________";
 
-        ContractBundle cb = new ContractBundle();
+        var cb = new ContractBundle();
         cb.Company = selectedCompany;
         cb.Conference = selectedConference;
         cb.Contract = selectedContract;
         cb.CreatedAt = DateTime.Now;
 
-        List<ContractBundle> cblist = await localStorage.GetItemAsync<List<ContractBundle>>("ContractBundles");
+        var cblist = await localStorage.GetItemAsync<List<ContractBundle>>("ContractBundles");
         if (cblist == null)
             cblist = new List<ContractBundle>();
         cblist.Add(cb);
@@ -233,7 +235,7 @@
 
         var param = new DialogParameters();
         param.Add("cb", cb);
-        DialogService.Show<ExportContract>("Preview contract",param);
+        DialogService.Show<ExportContract>("Preview contract", param);
 
         await Analytics.TrackEvent("[CreateContract] Previewed a contract");
     }
@@ -243,7 +245,7 @@
         companies = await Http.GetFromJsonAsync<List<Company>>("Data/companies.json?time=" + DateTime.Now);
         conferences = await Http.GetFromJsonAsync<List<Conference>>("Data/conferences.json?time=" + DateTime.Now);
         contracts = await Http.GetFromJsonAsync<List<Contract>>("Data/contracts.json?time=" + DateTime.Now);
-        AppInfo appInfo = await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json?time=" + DateTime.Now);
+        var appInfo = await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json?time=" + DateTime.Now);
 
         await localStorage.SetItemAsync("TemplateCompanies", companies);
         await localStorage.SetItemAsync("TemplateConferences", conferences);

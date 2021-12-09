@@ -1,11 +1,11 @@
 ﻿@page "/ImportContractBundle"
+@using Blazored.LocalStorage
 @using ContractGenerator.Models
-@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@using System.Text.Json
+@inject ILocalStorageService localStorage
 @inject IJSRuntime JS
-@inject Blazor.Analytics.IAnalytics Analytics
+@inject IAnalytics Analytics
 @inject IDialogService DialogService
-@using System.Text.Json;
-@using System.Text.Json.Serialization;
 
 <PageTitle>Import Contract Bundle</PageTitle>
 
@@ -25,12 +25,12 @@
 {
     <MudText Typo="@Typo.h6">@files.Count() File@(files.Count() == 1 ? "" : "s"):</MudText>
     <MudList>
-    @foreach (var file in files)
-    {
-     <MudListItem Icon="@Icons.Filled.Attachment" @key="@file">
-         @file.Name 
-     </MudListItem>
-    }
+        @foreach (var file in files)
+        {
+            <MudListItem Icon="@Icons.Filled.Attachment" @key="@file">
+                @file.Name
+            </MudListItem>
+        }
     </MudList>
 }
 
@@ -45,33 +45,35 @@
 @if (cbimported.Count > 0)
 {
     <MudTable Class="my-5" Items="@cbimported" Hover="true" Striped="true">
-    <ToolBarContent>
-        <MudText Typo="Typo.h6">Imported contracts</MudText>
-    </ToolBarContent>
-    <HeaderContent>
-        <MudTh>Created at</MudTh>
-        <MudTh>Conference</MudTh>
-        <MudTh>Company</MudTh>
-        <MudTh>Contract type</MudTh>
-        <MudTh>Actions</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Created at">@context.CreatedAt</MudTd>
-        <MudTd DataLabel="Conference">@context.Conference.Name</MudTd>
-        <MudTd DataLabel="Company">@context.Company.Name</MudTd>
-        <MudTd DataLabel="Contract type">@context.Contract.FriendlyName</MudTd>
-        <MudTd DataLabel="Actions"><MudButton Variant="Variant.Filled" @onclick="() => ViewContract(context.CreatedAt)">View</MudButton></MudTd>
-    </RowTemplate>
-    <PagerContent>
-        <MudTablePager />
-    </PagerContent>
-</MudTable> 
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Imported contracts</MudText>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Created at</MudTh>
+            <MudTh>Conference</MudTh>
+            <MudTh>Company</MudTh>
+            <MudTh>Contract type</MudTh>
+            <MudTh>Actions</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Created at">@context.CreatedAt</MudTd>
+            <MudTd DataLabel="Conference">@context.Conference.Name</MudTd>
+            <MudTd DataLabel="Company">@context.Company.Name</MudTd>
+            <MudTd DataLabel="Contract type">@context.Contract.FriendlyName</MudTd>
+            <MudTd DataLabel="Actions">
+                <MudButton Variant="Variant.Filled" @onclick="() => ViewContract(context.CreatedAt)">View</MudButton>
+            </MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager/>
+        </PagerContent>
+    </MudTable>
 }
 
 
 @code {
-    IList<IBrowserFile> files = new List<IBrowserFile>();
-    List<ContractBundle> cbimported = new List<ContractBundle>();
+    readonly IList<IBrowserFile> files = new List<IBrowserFile>();
+    readonly List<ContractBundle> cbimported = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -88,7 +90,7 @@
 
     private async void ProcessFiles()
     {
-        foreach(var file in files)
+        foreach (var file in files)
         {
             string fileContent = null;
             using (var reader = new StreamReader(file.OpenReadStream()))
@@ -100,7 +102,7 @@
             cbimported.Add(cb);
         }
 
-        this.StateHasChanged();
+        StateHasChanged();
 
         var cblist = await localStorage.GetItemAsync<List<ContractBundle>>("ContractBundles");
         if (cblist == null)
@@ -112,12 +114,13 @@
 
     async Task ViewContract(DateTime CreatedAt)
     {
-        ContractBundle cb = cbimported.Find(c => c.CreatedAt == CreatedAt);
+        var cb = cbimported.Find(c => c.CreatedAt == CreatedAt);
 
         var param = new DialogParameters();
         param.Add("cb", cb);
-        DialogService.Show<ExportContract>("Preview contract",param);
-        
+        DialogService.Show<ExportContract>("Preview contract", param);
+
         await Analytics.TrackEvent("[Index] Viewed saved contract");
     }
+
 }

@@ -1,15 +1,16 @@
-﻿@inject HttpClient Http
-@using Models
-@inject Blazored.LocalStorage.ILocalStorageService localStorage
+﻿@using Blazored.LocalStorage
+@using ContractGenerator.Models
+@inject HttpClient Http
+@inject ILocalStorageService localStorage
 @inject IJSRuntime JS
 @inject IDialogService DialogService
 
 <MudNavMenu>
     <MudText Typo="Typo.h6" Class="pt-5 px-4">General</MudText>
     <MudDivider Class="my-2"/>
-    <MudNavLink Href="/" Icon="@Icons.Filled.Home" Match=NavLinkMatch.All>Home</MudNavLink>
+    <MudNavLink Href="/" Icon="@Icons.Filled.Home" Match="NavLinkMatch.All">Home</MudNavLink>
     <MudNavLink Href="/CreateContract" Icon="@Icons.Filled.Edit">Create a contract</MudNavLink>
-    @if(cb != null)
+    @if (cb != null)
     {
         <MudNavLink OnClick="OpenLastContract" Icon="@Icons.Filled.RateReview">View last contract</MudNavLink>
     }
@@ -36,15 +37,16 @@
 
     protected override async Task OnInitializedAsync()
     {
-        List<ContractBundle> cblist = await localStorage.GetItemAsync<List<ContractBundle>>("ContractBundles");
-        if(cblist != null)
-            cb = cblist.OrderByDescending(c=>c.CreatedAt).FirstOrDefault();
+        var cblist = await localStorage.GetItemAsync<List<ContractBundle>>("ContractBundles");
+        if (cblist != null)
+            cb = cblist.OrderByDescending(c => c.CreatedAt).FirstOrDefault();
     }
 
     async void OpenLastContract()
     {
         var param = new DialogParameters();
         param.Add("cb", cb);
-        DialogService.Show<ExportContract>("Preview contract",param);
+        DialogService.Show<ExportContract>("Preview contract", param);
     }
+
 }

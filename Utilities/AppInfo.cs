@@ -1,13 +1,12 @@
 ﻿using System.Reflection;
 
-namespace ContractGenerator.Utilities
+namespace ContractGenerator.Utilities;
+
+public class AppInfo
 {
-    public class AppInfo
+    public static string GetAppVersion()
     {
-        public static string GetAppVersion()
-        {
-            return Assembly.GetEntryAssembly().
-            GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
-        }
+        return Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+            .InformationalVersion;
     }
 }

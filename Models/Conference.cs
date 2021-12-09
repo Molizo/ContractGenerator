@@ -1,8 +1,7 @@
-﻿namespace ContractGenerator.Models
+﻿namespace ContractGenerator.Models;
+
+public class Conference
 {
-    public class Conference
-    {
-        public string Name { get; set; }
-        public string LogoFilePath { get; set; }
-    }
+    public string Name { get; set; }
+    public string LogoFilePath { get; set; }
 }

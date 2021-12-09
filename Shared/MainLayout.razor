@@ -1,5 +1,6 @@
-﻿@inherits LayoutComponentBase
-@inject Blazored.LocalStorage.ILocalStorageService localStorage
+﻿@using Blazored.LocalStorage
+@inherits LayoutComponentBase
+@inject ILocalStorageService localStorage
 
 <MudThemeProvider Theme="currentTheme"/>
 <MudDialogProvider/>
@@ -7,17 +8,17 @@
 
 <MudLayout>
     <MudAppBar Elevation="1" Dense="true">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(e => DrawerToggle())"/>
         <MudText Typo="Typo.h5" Class="ml-3 d-sm-flex d-none">Conference Contract Generator</MudText>
-        <MudSpacer />
+        <MudSpacer/>
         <MudMenu Icon="@Icons.Material.Filled.Brightness4" Color="@Color.Inherit" AnchorOrigin="@Origin.BottomLeft" TransformOrigin="@Origin.TopCenter">
-            <MudMenuItem OnClick="@((e) => ApplyTheme("lightTheme"))">Light theme</MudMenuItem>
-            <MudMenuItem OnClick="@((e) => ApplyTheme("darkTheme"))">Dark theme</MudMenuItem>
+            <MudMenuItem OnClick="@(e => ApplyTheme("lightTheme"))">Light theme</MudMenuItem>
+            <MudMenuItem OnClick="@(e => ApplyTheme("darkTheme"))">Dark theme</MudMenuItem>
         </MudMenu>
         <img src="/media/logo.png" class="img p-1" height="50px" width="50px"/>
     </MudAppBar>
     <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
-    <NavMenu/>
+        <NavMenu/>
     </MudDrawer>
     <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.False" Class="py-5">
@@ -53,14 +54,14 @@
                 currentTheme = lightTheme;
                 break;
         }
-        await localStorage.SetItemAsync<string>("Theme", themeName);
+        await localStorage.SetItemAsync("Theme", themeName);
     }
 
-    MudTheme currentTheme = new MudTheme();
+    MudTheme currentTheme = new();
 
-    MudTheme darkTheme = new MudTheme()
+    readonly MudTheme darkTheme = new()
     {
-        Palette = new Palette()
+        Palette = new Palette
         {
             Black = "#27272f",
             Background = "#32333d",
@@ -84,25 +85,24 @@
             TextDisabled = "rgba(255,255,255, 0.2)",
             Primary = Colors.Blue.Default
         },
-
-        LayoutProperties = new LayoutProperties()
+        LayoutProperties = new LayoutProperties
         {
             AppbarHeight = "80px"
         }
     };
 
-    MudTheme lightTheme = new MudTheme()
+    readonly MudTheme lightTheme = new()
     {
-        Palette = new Palette()
+        Palette = new Palette
         {
             Primary = Colors.Blue.Default,
             AppbarBackground = Colors.Blue.Darken2,
             Background = "rgb(245, 245, 245)"
         },
-
-        LayoutProperties = new LayoutProperties()
+        LayoutProperties = new LayoutProperties
         {
             AppbarHeight = "80px"
         }
     };
+
 }
