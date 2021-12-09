@@ -1,30 +1,30 @@
 [
   {
     "Name": "Art4Hart",
-    "LogoFilePath": "/Logos/art4hart.png"
+    "LogoFilePath": "/Logos/art4hart.jpg"
   },
   {
     "Name": "Romanian Conference World Health Organization",
-    "LogoFilePath": "/Logos/rcwho.png"
+    "LogoFilePath": "/Logos/rcwho.jpg"
   },
   {
     "Name": "Bucharest Model NATO",
-    "LogoFilePath": "/Logos/bmnato.png"
+    "LogoFilePath": "/Logos/bmnato.jpg"
   },
   {
     "Name": "Cluj Model NATO",
-    "LogoFilePath": "/Logos/cmnato.png"
+    "LogoFilePath": "/Logos/cmnato.jpg"
   },
   {
     "Name": "Romanian Youth Union for Conservation of Nature",
-    "LogoFilePath": "/Logos/ryucn.png"
+    "LogoFilePath": "/Logos/ryucn.jpg"
   },
   {
     "Name": "Romanian Youth Hospitality Conference",
-    "LogoFilePath": "/Logos/ryth.png"
+    "LogoFilePath": "/Logos/ryth.jpg"
   },
   {
     "Name": "CoMedia",
-    "LogoFilePath": "/Logos/comedia.png"
+    "LogoFilePath": "/Logos/comedia.jpg"
   }
 ]
