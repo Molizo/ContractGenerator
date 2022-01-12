@@ -2,242 +2,243 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>CCG</title>
-    <base href="/"/>
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/app.css" rel="stylesheet"/>
-    <link href="ContractGenerator.styles.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
-    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet"/>
-    <link href="_content/Syncfusion.Blazor.Themes/bootstrap4.css" rel="stylesheet"/>
-    <link href="manifest.json" rel="manifest"/>
-    <link rel="apple-touch-icon" sizes="300x300" href="/media/logo.png"/>
-    <link rel="apple-touch-icon" sizes="180x180" href="/media/apple-touch-icon-180x180.png"/>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="ContractGenerator.styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+    <link href="_content/Syncfusion.Blazor.Themes/bootstrap4.css" rel="stylesheet" />
+    <link href="manifest.json" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="300x300" href="/media/logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/media/apple-touch-icon-180x180.png" />
 </head>
 
 <body>
-<div id="app">
-    <div class="container-fluid">
-        <div class="row text-center" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; height: 100vh;">
-            <div class="col-12 p-5">
-                <h1 class="display-4">Conference Contract Generator</h1>
-            </div>
-            <div class="col-12 align-self-end">
-                <img src="loading.gif">
-                <p class="lead pb-5">Please wait, loading resources...</p>
+    <div id="app">
+        <div class="container-fluid">
+            <div class="row text-center" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; height: 100vh;">
+                <div class="col-12 p-5">
+                    <h1 class="display-4">Conference Contract Generator</h1>
+                </div>
+                <div class="col-12 align-self-end">
+                    <img src="loading.gif">
+                    <p class="lead pb-5">Please wait, loading resources...</p>
+                </div>
             </div>
         </div>
+        <!--
+        <div style="position:absolute; top:30vh; width:100%; text-align:center">
+            <h1>Conference Contract Generator</h1>
+            <p>The application is loading...</p>
+        </div>
+        -->
     </div>
-    <!--
-    <div style="position:absolute; top:30vh; width:100%; text-align:center">
-        <h1>Conference Contract Generator</h1>
-        <p>The application is loading...</p>
+
+    <div id="blazor-error-ui">
+        <p class="text-black">An error has occured. Please <a href="" class="reload link-primary">reload</a> the page at the earliest convenience.</p>
+        <a class="dismiss link-dark">🗙</a>
     </div>
-    -->
-</div>
 
-<div id="blazor-error-ui">
-    <p class="text-black">An error has occured. Please <a href="" class="reload link-primary">reload</a> the page at the earliest convenience.</p>
-    <a class="dismiss link-dark">🗙</a>
-</div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script src="_content/Blazor-Analytics/blazor-analytics.js"></script>
+    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+    <script src="modules/popper.min.js"></script>
+    <script src="modules/bootstrap.min.js"></script>
+    <script src="modules/jsPDF/jspdf.umd.min.js"></script>
+    <script src="modules/html2canvas.min.js"></script>
+    <script src="modules/jsoneditor.js"></script>
+    <script src="modules/html-docx.js"></script>
+    <script src="modules/FileSaver.js"></script>
+    <script src="modules/pdfobject.min.js"></script>
 
-<script src="_framework/blazor.webassembly.js"></script>
-<script>navigator.serviceWorker.register('service-worker.js');</script>
-<script src="_content/Blazor-Analytics/blazor-analytics.js"></script>
-<script src="_content/MudBlazor/MudBlazor.min.js"></script>
-<script src="modules/popper.min.js"></script>
-<script src="modules/bootstrap.min.js"></script>
-<script src="modules/jsPDF/jspdf.umd.min.js"></script>
-<script src="modules/html2canvas.min.js"></script>
-<script src="modules/jsoneditor.js"></script>
-<script src="modules/html-docx.js"></script>
-<script src="modules/FileSaver.js"></script>
-<script src="modules/pdfobject.min.js"></script>
+    <script>
+        function saveAsFile(filenamePointer, contentPointer) {
+            var parts = Blazor.platform.toUint8Array(contentPointer);
+            var filename = BINDING.conv_string(filenamePointer);
 
-<script>
-    function saveAsFile(filenamePointer, contentPointer) {
-        var parts = Blazor.platform.toUint8Array(contentPointer);
-        var filename = BINDING.conv_string(filenamePointer);
+            var blob = new Blob([parts], { type: "application/octet-stream" });
+            var link = document.createElement('a');
+            link.download = filename;
+            link.href = URL.createObjectURL(blob);
 
-        var blob = new Blob([parts], { type: "application/octet-stream" });
-        var link = document.createElement('a');
-        link.download = filename;
-        link.href = URL.createObjectURL(blob);
+            console.log("Blob url: " + link.href);
 
-        console.log("Blob url: " + link.href);
-
-        document.body.appendChild(link); // Needed for Firefox
-        link.click();
-        document.body.removeChild(link);
-    }
-
-    function getBlobUrl(contentPointer) {
-        var parts = Blazor.platform.toUint8Array(contentPointer);
-        var filename = BINDING.conv_string("doc.bin");
-
-        var blob = new Blob([parts], { type: "application/octet-stream" });
-        var link = document.createElement('a');
-        link.download = filename;
-        link.href = URL.createObjectURL(blob);
-
-        console.log("Blob url: " + link.href);
-
-        return BINDING.js_string_to_mono_string(link.href);
-    }
-
-    function showPdf(data, object) {
-        var options = {
-            PDFJS_URL: "/modules/pdfJS/web/viewer.html"
-        };
-
-        PDFObject.embed(data, object, options);
-    }
-</script>
-
-<script>
-    window.jsPDF = window.jspdf.jsPDF;
-    window.html2canvas = html2canvas;
-
-    function saveIFrameAsPDF(iFrameID, name) {
-        var object = document.getElementById(iFrameID).contentDocument.body;
-        var pdf = new jsPDF({
-            orientation: 'p',
-            unit: 'mm',
-            format: 'a4',
-            putOnlyUsedFonts: true,
-            floatPrecision: 16 // or "smart", default is 16
-        });
-        pdf.html(object,
-            {
-                callback: function(pdf) {
-                    pdf.save(name);
-                },
-                x: 0,
-                y: 0,
-                margin: 10,
-                autoPaging: 'text',
-                width: 190,
-                windowWidth: 700
-            });
-    }
-
-    function saveIFrameAsDOCX(iFrameID, name) {
-        var htmlString = new XMLSerializer().serializeToString(document.getElementById(iFrameID).contentDocument.children[0]);
-        htmlString = htmlString.replace('<div id="blazor-error-ui">\n        An unhandled error has occurred.\n        <a href="" class="reload">Reload</a>\n        <a class="dismiss">🗙</a>\n    </div>', ' ');
-        var docxBlob = window.URL.createObjectURL(htmlDocx.asBlob(htmlString));
-        saveAs(docxBlob, name);
-    }
-
-    function setIFrame(iframeID, url) {
-        var f = document.getElementById(iframeID);
-        f.src = url;
-    }
-
-    function getDataUrlForImg(img) {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0, 0, img.width, img.height);
-        ctx.drawImage(img, 0, 0);
-        return canvas.toDataURL('image/jpeg');
-    }
-
-    function replaceAllImgWithDataUrl() {
-        var img = document.getElementsByTagName('img');
-
-        for (var i = 0; i < img.length; i++) {
-            img[i].src = getDataUrlForImg(img[i]);
+            document.body.appendChild(link); // Needed for Firefox
+            link.click();
+            document.body.removeChild(link);
         }
-    }
 
-    function replaceAllImgWithDataUrlInIFrame(iFrameID) {
-        document.getElementById(iFrameID).contentWindow.replaceAllImgWithDataUrl();
-    }
+        function getBlobUrl(contentPointer) {
+            var parts = Blazor.platform.toUint8Array(contentPointer);
+            var filename = BINDING.conv_string("doc.bin");
 
-    function removeAllImagesInIFrame(iFrameID) {
-        var img = document.getElementById(iFrameID).contentDocument.getElementsByTagName('img');
+            var blob = new Blob([parts], { type: "application/octet-stream" });
+            var link = document.createElement('a');
+            link.download = filename;
+            link.href = URL.createObjectURL(blob);
 
-        while (img[0]) {
-            img[0].parentNode.removeChild(img[0]);
+            console.log("Blob url: " + link.href);
+
+            return BINDING.js_string_to_mono_string(link.href);
         }
-    }
-</script>
 
-<script>
-    function forceUnregisterSW() {
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                for (let registration of registrations) {
-                    registration.unregister();
-                }
-            }).catch(function(err) {
-                console.log('Service Worker registration failed: ', err);
-            });
+        function showPdf(data, object) {
+            var options = {
+                fallbackLink: "<p>Your browser does not support the preview of this document. Please download it using the buttons below.</p>"
+                //PDFJS_URL: "/modules/pdfJS/web/viewer.html"
+            };
+
+            PDFObject.embed(data, object, options);
         }
-    }
-</script>
+    </script>
 
-<script>
-    var companiesEditor, conferencesEditor, contractsEditor;
+    <script>
+        window.jsPDF = window.jspdf.jsPDF;
+        window.html2canvas = html2canvas;
 
-    function setUpTemplateEditors(companiesSchema, conferencesSchema, contractsSchema) {
-        JSONEditor.defaults.options.theme = 'bootstrap4';
-        JSONEditor.defaults.options.enable_array_copy = true;
-        JSONEditor.defaults.options.disable_edit_json = true;
-        JSONEditor.defaults.options.disable_properties = true;
-        companiesEditor = new JSONEditor(document.getElementById('companiesEditor'),
-            {
-                schema: JSON.parse(companiesSchema)
+        function saveIFrameAsPDF(iFrameID, name) {
+            var object = document.getElementById(iFrameID).contentDocument.body;
+            var pdf = new jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a4',
+                putOnlyUsedFonts: true,
+                floatPrecision: 16 // or "smart", default is 16
             });
-        conferencesEditor = new JSONEditor(document.getElementById('conferencesEditor'),
-            {
-                schema: JSON.parse(conferencesSchema)
-            });
-        contractsEditor = new JSONEditor(document.getElementById('contractsEditor'),
-            {
-                schema: JSON.parse(contractsSchema)
-            });
-    }
+            pdf.html(object,
+                {
+                    callback: function (pdf) {
+                        pdf.save(name);
+                    },
+                    x: 0,
+                    y: 0,
+                    margin: 10,
+                    autoPaging: 'text',
+                    width: 190,
+                    windowWidth: 700
+                });
+        }
 
-    function updateTemplateEditorsContent(editor, value) {
-        if (editor == "companies")
-            companiesEditor.setValue(JSON.parse(value));
-        else if (editor == "conferences")
-            conferencesEditor.setValue(JSON.parse(value));
-        else if (editor == "contracts")
-            contractsEditor.setValue(JSON.parse(value));
-    }
+        function saveIFrameAsDOCX(iFrameID, name) {
+            var htmlString = new XMLSerializer().serializeToString(document.getElementById(iFrameID).contentDocument.children[0]);
+            htmlString = htmlString.replace('<div id="blazor-error-ui">\n        An unhandled error has occurred.\n        <a href="" class="reload">Reload</a>\n        <a class="dismiss">🗙</a>\n    </div>', ' ');
+            var docxBlob = window.URL.createObjectURL(htmlDocx.asBlob(htmlString));
+            saveAs(docxBlob, name);
+        }
 
-    function getTemplateEditorContent(editor) {
-        if (editor == "companies")
-            return companiesEditor.getValue();
-        else if (editor == "conferences")
-            return conferencesEditor.getValue();
-        else if (editor == "contracts")
-            return contractsEditor.getValue();
-    }
-</script>
+        function setIFrame(iframeID, url) {
+            var f = document.getElementById(iframeID);
+            f.src = url;
+        }
 
-<script>
-    function saveFile(file, Content) {
-        var link = document.createElement('a');
-        link.download = file;
-        link.href = "data:text/plain;charset=utf-8," + encodeURIComponent(Content);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
+        function getDataUrlForImg(img) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, img.width, img.height);
+            ctx.drawImage(img, 0, 0);
+            return canvas.toDataURL('image/jpeg');
+        }
 
-    function toggleDesignMode(status) {
-        if (status)
-            document.designMode = 'on';
-        else
-            document.designMode = 'off';
-    }
-</script>
+        function replaceAllImgWithDataUrl() {
+            var img = document.getElementsByTagName('img');
+
+            for (var i = 0; i < img.length; i++) {
+                img[i].src = getDataUrlForImg(img[i]);
+            }
+        }
+
+        function replaceAllImgWithDataUrlInIFrame(iFrameID) {
+            document.getElementById(iFrameID).contentWindow.replaceAllImgWithDataUrl();
+        }
+
+        function removeAllImagesInIFrame(iFrameID) {
+            var img = document.getElementById(iFrameID).contentDocument.getElementsByTagName('img');
+
+            while (img[0]) {
+                img[0].parentNode.removeChild(img[0]);
+            }
+        }
+    </script>
+
+    <script>
+        function forceUnregisterSW() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(function (registrations) {
+                    for (let registration of registrations) {
+                        registration.unregister();
+                    }
+                }).catch(function (err) {
+                    console.log('Service Worker registration failed: ', err);
+                });
+            }
+        }
+    </script>
+
+    <script>
+        var companiesEditor, conferencesEditor, contractsEditor;
+
+        function setUpTemplateEditors(companiesSchema, conferencesSchema, contractsSchema) {
+            JSONEditor.defaults.options.theme = 'bootstrap4';
+            JSONEditor.defaults.options.enable_array_copy = true;
+            JSONEditor.defaults.options.disable_edit_json = true;
+            JSONEditor.defaults.options.disable_properties = true;
+            companiesEditor = new JSONEditor(document.getElementById('companiesEditor'),
+                {
+                    schema: JSON.parse(companiesSchema)
+                });
+            conferencesEditor = new JSONEditor(document.getElementById('conferencesEditor'),
+                {
+                    schema: JSON.parse(conferencesSchema)
+                });
+            contractsEditor = new JSONEditor(document.getElementById('contractsEditor'),
+                {
+                    schema: JSON.parse(contractsSchema)
+                });
+        }
+
+        function updateTemplateEditorsContent(editor, value) {
+            if (editor == "companies")
+                companiesEditor.setValue(JSON.parse(value));
+            else if (editor == "conferences")
+                conferencesEditor.setValue(JSON.parse(value));
+            else if (editor == "contracts")
+                contractsEditor.setValue(JSON.parse(value));
+        }
+
+        function getTemplateEditorContent(editor) {
+            if (editor == "companies")
+                return companiesEditor.getValue();
+            else if (editor == "conferences")
+                return conferencesEditor.getValue();
+            else if (editor == "contracts")
+                return contractsEditor.getValue();
+        }
+    </script>
+
+    <script>
+        function saveFile(file, Content) {
+            var link = document.createElement('a');
+            link.download = file;
+            link.href = "data:text/plain;charset=utf-8," + encodeURIComponent(Content);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function toggleDesignMode(status) {
+            if (status)
+                document.designMode = 'on';
+            else
+                document.designMode = 'off';
+        }
+    </script>
 </body>
 </html>
