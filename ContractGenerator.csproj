@@ -40,15 +40,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazor-Analytics" Version="3.9.0" />
-    <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
+    <PackageReference Include="Blazor-Analytics" Version="3.10.0" />
+    <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
     <PackageReference Include="GitVersion.MsBuild" Version="5.8.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0" PrivateAssets="all" />
-    <PackageReference Include="MudBlazor" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.1" PrivateAssets="all" />
+    <PackageReference Include="MudBlazor" Version="6.0.6" />
     <PackageReference Include="Telerik.Documents.Core" Version="2021.3.909" />
     <PackageReference Include="Telerik.Documents.Flow" Version="2021.3.909" />
     <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf" Version="2021.3.909" />
