@@ -21,4 +21,7 @@ public class ContractField
     public string Name { get; set; }
     public string Placeholder { get; set; }
     public string Content { get; set; }
+    public bool Optional { get; set; }
+    public bool OptionalIsEnabled { get; set; }
+    public string OptionalDisabledContent { get; set; }
 }

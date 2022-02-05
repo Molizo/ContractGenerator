@@ -1,4 +1,4 @@
-﻿@page "/CreateContract"
+@page "/CreateContract"
 @using Blazored.LocalStorage
 @using ContractGenerator.Models
 @using System.Reflection
@@ -122,36 +122,44 @@
             }
             @if (selectedContract != null)
             {
-                <MudSwitch @bind-Checked="@addContractNumber" Label="Add contract number" Color="Color.Info"/>
+                <MudSwitch @bind-Checked="@addContractNumber" Label="Fill in Contract number" Color="Color.Info"/>
 
                 @if (addContractNumber)
                 {
                     <div class="form-group">
-                        <label>Contract Number</label>
+                        <label>Contract number</label>
                         <input @bind="@selectedContract.Number" class="form-control">
                     </div>
                 }
 
-                <MudSwitch @bind-Checked="@addContractDate" Label="Add contract date" Color="Color.Info"/>
+                <MudSwitch @bind-Checked="@addContractDate" Label="Fill in Contract date" Color="Color.Info"/>
 
                 @if (addContractDate)
                 {
                     <div class="form-group">
-                        <label>Contract Date</label>
+                        <label>Contract date</label>
                         <input @bind="@selectedContract.Date" class="form-control">
                     </div>
                 }
+                <MudDivider />
                 @foreach (var field in selectedContract.Fields)
                 {
-                    <div class="form-group">
-                        <label>@field.Name</label>
-                        <input placeholder="@field.Placeholder" @bind="@field.Content" class="form-control">
-                    </div>
+                    @if (field.Optional)
+                    {
+                        <MudSwitch @bind-Checked="@field.OptionalIsEnabled" Label="@String.Concat("Fill in ",field.Name)" Color="Color.Info"/>
+                    }
+                    @if (!field.Optional || field.OptionalIsEnabled)
+                    {
+                        <div class="form-group">
+                            <label>@field.Name</label>
+                            <input placeholder="@field.Placeholder" @bind="@field.Content" class="form-control">
+                        </div>
+                    }
                 }
             }
         </MudExpansionPanel>
     }
-    @if (selectedContract != null && selectedContract.Fields.All(f => f.Content != ""))
+    @if (selectedContract != null && selectedContract.Fields.All(f => (!f.Optional && f.Content != "") || (f.Optional && ((f.OptionalIsEnabled && f.Content != "")|| !f.OptionalIsEnabled))))
     {
         <MudExpansionPanel Text="[Step 4] Preview and export the contract">
             <MudButton Color="Color.Primary" OnClick="PreviewContract">Preview contract</MudButton>
@@ -220,6 +228,12 @@
             selectedContract.Number = "________";
         if (!addContractDate)
             selectedContract.Date = "________________";
+
+        foreach (var field in selectedContract.Fields)
+        {
+            if (field.Optional && !field.OptionalIsEnabled)
+                field.Content = field.OptionalDisabledContent;
+        }
 
         var cb = new ContractBundle();
         cb.Company = selectedCompany;

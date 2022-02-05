@@ -52,7 +52,20 @@
               "type": "string"
             },
             "Content": {
-              "type": "string"
+              "type": "string",
+              "default": ""
+            },
+            "Optional": {
+              "type": "boolean",
+              "default": true
+            },
+            "OptionalIsEnabled": {
+              "type": "boolean",
+              "default": false
+            },
+            "OptionalDisabledContent": {
+              "type": "string",
+              "default": "_____"
             }
           },
           "required": [

@@ -1,1 +1,570 @@
-[{"FriendlyName":"Contract de sponsorizare bani (PF)","Name":"Contract de sponsorizare","Number":"","Date":"","Clauses":[{"Name":"","Content":"Incheiat in conformitate cu dispozitiile Legii 32/1994 modificata si completata, astazi {ContractDate} in {CompanyCity}, intre:"},{"Name":"SPONSOR","Content":"_________________________________ domiciliat in  _________________, Str. ________________nr.____, bloc ___, scara ___, etaj ___, apartament _____, sector/judet ___________, posesor al C. I. seria __________, nr. _____________, eliberat de__________________, cod numeric personal ________________ si al cont nr. ___________________________________deschis la _____________________, in calitate de si numit in continuare Sponsor"},{"Name":"SI","Content":""},{"Name":"BENEFICIAR","Content":"{CompanyName}, cu sediul in {CompanyCity}, {CompanyAddress}, cod de inregistrare fiscal {CompanyCIF}{CompanyOtherInfoBeneficiary}, cont nr. {CompanyIBAN} {CompanyBankName}, reprezentata prin {CompanyRepresentativeName}, in calitate de {CompanyRepresentativeTitle} numita in continuare Beneficiar"},{"Name":"I. OBIECTIVUL CONTRACTULUI","Content":"Obiectul contractului il constituie sponsorizarea beneficiarului cu {Requested Money} in scopul asigurarii evenimentului {ConferenceName}. Plata se va realiza prin transfer bancar catre contul nr. {CompanyIBAN} {CompanyBankName}, beneficiar {CompanyName}, cu textul \\u0027{ConferenceName}\\u0027 in sectiunea detalii de plata."},{"Name":"II. DURATA CONTRACTULUI","Content":"Prezentul contract de sponsorizare este valabil incepand cu data semnarii pana la momentul incheierii conferintei {ConferenceName}."},{"Name":"III. DREPTURI SI OBLIGATII ALE SPONSORULUI","Content":"Sponsorul se obliga sa puna la dispozitia Beneficiarului {Requested Money} la data prevazuta in contract si in corespondenta agreata."},{"Name":"IV. DREPTURI SI OBLIGATII ALE BENEFICIARULUI","Content":"Beneficiarul sponsorizarii se obliga sa primeasca si sa foloseasca suma acordata pentru aasigura contributia in proiectul derulat prezentat la pct. I Obiectul Contractului."},{"Name":"V. ALTE CLAUZE","Content":"Sponsorul ori beneficiarul poate sa aduca la cunostinta publicului sponsorizarea numai prin promovarea numelui, marcii sau imaginii sale. Sponsorizarea se consemneaza in evidenta contabila a sponsorului si a beneficiarului sponsorizarii pe baza documentelor care atesta efectuarea platii sau predarea, respectiv primirea bunurilor."},{"Name":"VI. MODIFICAREA CONTRACTULUI","Content":"Modificarea prevederilor prezentului contract se poate face numai prin acordul scris, comun, al partilor, prin acte aditionale la contract, parte integranta dinacesta."},{"Name":"VII. RASPUNDEREA CONTRACTUALA","Content":"Pentru neexecutarea obligatiilor sau executarea necorespunzatoare a acestora, partile vor raspunde conform legii."},{"Name":"VIII. LITIGII","Content":"Eventualele litigii intervenite intre parti in legatura cu prezentul contract, se vor rezolva de parti pe cale amiabila. In cazul in care partile nu vor solutiona problemele lor litigioase pe cale amiabila, ele vor supune cauza spre solutionare instantei judecatoresti competente."},{"Name":"IX. DISPOZITII FINALE","Content":"Prezentul contract s-a incheiat astazi {ContractDate} la {CompanyCity}, intr-un numar de 2 exemplare, fiecare cu valoare de original, cate una pentru fiecare parte."},{"Name":"","Content":""},{"Name":"BENEFICIAR","Content":""},{"Name":"SPONSOR","Content":""}],"Fields":[{"Name":"Requested Money","Placeholder":"0 RON","Content":""}]},{"FriendlyName":"Contract de sponsorizare bani (PJ)","Name":"Contract de sponsorizare","Number":"","Date":"","Clauses":[{"Name":"","Content":"Incheiat in conformitate cu dispozitiile Legii 32/1994 modificata si completata, astazi {ContractDate} in {CompanyCity}, intre:"},{"Name":"SPONSOR","Content":"_________________________________ cu sediul in _________________,Str. ________________ nr.____, Inregistrata la ONRC J____________________,codul fiscal ___________________ cont nr. ___________________________________ deschis la _____________________, reprezentata prin________________________________, in calitate de __________________, numita in continuare Sponsor"},{"Name":"SI","Content":""},{"Name":"BENEFICIAR","Content":"{CompanyName}, cu sediul in {CompanyCity}, {CompanyAddress}, cod de inregistrare fiscal {CompanyCIF}{CompanyOtherInfoBeneficiary}, cont nr. {CompanyIBAN} {CompanyBankName}, reprezentata prin {CompanyRepresentativeName}, in calitate de {CompanyRepresentativeTitle} numita in continuare Beneficiar"},{"Name":"I. OBIECTIVUL CONTRACTULUI","Content":"Obiectul contractului il constituie sponsorizarea beneficiarului cu {Requested Money} in scopul asigurarii evenimentului {ConferenceName}. Plata se va realiza prin transfer bancar catre contul nr. {CompanyIBAN} {CompanyBankName}, beneficiar {CompanyName}, cu textul \\u0027{ConferenceName}\\u0027 in sectiunea detalii de plata."},{"Name":"II. DURATA CONTRACTULUI","Content":"Prezentul contract de sponsorizare este valabil incepand cu data semnarii pana la momentul incheierii conferintei {ConferenceName}."},{"Name":"III. DREPTURI SI OBLIGATII ALE SPONSORULUI","Content":"Sponsorul se obliga sa puna la dispozitia Beneficiarului {Requested Money} la data prevazuta in contract si in corespondenta agreata."},{"Name":"IV. DREPTURI SI OBLIGATII ALE BENEFICIARULUI","Content":"Beneficiarul sponsorizarii se obliga sa primeasca si sa foloseasca suma acordata pentru aasigura contributia in proiectul derulat prezentat la pct. I Obiectul Contractului."},{"Name":"V. ALTE CLAUZE","Content":"Sponsorul ori beneficiarul poate sa aduca la cunostinta publicului sponsorizarea numai prin promovarea numelui, marcii sau imaginii sale. Sponsorizarea se consemneaza in evidenta contabila a sponsorului si a beneficiarului sponsorizarii pe baza documentelor care atesta efectuarea platii sau predarea, respectiv primirea bunurilor."},{"Name":"VI. MODIFICAREA CONTRACTULUI","Content":"Modificarea prevederilor prezentului contract se poate face numai prin acordul scris, comun, al partilor, prin acte aditionale la contract, parte integranta dinacesta."},{"Name":"VII. RASPUNDEREA CONTRACTUALA","Content":"Pentru neexecutarea obligatiilor sau executarea necorespunzatoare a acestora, partile vor raspunde conform legii."},{"Name":"VIII. LITIGII","Content":"Eventualele litigii intervenite intre parti in legatura cu prezentul contract, se vor rezolva de parti pe cale amiabila. In cazul in care partile nu vor solutiona problemele lor litigioase pe cale amiabila, ele vor supune cauza spre solutionare instantei judecatoresti competente."},{"Name":"IX. DISPOZITII FINALE","Content":"Prezentul contract s-a incheiat astazi {ContractDate} la {CompanyCity}, intr-un numar de 2 exemplare, fiecare cu valoare de original, cate una pentru fiecare parte."},{"Name":"","Content":""},{"Name":"BENEFICIAR","Content":""},{"Name":"SPONSOR","Content":""}],"Fields":[{"Name":"Requested Money","Placeholder":"0 RON","Content":""}]},{"FriendlyName":"Contract de sponsorizare bunuri (PJ)","Name":"Contract de sponsorizare","Number":"","Date":"","Clauses":[{"Name":"","Content":"Incheiat in conformitate cu dispozitiile Legii 32/1994 modificata si completata, astazi {ContractDate} in {CompanyCity}, intre:"},{"Name":"SPONSOR","Content":"_________________________________ cu sediul in _________________,Str. ________________ nr.____, Inregistrata la ONRC J____________________,codul fiscal ___________________ cont nr. ___________________________________ deschis la _____________________, reprezentata prin________________________________, in calitate de __________________, numita in continuare Sponsor"},{"Name":"SI","Content":""},{"Name":"BENEFICIAR","Content":"{CompanyName}, cu sediul in {CompanyCity}, {CompanyAddress}, cod de inregistrare fiscal {CompanyCIF}{CompanyOtherInfoBeneficiary}, cont nr. {CompanyIBAN} {CompanyBankName}, reprezentata prin {CompanyRepresentativeName}, in calitate de {CompanyRepresentativeTitle} numita in continuare Beneficiar"},{"Name":"I. OBIECTIVUL CONTRACTULUI","Content":"Obiectul contractului il constituie sponsorizarea beneficiarului cu {Requested Goods} in scopul asigurarii evenimentului {ConferenceName}."},{"Name":"II. DURATA CONTRACTULUI","Content":"Prezentul contract de sponsorizare este valabil incepand cu data semnarii pana la momentul incheierii evenimentului {ConferenceName}."},{"Name":"III. DREPTURI SI OBLIGATII ALE SPONSORULUI","Content":"Sponsorul se obliga sa puna la dispozitia Beneficiarului {Requested Goods} la data prevazuta in contract si in corespondenta agreata."},{"Name":"IV. DREPTURI SI OBLIGATII ALE BENEFICIARULUI","Content":"Beneficiarul sponsorizarii se obliga sa primeasca si sa foloseasca bunurile acordate pentru a asigura contributia in proiectul derulat prezentat la pct. I Obiectul Contractului."},{"Name":"V. ALTE CLAUZE","Content":"Sponsorul ori beneficiarul poate sa aduca la cunostinta publicului sponsorizarea numai prin promovarea numelui, marcii sau imaginii sale. Sponsorizarea se consemneaza in evidenta contabila a sponsorului si a beneficiarului sponsorizarii pe baza documentelor care atesta efectuarea platii sau predarea, respectiv primirea bunurilor."},{"Name":"VI. MODIFICAREA CONTRACTULUI","Content":"Modificarea prevederilor prezentului contract se poate face numai prin acordul scris, comun, al partilor, prin acte aditionale la contract, parte integranta dinacesta."},{"Name":"VII. RASPUNDEREA CONTRACTUALA","Content":"Pentru neexecutarea obligatiilor sau executarea necorespunzatoare a acestora, partile vor raspunde conform legii."},{"Name":"VIII. LITIGII","Content":"Eventualele litigii intervenite intre parti in legatura cu prezentul contract, se vor rezolva de parti pe cale amiabila. In cazul in care partile nu vor solutiona problemele lor litigioase pe cale amiabila, ele vor supune cauza spre solutionare instantei judecatoresti competente."},{"Name":"IX. DISPOZITII FINALE","Content":"Prezentul contract s-a incheiat astazi {ContractDate} la {CompanyCity}, intr-un numar de 2 exemplare, fiecare cu valoare de original, cate una pentru fiecare parte."},{"Name":"","Content":""},{"Name":"BENEFICIAR","Content":""},{"Name":"SPONSOR","Content":""}],"Fields":[{"Name":"Requested Goods","Placeholder":"10 bucati de lanyard-uri, 15 bucati de memory stick-uri si 40kg de suc","Content":""}]},{"FriendlyName":"Contract de sponsorizare - performer (PF)","Name":"Contract de sponsorizare - performer","Number":"","Date":"","Clauses":[{"Name":"","Content":"Incheiat in conformitate cu dispozitiile Legii 32/1994 modificata si completata, astazi {ContractDate} in {CompanyCity}, intre:"},{"Name":"SPONSOR-PERFORMER","Content":"_________________________________ domiciliat in  _________________, Str. ________________nr.____, bloc ___, scara ___, etaj ___, apartament _____, sector/judet ___________, posesor al C. I. seria __________, nr. _____________, eliberat de__________________, cod numeric personal ________________, in calitate de si numit in continuare Sponsor-Performer sau SP "},{"Name":"SI","Content":""},{"Name":"BENEFICIAR","Content":"{CompanyName}, cu sediul in {CompanyCity}, {CompanyAddress}, cod de inregistrare fiscal {CompanyCIF}{CompanyOtherInfoBeneficiary}, cont nr. {CompanyIBAN} {CompanyBankName}, reprezentata prin {CompanyRepresentativeName}, in calitate de {CompanyRepresentativeTitle} numita in continuare Beneficiar"},{"Name":"I. OBIECTIVUL CONTRACTULUI","Content":"Obiectul contractului il constituie sponsorizarea beneficiarului prin organizarea de catre SP a urmatoarelor activitati in cadrul {ConferenceName}: {Performances}."},{"Name":"II. DURATA CONTRACTULUI","Content":"Prezentul contract de sponsorizare este valabil incepand cu data semnarii pana la momentul incheierii conferintei {ConferenceName}."},{"Name":"III. DREPTURI SI OBLIGATII ALE SPONSORULUI","Content":"Sponsorul se obliga sa presteze activitatea stabilita la punctul I. Obiectul Contractului pana la termenul agreat la semnarea contractului."},{"Name":"IV. DREPTURI SI OBLIGATII ALE BENEFICIARULUI","Content":"Beneficiarul sponsorizarii se obliga sa primeasca si sa foloseasca serviciul acordat pentru a asigura activitatile din cadrul proiectului prezentat la pct. I Obiectul Contractului."},{"Name":"V. ALTE CLAUZE","Content":"SP ori beneficiarul poate sa aduc\\u0103 la cuno\\u015Ftin\\u0163a publicului sponsorizarea numai prin promovarea numelui, m\\u0103rcii sau imaginii sale. Sponsorizarea se consemneaz\\u0103 \\u00EEn eviden\\u021Ba contabil\\u0103 a beneficiarului sponsoriz\\u0103rii pe baza documentelor care atest\\u0103 efectuarea pl\\u0103\\u021Bii sau predarea, respectiv primirea bunurilor."},{"Name":"VI. MODIFICAREA CONTRACTULUI","Content":"Modificarea prevederilor prezentului contract se poate face numai prin acordul scris, comun, al partilor, prin acte aditionale la contract, parte integranta dinacesta."},{"Name":"VII. RASPUNDEREA CONTRACTUALA","Content":"Pentru neexecutarea obligatiilor sau executarea necorespunzatoare a acestora, partile vor raspunde conform legii."},{"Name":"VIII. LITIGII","Content":"Eventualele litigii intervenite intre parti in legatura cu prezentul contract, se vor rezolva de parti pe cale amiabila. In cazul in care partile nu vor solutiona problemele lor litigioase pe cale amiabila, ele vor supune cauza spre solutionare instantei judecatoresti competente."},{"Name":"IX. DISPOZITII FINALE","Content":"Prezentul contract s-a incheiat astazi {ContractDate} la {CompanyCity}, intr-un numar de 2 exemplare, fiecare cu valoare de original, cate una pentru fiecare parte."},{"Name":"","Content":""},{"Name":"BENEFICIAR","Content":""},{"Name":"SPONSOR-PERFORMER (SP)","Content":""}],"Fields":[{"Name":"Performances","Placeholder":"Workshop de prim-ajutor, Activitate interactiva de gatit","Content":""}]}]
+[
+  {
+    "FriendlyName": "Contract de sponsorizare bani (PF)",
+    "Name": "Contract de sponsorizare",
+    "Number": "",
+    "Date": "",
+    "Clauses": [
+      {
+        "Name": "",
+        "Content": "Incheiat in conformitate cu dispozitiile Legii 32/1994 modificata si completata, astazi {ContractDate} in {CompanyCity}, intre:"
+      },
+      {
+        "Name": "SPONSOR",
+        "Content": "{Sponsor full name}, domiciliat in {Sponsor address}, posesor al C. I. seria {Sponsor ID card series}, nr. {Sponsor ID card number}, eliberat de {Sponsor ID card issuer}, cod numeric personal {Sponsor CNP} si al cont nr. {Sponsor IBAN} deschis la {Sponsor bank}, in calitate de si numit in continuare Sponsor"
+      },
+      {
+        "Name": "SI",
+        "Content": ""
+      },
+      {
+        "Name": "BENEFICIAR",
+        "Content": "{CompanyName}, cu sediul in {CompanyCity}, {CompanyAddress}, cod de inregistrare fiscal {CompanyCIF}{CompanyOtherInfoBeneficiary}, cont nr. {CompanyIBAN} {CompanyBankName}, reprezentata prin {CompanyRepresentativeName}, in calitate de {CompanyRepresentativeTitle} numita in continuare Beneficiar"
+      },
+      {
+        "Name": "I. OBIECTIVUL CONTRACTULUI",
+        "Content": "Obiectul contractului il constituie sponsorizarea beneficiarului cu {Requested Money} in scopul asigurarii evenimentului {ConferenceName}. Plata se va realiza prin transfer bancar catre contul nr. {CompanyIBAN} {CompanyBankName}, beneficiar {CompanyName}, cu textul '{ConferenceName}' in sectiunea detalii de plata."
+      },
+      {
+        "Name": "II. DURATA CONTRACTULUI",
+        "Content": "Prezentul contract de sponsorizare este valabil incepand cu data semnarii pana la momentul incheierii conferintei {ConferenceName}."
+      },
+      {
+        "Name": "III. DREPTURI SI OBLIGATII ALE SPONSORULUI",
+        "Content": "Sponsorul se obliga sa puna la dispozitia Beneficiarului {Requested Money} la data prevazuta in contract si in corespondenta agreata."
+      },
+      {
+        "Name": "IV. DREPTURI SI OBLIGATII ALE BENEFICIARULUI",
+        "Content": "Beneficiarul sponsorizarii se obliga sa primeasca si sa foloseasca suma acordata pentru aasigura contributia in proiectul derulat prezentat la pct. I Obiectul Contractului."
+      },
+      {
+        "Name": "V. ALTE CLAUZE",
+        "Content": "Sponsorul ori beneficiarul poate sa aduca la cunostinta publicului sponsorizarea numai prin promovarea numelui, marcii sau imaginii sale. Sponsorizarea se consemneaza in evidenta contabila a sponsorului si a beneficiarului sponsorizarii pe baza documentelor care atesta efectuarea platii sau predarea, respectiv primirea bunurilor."
+      },
+      {
+        "Name": "VI. MODIFICAREA CONTRACTULUI",
+        "Content": "Modificarea prevederilor prezentului contract se poate face numai prin acordul scris, comun, al partilor, prin acte aditionale la contract, parte integranta dinacesta."
+      },
+      {
+        "Name": "VII. RASPUNDEREA CONTRACTUALA",
+        "Content": "Pentru neexecutarea obligatiilor sau executarea necorespunzatoare a acestora, partile vor raspunde conform legii."
+      },
+      {
+        "Name": "VIII. LITIGII",
+        "Content": "Eventualele litigii intervenite intre parti in legatura cu prezentul contract, se vor rezolva de parti pe cale amiabila. In cazul in care partile nu vor solutiona problemele lor litigioase pe cale amiabila, ele vor supune cauza spre solutionare instantei judecatoresti competente."
+      },
+      {
+        "Name": "IX. DISPOZITII FINALE",
+        "Content": "Prezentul contract s-a incheiat astazi {ContractDate} la {CompanyCity}, intr-un numar de 2 exemplare, fiecare cu valoare de original, cate una pentru fiecare parte."
+      },
+      {
+        "Name": "",
+        "Content": ""
+      },
+      {
+        "Name": "BENEFICIAR",
+        "Content": ""
+      },
+      {
+        "Name": "SPONSOR",
+        "Content": ""
+      }
+    ],
+    "Fields": [
+      {
+        "Name": "Sponsor full name",
+        "Placeholder": "Ion Popescu",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________________________"
+      },
+      {
+        "Name": "Sponsor address",
+        "Placeholder": "Mun. Bucuresti, Str. Aleea Privighetorilor Nr. 4, Bl. 1, Sc. 1, Et. 1, Ap. 1, Sector 1",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________, Str. ________________nr.____, bloc ___, scara ___, etaj ___, apartament _____, sector/judet ___________"
+      },
+      {
+        "Name": "Sponsor ID card series",
+        "Placeholder": "AB",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": " __________"
+      },
+      {
+        "Name": "Sponsor ID card number",
+        "Placeholder": "012987",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_____________"
+      },
+      {
+        "Name": "Sponsor ID card issuer",
+        "Placeholder": "D.E.P.A.B.D.",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "__________________"
+      },
+      {
+        "Name": "Sponsor CNP",
+        "Placeholder": "5040120405055",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "________________"
+      },
+      {
+        "Name": "Sponsor IBAN",
+        "Placeholder": "RO09BTRL0000001234567890",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________________________"
+      },
+      {
+        "Name": "Sponsor bank",
+        "Placeholder": "Banca Transilvania",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________________________"
+      },
+      {
+        "Name": "Requested Money",
+        "Placeholder": "0 RON",
+        "Content": "",
+        "Optional": false,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": ""
+      }
+    ]
+  },
+  {
+    "FriendlyName": "Contract de sponsorizare bani (PJ)",
+    "Name": "Contract de sponsorizare",
+    "Number": "",
+    "Date": "",
+    "Clauses": [
+      {
+        "Name": "",
+        "Content": "Incheiat in conformitate cu dispozitiile Legii 32/1994 modificata si completata, astazi {ContractDate} in {CompanyCity}, intre:"
+      },
+      {
+        "Name": "SPONSOR",
+        "Content": "{Sponsor company name} cu sediul in {Sponsor address}, inregistrata la ONRC J{Sponsor ONRC J}, cod fiscal {Sponsor fiscal code}, cont nr. {Sponsor IBAN} deschis la {Sponsor bank name}, reprezentata prin {Sponsor representative name}, in calitate de {Sponsor representative role}, numita in continuare Sponsor"
+      },
+      {
+        "Name": "SI",
+        "Content": ""
+      },
+      {
+        "Name": "BENEFICIAR",
+        "Content": "{CompanyName}, cu sediul in {CompanyCity}, {CompanyAddress}, cod de inregistrare fiscal {CompanyCIF}{CompanyOtherInfoBeneficiary}, cont nr. {CompanyIBAN} {CompanyBankName}, reprezentata prin {CompanyRepresentativeName}, in calitate de {CompanyRepresentativeTitle} numita in continuare Beneficiar"
+      },
+      {
+        "Name": "I. OBIECTIVUL CONTRACTULUI",
+        "Content": "Obiectul contractului il constituie sponsorizarea beneficiarului cu {Requested Money} in scopul asigurarii evenimentului {ConferenceName}. Plata se va realiza prin transfer bancar catre contul nr. {CompanyIBAN} {CompanyBankName}, beneficiar {CompanyName}, cu textul '{ConferenceName}' in sectiunea detalii de plata."
+      },
+      {
+        "Name": "II. DURATA CONTRACTULUI",
+        "Content": "Prezentul contract de sponsorizare este valabil incepand cu data semnarii pana la momentul incheierii conferintei {ConferenceName}."
+      },
+      {
+        "Name": "III. DREPTURI SI OBLIGATII ALE SPONSORULUI",
+        "Content": "Sponsorul se obliga sa puna la dispozitia Beneficiarului {Requested Money} la data prevazuta in contract si in corespondenta agreata."
+      },
+      {
+        "Name": "IV. DREPTURI SI OBLIGATII ALE BENEFICIARULUI",
+        "Content": "Beneficiarul sponsorizarii se obliga sa primeasca si sa foloseasca suma acordata pentru aasigura contributia in proiectul derulat prezentat la pct. I Obiectul Contractului."
+      },
+      {
+        "Name": "V. ALTE CLAUZE",
+        "Content": "Sponsorul ori beneficiarul poate sa aduca la cunostinta publicului sponsorizarea numai prin promovarea numelui, marcii sau imaginii sale. Sponsorizarea se consemneaza in evidenta contabila a sponsorului si a beneficiarului sponsorizarii pe baza documentelor care atesta efectuarea platii sau predarea, respectiv primirea bunurilor."
+      },
+      {
+        "Name": "VI. MODIFICAREA CONTRACTULUI",
+        "Content": "Modificarea prevederilor prezentului contract se poate face numai prin acordul scris, comun, al partilor, prin acte aditionale la contract, parte integranta dinacesta."
+      },
+      {
+        "Name": "VII. RASPUNDEREA CONTRACTUALA",
+        "Content": "Pentru neexecutarea obligatiilor sau executarea necorespunzatoare a acestora, partile vor raspunde conform legii."
+      },
+      {
+        "Name": "VIII. LITIGII",
+        "Content": "Eventualele litigii intervenite intre parti in legatura cu prezentul contract, se vor rezolva de parti pe cale amiabila. In cazul in care partile nu vor solutiona problemele lor litigioase pe cale amiabila, ele vor supune cauza spre solutionare instantei judecatoresti competente."
+      },
+      {
+        "Name": "IX. DISPOZITII FINALE",
+        "Content": "Prezentul contract s-a incheiat astazi {ContractDate} la {CompanyCity}, intr-un numar de 2 exemplare, fiecare cu valoare de original, cate una pentru fiecare parte."
+      },
+      {
+        "Name": "",
+        "Content": ""
+      },
+      {
+        "Name": "BENEFICIAR",
+        "Content": ""
+      },
+      {
+        "Name": "SPONSOR",
+        "Content": ""
+      }
+    ],
+    "Fields": [
+      {
+        "Name": "Sponsor company name",
+        "Placeholder": "SC Company SRL",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________________________"
+      },
+      {
+        "Name": "Sponsor address",
+        "Placeholder": "Mun. Bucuresti, Str. Aleea Privighetorilor Nr. 4, Bl. 1, Sc. 1, Et. 1, Ap. 1, Sector 1",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________, Str. ________________nr.____, bloc ___, scara ___, etaj ___, apartament _____, sector/judet ___________"
+      },
+      {
+        "Name": "Sponsor ONRC J",
+        "Placeholder": "XXXXXXX",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "____________________"
+      },
+      {
+        "Name": "Sponsor fiscal code",
+        "Placeholder": "RO990123",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "___________________"
+      },
+      {
+        "Name": "Sponsor IBAN",
+        "Placeholder": "RO09BTRL0000001234567890",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________________________"
+      },
+      {
+        "Name": "Sponsor bank name",
+        "Placeholder": "Banca Transilvania",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________________________"
+      },
+      {
+        "Name": "Sponsor representative name",
+        "Placeholder": "Ion Popescu",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________________________"
+      },
+      {
+        "Name": "Sponsor representative role",
+        "Placeholder": "Director Executiv",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________________________"
+      },
+      {
+        "Name": "Requested Money",
+        "Placeholder": "0 RON",
+        "Content": "",
+        "Optional": false,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": ""
+      }
+    ]
+  },
+  {
+    "FriendlyName": "Contract de sponsorizare bunuri (PJ)",
+    "Name": "Contract de sponsorizare",
+    "Number": "",
+    "Date": "",
+    "Clauses": [
+      {
+        "Name": "",
+        "Content": "Incheiat in conformitate cu dispozitiile Legii 32/1994 modificata si completata, astazi {ContractDate} in {CompanyCity}, intre:"
+      },
+      {
+        "Name": "SPONSOR",
+        "Content": "{Sponsor company name} cu sediul in {Sponsor address}, inregistrata la ONRC J{Sponsor ONRC J}, cod fiscal {Sponsor fiscal code}, cont nr. {Sponsor IBAN} deschis la {Sponsor bank name}, reprezentata prin {Sponsor representative name}, in calitate de {Sponsor representative role}, numita in continuare Sponsor"
+      },
+      {
+        "Name": "SI",
+        "Content": ""
+      },
+      {
+        "Name": "BENEFICIAR",
+        "Content": "{CompanyName}, cu sediul in {CompanyCity}, {CompanyAddress}, cod de inregistrare fiscal {CompanyCIF}{CompanyOtherInfoBeneficiary}, cont nr. {CompanyIBAN} {CompanyBankName}, reprezentata prin {CompanyRepresentativeName}, in calitate de {CompanyRepresentativeTitle} numita in continuare Beneficiar"
+      },
+      {
+        "Name": "I. OBIECTIVUL CONTRACTULUI",
+        "Content": "Obiectul contractului il constituie sponsorizarea beneficiarului cu {Requested Goods} in scopul asigurarii evenimentului {ConferenceName}."
+      },
+      {
+        "Name": "II. DURATA CONTRACTULUI",
+        "Content": "Prezentul contract de sponsorizare este valabil incepand cu data semnarii pana la momentul incheierii evenimentului {ConferenceName}."
+      },
+      {
+        "Name": "III. DREPTURI SI OBLIGATII ALE SPONSORULUI",
+        "Content": "Sponsorul se obliga sa puna la dispozitia Beneficiarului {Requested Goods} la data prevazuta in contract si in corespondenta agreata."
+      },
+      {
+        "Name": "IV. DREPTURI SI OBLIGATII ALE BENEFICIARULUI",
+        "Content": "Beneficiarul sponsorizarii se obliga sa primeasca si sa foloseasca bunurile acordate pentru a asigura contributia in proiectul derulat prezentat la pct. I Obiectul Contractului."
+      },
+      {
+        "Name": "V. ALTE CLAUZE",
+        "Content": "Sponsorul ori beneficiarul poate sa aduca la cunostinta publicului sponsorizarea numai prin promovarea numelui, marcii sau imaginii sale. Sponsorizarea se consemneaza in evidenta contabila a sponsorului si a beneficiarului sponsorizarii pe baza documentelor care atesta efectuarea platii sau predarea, respectiv primirea bunurilor."
+      },
+      {
+        "Name": "VI. MODIFICAREA CONTRACTULUI",
+        "Content": "Modificarea prevederilor prezentului contract se poate face numai prin acordul scris, comun, al partilor, prin acte aditionale la contract, parte integranta dinacesta."
+      },
+      {
+        "Name": "VII. RASPUNDEREA CONTRACTUALA",
+        "Content": "Pentru neexecutarea obligatiilor sau executarea necorespunzatoare a acestora, partile vor raspunde conform legii."
+      },
+      {
+        "Name": "VIII. LITIGII",
+        "Content": "Eventualele litigii intervenite intre parti in legatura cu prezentul contract, se vor rezolva de parti pe cale amiabila. In cazul in care partile nu vor solutiona problemele lor litigioase pe cale amiabila, ele vor supune cauza spre solutionare instantei judecatoresti competente."
+      },
+      {
+        "Name": "IX. DISPOZITII FINALE",
+        "Content": "Prezentul contract s-a incheiat astazi {ContractDate} la {CompanyCity}, intr-un numar de 2 exemplare, fiecare cu valoare de original, cate una pentru fiecare parte."
+      },
+      {
+        "Name": "",
+        "Content": ""
+      },
+      {
+        "Name": "BENEFICIAR",
+        "Content": ""
+      },
+      {
+        "Name": "SPONSOR",
+        "Content": ""
+      }
+    ],
+    "Fields": [
+      {
+        "Name": "Sponsor company name",
+        "Placeholder": "SC Company SRL",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________________________"
+      },
+      {
+        "Name": "Sponsor address",
+        "Placeholder": "Mun. Bucuresti, Str. Aleea Privighetorilor Nr. 4, Bl. 1, Sc. 1, Et. 1, Ap. 1, Sector 1",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________, Str. ________________nr.____, bloc ___, scara ___, etaj ___, apartament _____, sector/judet ___________"
+      },
+      {
+        "Name": "Sponsor ONRC J",
+        "Placeholder": "XXXXXXX",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "____________________"
+      },
+      {
+        "Name": "Sponsor fiscal code",
+        "Placeholder": "RO990123",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "___________________"
+      },
+      {
+        "Name": "Sponsor IBAN",
+        "Placeholder": "RO09BTRL0000001234567890",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________________________"
+      },
+      {
+        "Name": "Sponsor bank name",
+        "Placeholder": "Banca Transilvania",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________________________"
+      },
+      {
+        "Name": "Sponsor representative name",
+        "Placeholder": "Ion Popescu",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________________________"
+      },
+      {
+        "Name": "Sponsor representative role",
+        "Placeholder": "Director Executiv",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________________________"
+      },
+      {
+        "Name": "Requested Goods",
+        "Placeholder": "10 bucati de lanyard-uri, 15 bucati de memory stick-uri si 40kg de suc",
+        "Content": "",
+        "Optional": false,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": ""
+      }
+    ]
+  },
+  {
+    "FriendlyName": "Contract de sponsorizare - performer (PF)",
+    "Name": "Contract de sponsorizare - performer",
+    "Number": "",
+    "Date": "",
+    "Clauses": [
+      {
+        "Name": "",
+        "Content": "Incheiat in conformitate cu dispozitiile Legii 32/1994 modificata si completata, astazi {ContractDate} in {CompanyCity}, intre:"
+      },
+      {
+        "Name": "SPONSOR-PERFORMER",
+        "Content": "{Performer full name}, domiciliat in {Performer address}, posesor al C. I. seria {Performer ID card series}, nr. {Performer ID card number}, eliberat de {Performer ID card issuer}, cod numeric personal {Performer CNP}, in calitate de si numit in continuare Sponsor-Performer sau SP"
+      },
+      {
+        "Name": "SI",
+        "Content": ""
+      },
+      {
+        "Name": "BENEFICIAR",
+        "Content": "{CompanyName}, cu sediul in {CompanyCity}, {CompanyAddress}, cod de inregistrare fiscal {CompanyCIF}{CompanyOtherInfoBeneficiary}, cont nr. {CompanyIBAN} {CompanyBankName}, reprezentata prin {CompanyRepresentativeName}, in calitate de {CompanyRepresentativeTitle} numita in continuare Beneficiar"
+      },
+      {
+        "Name": "I. OBIECTIVUL CONTRACTULUI",
+        "Content": "Obiectul contractului il constituie sponsorizarea beneficiarului prin organizarea de catre SP a urmatoarelor activitati in cadrul {ConferenceName}: {Performances}."
+      },
+      {
+        "Name": "II. DURATA CONTRACTULUI",
+        "Content": "Prezentul contract de sponsorizare este valabil incepand cu data semnarii pana la momentul incheierii conferintei {ConferenceName}."
+      },
+      {
+        "Name": "III. DREPTURI SI OBLIGATII ALE SPONSORULUI",
+        "Content": "Sponsorul se obliga sa presteze activitatea stabilita la punctul I. Obiectul Contractului pana la termenul agreat la semnarea contractului."
+      },
+      {
+        "Name": "IV. DREPTURI SI OBLIGATII ALE BENEFICIARULUI",
+        "Content": "Beneficiarul sponsorizarii se obliga sa primeasca si sa foloseasca serviciul acordat pentru a asigura activitatile din cadrul proiectului prezentat la pct. I Obiectul Contractului."
+      },
+      {
+        "Name": "V. ALTE CLAUZE",
+        "Content": "SP ori beneficiarul poate sa aduca la cunostinta publicului sponsorizarea numai prin promovarea numelui, marcii sau imaginii sale. Sponsorizarea se consemneaza in evidenta contabila a beneficiarului sponsorizarii pe baza documentelor care atesta efectuarea platii sau predarea, respectiv primirea bunurilor sau a servicilor prestate."
+      },
+      {
+        "Name": "VI. MODIFICAREA CONTRACTULUI",
+        "Content": "Modificarea prevederilor prezentului contract se poate face numai prin acordul scris, comun, al partilor, prin acte aditionale la contract, parte integranta dinacesta."
+      },
+      {
+        "Name": "VII. RASPUNDEREA CONTRACTUALA",
+        "Content": "Pentru neexecutarea obligatiilor sau executarea necorespunzatoare a acestora, partile vor raspunde conform legii."
+      },
+      {
+        "Name": "VIII. LITIGII",
+        "Content": "Eventualele litigii intervenite intre parti in legatura cu prezentul contract, se vor rezolva de parti pe cale amiabila. In cazul in care partile nu vor solutiona problemele lor litigioase pe cale amiabila, ele vor supune cauza spre solutionare instantei judecatoresti competente."
+      },
+      {
+        "Name": "IX. DISPOZITII FINALE",
+        "Content": "Prezentul contract s-a incheiat astazi {ContractDate} la {CompanyCity}, intr-un numar de 2 exemplare, fiecare cu valoare de original, cate una pentru fiecare parte."
+      },
+      {
+        "Name": "",
+        "Content": ""
+      },
+      {
+        "Name": "BENEFICIAR",
+        "Content": ""
+      },
+      {
+        "Name": "SPONSOR-PERFORMER (SP)",
+        "Content": ""
+      }
+    ],
+    "Fields": [
+      {
+        "Name": "Performer full name",
+        "Placeholder": "Ion Popescu",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________________________"
+      },
+      {
+        "Name": "Performer address",
+        "Placeholder": "Mun. Bucuresti, Str. Aleea Privighetorilor Nr. 4, Bl. 1, Sc. 1, Et. 1, Ap. 1, Sector 1",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_________________, Str. ________________nr.____, bloc ___, scara ___, etaj ___, apartament _____, sector/judet ___________"
+      },
+      {
+        "Name": "Performer ID card series",
+        "Placeholder": "AB",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": " __________"
+      },
+      {
+        "Name": "Performer ID card number",
+        "Placeholder": "012987",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "_____________"
+      },
+      {
+        "Name": "Performer ID card issuer",
+        "Placeholder": "D.E.P.A.B.D.",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "__________________"
+      },
+      {
+        "Name": "Performer CNP",
+        "Placeholder": "5040120405055",
+        "Content": "",
+        "Optional": true,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": "________________"
+      },
+      {
+        "Name": "Performances",
+        "Placeholder": "Workshop de prim-ajutor, Activitate interactiva de gatit",
+        "Content": "",
+        "Optional": false,
+        "OptionalIsEnabled": false,
+        "OptionalDisabledContent": ""
+      }
+    ]
+  }
+]
