@@ -116,11 +116,26 @@
 
     protected override async Task OnInitializedAsync()
     {
-        appInfoLatest = await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json?time=" + DateTime.Now);
-        appInfoLocal = await localStorage.GetItemAsync<AppInfo>("TemplateAppInfo");
+        try
+        {
+            appInfoLocal = await localStorage.GetItemAsync<AppInfo>("TemplateAppInfo");
 
-        if (appInfoLocal == null)
-            await UpdateDB();
+            if (appInfoLocal == null)
+                await UpdateDB();
+        }
+        catch
+        {
+            appInfoLocal = new AppInfo() { CompaniesVersion = "0", ConferencesVersion = "0", ContractsVersion = "0" };
+        }
+
+        try
+        {
+            appInfoLatest = await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json?time=" + DateTime.Now);
+        }
+        catch
+        {
+            appInfoLatest = new AppInfo() { CompaniesVersion = "OFFLINE", ConferencesVersion = "OFFLINE", ContractsVersion = "OFFLINE" };
+        }
 
         await Analytics.TrackEvent("[Settings] Initialized Settings");
     }

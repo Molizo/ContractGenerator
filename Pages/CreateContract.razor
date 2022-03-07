@@ -12,16 +12,19 @@
 
 <MudText Typo="Typo.h3">Create a contract</MudText>
 
-<MudCard Class="my-5">
-    <MudCardContent>
-        <MudText Typo="Typo.h6">Update templates</MudText>
-        <MudText Class="pb-2">Update your templates to get access to the latest contract types.</MudText>
-        <MudAlert Severity="Severity.Warning">Getting the latest templates will erase your custom ones.</MudAlert>
-    </MudCardContent>
-    <MudCardActions>
-        <MudButton Variant="Variant.Text" Color="Color.Primary" @onclick="UpdateDB">Get latest templates from server</MudButton>
-    </MudCardActions>
-</MudCard>
+@if (templateUpdateAvailable)
+{
+    <MudCard Class="my-5">
+        <MudCardContent>
+            <MudText Typo="Typo.h6">New template updates available</MudText>
+            <MudText Class="pb-2">Update your templates to get access to the latest contract types.</MudText>
+            <MudAlert Severity="Severity.Warning">Getting the latest templates will erase your custom ones.</MudAlert>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Text" Color="Color.Primary" @onclick="UpdateDB">Get latest templates from server</MudButton>
+        </MudCardActions>
+    </MudCard>
+}
 
 <MudExpansionPanels Class="my-5">
     <MudExpansionPanel Text="@string.Concat("[Step 1] Select a company", selectedCompany != null ? string.Concat(" - ", selectedCompany.Name) : "")">
@@ -176,6 +179,7 @@
     private List<Contract> contracts;
     private Contract selectedContract;
     private bool previewedContract;
+    private bool templateUpdateAvailable = false;
 
     private bool addContractNumber;
     private bool addContractDate;
@@ -190,6 +194,22 @@
 
         if (companies == null && conferences == null && contracts == null)
             await UpdateDB();
+
+        try
+        {
+            var serverAppInfo = await Http.GetFromJsonAsync<AppInfo>("Data/appInfo.json?time=" + DateTime.Now);
+            var localAppInfo = await localStorage.GetItemAsync<AppInfo>("TemplateAppInfo");
+
+            if (localAppInfo == null ||
+                serverAppInfo.ContractsVersion != localAppInfo.ContractsVersion ||
+                serverAppInfo.CompaniesVersion != localAppInfo.CompaniesVersion ||
+                serverAppInfo.ConferencesVersion != localAppInfo.ConferencesVersion)
+                templateUpdateAvailable = true;
+        }
+        catch
+        {
+
+        }
 
         await Analytics.TrackEvent("[CreateContract] Initialized CreateContract");
     }
@@ -269,6 +289,8 @@
         selectedCompany = null;
         selectedConference = null;
         selectedContract = null;
+
+        templateUpdateAvailable = false;
 
         await Analytics.TrackEvent("[CreateContract] Updated database");
     }

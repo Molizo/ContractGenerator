@@ -104,6 +104,7 @@
         await localStorage.SetItemAsync("TemplateCompanies", companies);
         await localStorage.SetItemAsync("TemplateConferences", conferences);
         await localStorage.SetItemAsync("TemplateContracts", contracts);
+        await localStorage.SetItemAsync("TemplateAppInfo", new AppInfo(){CompaniesVersion = "CUSTOM",ConferencesVersion = "CUSTOM",ContractsVersion = "CUSTOM"});
 
         await JS.InvokeVoidAsync("updateTemplateEditorsContent", "companies", JsonSerializer.Serialize(companies));
         await JS.InvokeVoidAsync("updateTemplateEditorsContent", "conferences", JsonSerializer.Serialize(conferences));
