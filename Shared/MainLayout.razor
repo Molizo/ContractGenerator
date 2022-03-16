@@ -14,6 +14,7 @@
         <MudMenu Icon="@Icons.Material.Filled.Brightness4" Color="@Color.Inherit" AnchorOrigin="@Origin.BottomLeft" TransformOrigin="@Origin.TopCenter">
             <MudMenuItem OnClick="@(e => ApplyTheme("lightTheme"))">Light theme</MudMenuItem>
             <MudMenuItem OnClick="@(e => ApplyTheme("darkTheme"))">Dark theme</MudMenuItem>
+            <MudMenuItem OnClick="@(e => ApplyTheme("deliaTheme"))">Delia theme</MudMenuItem>
         </MudMenu>
         <img src="/media/logo.png" class="img p-1" height="50px" width="50px"/>
     </MudAppBar>
@@ -50,6 +51,9 @@
             case "darkTheme":
                 currentTheme = darkTheme;
                 break;
+            case "deliaTheme":
+                currentTheme = deliaTheme;
+                break;
             default:
                 currentTheme = lightTheme;
                 break;
@@ -58,6 +62,21 @@
     }
 
     MudTheme currentTheme = new();
+
+    readonly MudTheme lightTheme = new()
+    {
+        Palette = new Palette
+        {
+            Primary = Colors.Blue.Default,
+            AppbarBackground = Colors.Blue.Darken2,
+            Background = "rgb(245, 245, 245)"
+        },
+        LayoutProperties = new LayoutProperties
+        {
+            AppbarHeight = "80px"
+        }
+    };
+
 
     readonly MudTheme darkTheme = new()
     {
@@ -91,13 +110,31 @@
         }
     };
 
-    readonly MudTheme lightTheme = new()
+    readonly MudTheme deliaTheme = new()
     {
         Palette = new Palette
         {
-            Primary = Colors.Blue.Default,
-            AppbarBackground = Colors.Blue.Darken2,
-            Background = "rgb(245, 245, 245)"
+            Black = "#7E1F86",
+            Background = "#893168",
+            BackgroundGrey = "#BA5C12",
+            Surface = "#373740",
+            DrawerBackground = "#27272f",
+            DrawerText = "#F2DDA4",
+            DrawerIcon = "#A5243D",
+            AppbarBackground = "#EDBBB4",
+            AppbarText = "#957FEF",
+            TextPrimary = "#F26430",
+            TextSecondary = "#04724D",
+            ActionDefault = "#548687",
+            ActionDisabled = "C3EB78",
+            ActionDisabledBackground = "#FC9E4F",
+            Divider = "#C5EDAC",
+            DividerLight = "#F46036",
+            TableLines = "#FFB8D1",
+            LinesDefault = "#D30C7B",
+            LinesInputs = "#657ED4",
+            TextDisabled = "#D3A588",
+            Primary = "#BBBE64"
         },
         LayoutProperties = new LayoutProperties
         {
