@@ -15,6 +15,7 @@
             <MudMenuItem OnClick="@(e => ApplyTheme("lightTheme"))">Light theme</MudMenuItem>
             <MudMenuItem OnClick="@(e => ApplyTheme("darkTheme"))">Dark theme</MudMenuItem>
             <MudMenuItem OnClick="@(e => ApplyTheme("deliaTheme"))">Delia theme</MudMenuItem>
+            <MudMenuItem OnClick="@(e => ApplyTheme("ghenceaTheme"))">Ghencea theme</MudMenuItem>
         </MudMenu>
         <img src="/media/logo.png" class="img p-1" height="50px" width="50px"/>
     </MudAppBar>
@@ -53,6 +54,9 @@
                 break;
             case "deliaTheme":
                 currentTheme = deliaTheme;
+                break;
+            case "ghenceaTheme":
+                currentTheme = ghenceaTheme;
                 break;
             default:
                 currentTheme = lightTheme;
@@ -135,6 +139,38 @@
             LinesInputs = "#657ED4",
             TextDisabled = "#D3A588",
             Primary = "#BBBE64"
+        },
+        LayoutProperties = new LayoutProperties
+        {
+            AppbarHeight = "80px"
+        }
+    };
+
+    readonly MudTheme ghenceaTheme = new()
+    {
+        Palette = new Palette
+        {
+            Black = "#7E1F86",
+            Background = "#9B5C5C",
+            BackgroundGrey = "#5C919B",
+            Surface = "#000000",
+            DrawerBackground = "#B85ABD",
+            DrawerText = "#696505",
+            DrawerIcon = "#257405",
+            AppbarBackground = "#C2661B",
+            AppbarText = "#C21111",
+            TextPrimary = "#217194",
+            TextSecondary = "#217194",
+            ActionDefault = "#024408",
+            ActionDisabled = "#024408",
+            ActionDisabledBackground = "#440240",
+            Divider = "#EB9C88",
+            DividerLight = "#00726E",
+            TableLines = "#5D2121",
+            LinesDefault = "#2D7BFF",
+            LinesInputs = "#9C29ED",
+            TextDisabled = "#29EDD5",
+            Primary = "#99ABA9"
         },
         LayoutProperties = new LayoutProperties
         {
